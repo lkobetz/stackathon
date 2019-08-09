@@ -32,8 +32,9 @@ let scrambled = shuffle(solution);
 
 export default class Idioms extends Component {
   state = {
-    solutionBox: "_______ _____ ___ _____ ____ ______",
-    correct: false
+    solutionBox: "_______ _____ ___ _____ ____ _______",
+    correct: false,
+    chosenLetters: []
   };
   createInteractiveSentence(sentence) {
     const interactive = [];
@@ -41,26 +42,27 @@ export default class Idioms extends Component {
       let letter = sentence[i];
       interactive.push(
         <Text
-          style={styles.sampleText}
+          style={styles.scrambledText}
           key={i}
           onPress={() => {
-            this.setState({
-              solutionBox: this.fillInBox(letter, this.state.solutionBox)
-            });
-            this.removeOrReplaceLetter(letter);
+            this.setState(previous => ({
+              solutionBox: this.fillInBox(letter, this.state.solutionBox),
+              chosenLetters: previous.chosenLetters.concat({
+                [letter]: i
+              })
+            }));
           }}
+          // style={
+          //   this.state.chosenLetters[letter] === i
+          //     ? console.log(this.state.chosenLetters[letter])
+          //     : console.log(sentence[i], false)
+          // }
         >
           {letter}
         </Text>
       );
     }
     return interactive;
-  }
-  removeOrReplaceLetter(letter) {
-    if (letter) {
-      letter = " ";
-      return letter;
-    }
   }
   fillInBox(letter, solutionBox) {
     let newSolution = "";
@@ -76,18 +78,21 @@ export default class Idioms extends Component {
     if (newSolution === solution) {
       this.setState({ correct: true });
     }
+    console.log(newSolution === solution);
     return newSolution;
   }
   clearBox() {
-    this.setState({ solutionBox: "_______ _____ ___ _____ ____ ______" });
+    this.setState({ solutionBox: "_______ _____ ___ _____ ____ _______" });
     this.setState({ correct: false });
   }
   render() {
+    console.log(solution);
     return (
       <View style={styles.container}>
         <View style={styles.definitionContainer}>
           <Text style={styles.definitionText}>Meaning: {definition}</Text>
         </View>
+
         <View style={styles.scrambledContainer}>
           {this.createInteractiveSentence(scrambled)}
         </View>
@@ -143,9 +148,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap"
   },
-  sampleText: {
+  scrambledText: {
     fontSize: 40,
     color: "whitesmoke",
+    lineHeight: 60,
+    textAlign: "center"
+  },
+  chosenLetters: {
+    fontSize: 40,
+    color: "blue",
     lineHeight: 60,
     textAlign: "center"
   },
