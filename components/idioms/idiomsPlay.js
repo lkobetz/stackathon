@@ -8,23 +8,26 @@ import ScrambledText from "./ScrambledText";
 // this info will ultimately come from the database
 let definition =
   "When a person you love is far away from you, your love for them grows stronger.";
-let solution = "Absence makes the heart grow fonder.";
+let solution = "Absence makes the heart grow fonder. ";
 
 // it would be nice to put the function in another file (instead of under Idioms) for modularity
 let scrambled = shuffle(solution);
 
 export default class Idioms extends Component {
   state = {
-    solutionBox: "_______ _____ ___ _____ ____ _______",
+    solutionBox: "_______ _____ ___ _____ ____ _______ ",
     correct: false,
     chosenLetters: []
   };
   createInteractiveSentence(sentence) {
     const interactive = [];
     let wordIdx = 0;
+    let word = [];
     for (let i = 0; i < sentence.length; i++) {
       let letter = sentence[i];
       if (letter === " ") {
+        interactive.push(word);
+        word = [];
         wordIdx = wordIdx + 1;
         interactive.push(
           <Text style={styles.scrambledText} key={i} wordIdx={wordIdx}>
@@ -32,24 +35,13 @@ export default class Idioms extends Component {
           </Text>
         );
       } else {
-        // let letterProps = {
-        //   letter: letter,
-        //   letterIdx: i,
-        //   wordIdx: wordIdx,
-        //   solutionBox: this.state.solutionBox
-        // };
         let letterInfo = {
           letter: letter,
           letterIdx: i,
           wordIdx: wordIdx
         };
-        interactive.push(
+        word.push(
           <ScrambledText
-            // style={
-            //   this.state.chosenLetters.includes(letterInfo)
-            //     ? styles.chosenLetters
-            //     : styles.scrambledText
-            // }
             letterInfo={letterInfo}
             solutionBox={this.state.solutionBox}
             chosenLetters={this.state.chosenLetters}
@@ -73,6 +65,7 @@ export default class Idioms extends Component {
   clearBox() {
     this.setState({ solutionBox: "_______ _____ ___ _____ ____ _______" });
     this.setState({ correct: false });
+    this.setState({ chosenLetters: [] });
   }
 
   render() {
@@ -142,8 +135,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 10,
     marginVertical: 20,
-    flexDirection: "row",
-    flexWrap: "wrap"
+    flexDirection: "row"
+    // flexWrap: "wrap"
   },
   definitionText: {
     fontSize: 20,

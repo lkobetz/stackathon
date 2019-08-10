@@ -20,16 +20,9 @@ export default class ScrambledText extends Component {
     this.props.callback(newSolution, letter);
   }
   render() {
-    // console.log(this.props.chosenLetters.includes(this.props.letterInfo));
-
     var contains = this.props.chosenLetters.some(letter => {
       return JSON.stringify(this.props.letterInfo) === JSON.stringify(letter);
     });
-    // if (contains) {
-    //   console.log("true");
-    // } else {
-    //   console.log("false");
-    // }
     return (
       // eslint-disable-next-line react/react-in-jsx-scope
       <Text
