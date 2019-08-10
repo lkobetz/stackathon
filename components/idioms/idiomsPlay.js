@@ -24,7 +24,7 @@ export default class Idioms extends Component {
     let wordIdx = 0;
     for (let i = 0; i < sentence.length; i++) {
       let letter = sentence[i];
-      if (letter == " ") {
+      if (letter === " ") {
         wordIdx = wordIdx + 1;
         interactive.push(
           <Text style={styles.scrambledText} key={i} wordIdx={wordIdx}>
@@ -32,15 +32,26 @@ export default class Idioms extends Component {
           </Text>
         );
       } else {
-        let letterProps = {
+        // let letterProps = {
+        //   letter: letter,
+        //   letterIdx: i,
+        //   wordIdx: wordIdx,
+        //   solutionBox: this.state.solutionBox
+        // };
+        let letterInfo = {
           letter: letter,
           letterIdx: i,
-          wordIdx: wordIdx,
-          solutionBox: this.state.solutionBox
+          wordIdx: wordIdx
         };
         interactive.push(
           <ScrambledText
-            props={letterProps}
+            // style={
+            //   this.state.chosenLetters.includes(letterInfo)
+            //     ? styles.chosenLetters
+            //     : styles.scrambledText
+            // }
+            letterInfo={letterInfo}
+            solutionBox={this.state.solutionBox}
             chosenLetters={this.state.chosenLetters}
             key={i}
             callback={this.updateSolution.bind(this)}
@@ -51,17 +62,12 @@ export default class Idioms extends Component {
     return interactive;
   }
   updateSolution(newSolution, letterProps) {
-    const letterInfo = (({ letter, letterIdx, wordIdx }) => ({
-      letter,
-      letterIdx,
-      wordIdx
-    }))(letterProps);
     if (newSolution === solution) {
       this.setState({ correct: true });
     }
     this.setState(previous => ({
       solutionBox: newSolution,
-      chosenLetters: previous.chosenLetters.concat(letterInfo)
+      chosenLetters: previous.chosenLetters.concat(letterProps)
     }));
   }
   clearBox() {
@@ -154,6 +160,12 @@ const styles = StyleSheet.create({
   scrambledText: {
     fontSize: 40,
     color: "whitesmoke",
+    lineHeight: 60,
+    textAlign: "center"
+  },
+  chosenLetters: {
+    fontSize: 40,
+    color: "blue",
     lineHeight: 60,
     textAlign: "center"
   },
