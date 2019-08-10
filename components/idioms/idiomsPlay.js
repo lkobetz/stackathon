@@ -2,32 +2,15 @@
 /* eslint-disable no-use-before-define */
 import React, { Component } from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
+import ScrambledText from "./ScrambledText";
+// import ShuffleFunc from "./ShuffleFunc";
 
+// this info will ultimately come from the database
 let definition =
   "When a person you love is far away from you, your love for them grows stronger.";
-// let sentence = "ebscnAe kseam eth rhtea rwgo dfreon.";
 let solution = "Absence makes the heart grow fonder.";
 
-function shuffle(solution) {
-  let shuffled = solution.split(" ");
-  let shuffledSolution = [];
-  shuffled.map(word => {
-    let a = word.split(""),
-      n = a.length;
-
-    for (var i = n - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i];
-      a[i] = a[j];
-      a[j] = tmp;
-    }
-    a = a.join("");
-    shuffledSolution.push(a);
-  });
-  shuffledSolution = shuffledSolution.join(" ");
-  return shuffledSolution;
-}
-
+// it would be nice to put the function in another file (instead of under Idioms) for modularity
 let scrambled = shuffle(solution);
 
 export default class Idioms extends Component {
@@ -38,55 +21,50 @@ export default class Idioms extends Component {
   };
   createInteractiveSentence(sentence) {
     const interactive = [];
+    let wordIdx = 0;
     for (let i = 0; i < sentence.length; i++) {
       let letter = sentence[i];
-      interactive.push(
-        <Text
-          style={styles.scrambledText}
-          key={i}
-          onPress={() => {
-            this.setState(previous => ({
-              solutionBox: this.fillInBox(letter, this.state.solutionBox),
-              chosenLetters: previous.chosenLetters.concat({
-                [letter]: i
-              })
-            }));
-          }}
-          // style={
-          //   this.state.chosenLetters[letter] === i
-          //     ? console.log(this.state.chosenLetters[letter])
-          //     : console.log(sentence[i], false)
-          // }
-        >
-          {letter}
-        </Text>
-      );
+      if (letter == " ") {
+        wordIdx = wordIdx + 1;
+        interactive.push(
+          <Text style={styles.scrambledText} key={i} wordIdx={wordIdx}>
+            {" "}
+          </Text>
+        );
+      } else {
+        let letterProps = {
+          letter: letter,
+          letterIdx: i,
+          wordIdx: wordIdx,
+          solutionBox: this.state.solutionBox
+        };
+        interactive.push(
+          <ScrambledText
+            props={letterProps}
+            key={i}
+            callback={this.updateSolution.bind(this)}
+          />
+        );
+      }
     }
     return interactive;
   }
-  fillInBox(letter, solutionBox) {
-    let newSolution = "";
-    if (!letter) {
-      return solutionBox;
-    }
-    for (let i = 0; i < solutionBox.length; i++) {
-      if (solutionBox[i] == "_") {
-        newSolution = solutionBox.replace(solutionBox[i], letter);
-        break;
-      }
-    }
+  updateSolution(newSolution, letter) {
     if (newSolution === solution) {
       this.setState({ correct: true });
     }
-    console.log(newSolution === solution);
-    return newSolution;
+    this.setState(previous => ({
+      solutionBox: newSolution,
+      chosenLetters: previous.chosenLetters.concat(letter)
+    }));
   }
   clearBox() {
     this.setState({ solutionBox: "_______ _____ ___ _____ ____ _______" });
     this.setState({ correct: false });
   }
+
   render() {
-    console.log(solution);
+    console.log(this.state);
     return (
       <View style={styles.container}>
         <View style={styles.definitionContainer}>
@@ -105,7 +83,7 @@ export default class Idioms extends Component {
                 : styles.correctSolution
             }
           >
-            {this.fillInBox(null, this.state.solutionBox)}
+            {this.state.solutionBox}
           </Text>
         </View>
 
@@ -119,6 +97,26 @@ export default class Idioms extends Component {
       </View>
     );
   }
+}
+
+function shuffle(sentence) {
+  let shuffled = sentence.split(" ");
+  let shuffledSolution = [];
+  shuffled.map(word => {
+    let a = word.split(""),
+      n = a.length;
+
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    a = a.join("");
+    shuffledSolution.push(a);
+  });
+  shuffledSolution = shuffledSolution.join(" ");
+  return shuffledSolution;
 }
 
 const styles = StyleSheet.create({
