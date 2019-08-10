@@ -41,6 +41,7 @@ export default class Idioms extends Component {
         interactive.push(
           <ScrambledText
             props={letterProps}
+            chosenLetters={this.state.chosenLetters}
             key={i}
             callback={this.updateSolution.bind(this)}
           />
@@ -49,13 +50,18 @@ export default class Idioms extends Component {
     }
     return interactive;
   }
-  updateSolution(newSolution, letter) {
+  updateSolution(newSolution, letterProps) {
+    const letterInfo = (({ letter, letterIdx, wordIdx }) => ({
+      letter,
+      letterIdx,
+      wordIdx
+    }))(letterProps);
     if (newSolution === solution) {
       this.setState({ correct: true });
     }
     this.setState(previous => ({
       solutionBox: newSolution,
-      chosenLetters: previous.chosenLetters.concat(letter)
+      chosenLetters: previous.chosenLetters.concat(letterInfo)
     }));
   }
   clearBox() {
@@ -64,7 +70,6 @@ export default class Idioms extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <View style={styles.container}>
         <View style={styles.definitionContainer}>
@@ -149,12 +154,6 @@ const styles = StyleSheet.create({
   scrambledText: {
     fontSize: 40,
     color: "whitesmoke",
-    lineHeight: 60,
-    textAlign: "center"
-  },
-  chosenLetters: {
-    fontSize: 40,
-    color: "blue",
     lineHeight: 60,
     textAlign: "center"
   },
