@@ -3,19 +3,21 @@
 import React, { Component } from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
 import ScrambledText from "./ScrambledText";
+import ReplaceText from "./ReplaceText";
+// import Database from "./database";
 // import ShuffleFunc from "./ShuffleFunc";
 
 // this info will ultimately come from the database
-let definition =
-  "When a person you love is far away from you, your love for them grows stronger.";
-let solution = "Absence makes the heart grow fonder. ";
+let definition = "If I'm happy, don't try to make me sad.";
+let solution = "Don't rain on my parade. ";
 
 // it would be nice to put the function in another file (instead of under Idioms) for modularity
 let scrambled = shuffle(solution);
+let initialBox = createSolutionBox(solution);
 
 export default class Idioms extends Component {
   state = {
-    solutionBox: "_______ _____ ___ _____ ____ _______ ",
+    solutionBox: initialBox,
     correct: false,
     chosenLetters: []
   };
@@ -46,14 +48,52 @@ export default class Idioms extends Component {
             solutionBox={this.state.solutionBox}
             chosenLetters={this.state.chosenLetters}
             key={i}
-            callback={this.updateSolution.bind(this)}
+            callback={this.addToSolution.bind(this)}
           />
         );
       }
     }
     return interactive;
   }
-  updateSolution(newSolution, letterProps) {
+
+  createInteractiveSolutionBox(solutionBox) {
+    let wordIdx = 0;
+    let interactive = [];
+    for (let i = 0; i < solutionBox.length; i++) {
+      let letter = solutionBox[i];
+      if (letter === " ") {
+        interactive.push(
+          <Text key={i} style={styles.solutionText}>
+            {" "}
+          </Text>
+        );
+        wordIdx++;
+      } else if (letter === "_") {
+        interactive.push(
+          <Text key={i} style={styles.solutionText}>
+            _
+          </Text>
+        );
+      } else {
+        let letterInfo = {
+          letter: letter,
+          letterIdx: i,
+          wordIdx: wordIdx
+        };
+        interactive.push(
+          <ReplaceText
+            key={i}
+            chosenLetters={this.state.chosenLetters}
+            solutionBox={this.state.solutionBox}
+            letterInfo={letterInfo}
+            callback={this.removeFromSolution.bind(this)}
+          />
+        );
+      }
+    }
+    return interactive;
+  }
+  addToSolution(newSolution, letterProps) {
     if (newSolution === solution) {
       this.setState({ correct: true });
     }
@@ -62,8 +102,21 @@ export default class Idioms extends Component {
       chosenLetters: previous.chosenLetters.concat(letterProps)
     }));
   }
+  removeFromSolution(letterInfo) {
+    let newSolution =
+      this.state.solutionBox.slice(0, letterInfo.letterIdx) +
+      "_" +
+      this.state.solutionBox.slice(letterInfo.letterIdx + 1);
+    this.setState({ solutionBox: newSolution });
+    let newChosenLetters = this.state.chosenLetters.filter(
+      letter => letter.letterIdx !== letterInfo.letterIdx
+    );
+    console.log("before setState", this.state.chosenLetters);
+    this.setState({ chosenLetters: newChosenLetters });
+    console.log("after setState", this.state.chosenLetters);
+  }
   clearBox() {
-    this.setState({ solutionBox: "_______ _____ ___ _____ ____ _______" });
+    this.setState({ solutionBox: initialBox });
     this.setState({ correct: false });
     this.setState({ chosenLetters: [] });
   }
@@ -87,7 +140,7 @@ export default class Idioms extends Component {
                 : styles.correctSolution
             }
           >
-            {this.state.solutionBox}
+            {this.createInteractiveSolutionBox(this.state.solutionBox)}
           </Text>
         </View>
 
@@ -121,6 +174,19 @@ function shuffle(sentence) {
   });
   shuffledSolution = shuffledSolution.join(" ");
   return shuffledSolution;
+}
+
+function createSolutionBox(sentence) {
+  let newBox = "";
+  for (let i = 0; i < sentence.length; i++) {
+    let letter = sentence[i];
+    if (letter === " ") {
+      newBox += " ";
+    } else {
+      newBox += "_";
+    }
+  }
+  return newBox;
 }
 
 const styles = StyleSheet.create({
