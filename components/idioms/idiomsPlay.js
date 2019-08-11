@@ -9,18 +9,20 @@ import { conditionalExpression } from "@babel/types";
 // import ShuffleFunc from "./ShuffleFunc";
 
 // this info will ultimately come from the database
-let definition = "If I'm happy, don't try to make me sad.";
-let solution = "Don't rain on my parade. ";
+let definition = "Being far away from someone makes you love them more.";
+// remember that the solution needs an empty space after the period
+let solution = "Absence makes the heart grow fonder. ";
 
 // it would be nice to put the function in another file (instead of under Idioms) for modularity
-let scrambled = shuffle(solution);
+let shuffled = shuffle(solution);
 let initialBox = createSolutionBox(solution);
 
 export default class Idioms extends Component {
   state = {
     solutionBox: initialBox,
     correct: false,
-    chosenLetters: []
+    chosenLetters: [],
+    scrambled: shuffled
   };
   createInteractiveSentence(sentence) {
     const interactive = [];
@@ -131,7 +133,7 @@ export default class Idioms extends Component {
         </View>
 
         <View style={styles.scrambledContainer}>
-          {this.createInteractiveSentence(scrambled)}
+          {this.createInteractiveSentence(this.state.scrambled)}
         </View>
 
         <View style={styles.sampleContainer}>

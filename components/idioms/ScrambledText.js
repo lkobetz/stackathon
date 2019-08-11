@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 export default class ScrambledText extends Component {
   constructor(props) {
@@ -25,16 +25,20 @@ export default class ScrambledText extends Component {
     });
     return (
       // eslint-disable-next-line react/react-in-jsx-scope
-      <Text
-        key={this.props.letterInfo.letterIdx}
-        style={contains ? styles.chosenLetters : styles.scrambledText}
-        // eslint-disable-next-line no-loop-func
+      <TouchableOpacity
+        disabled={contains}
         onPress={() =>
           this.fillInBox(this.props.letterInfo, this.props.solutionBox)
         }
       >
-        {this.props.letterInfo.letter}
-      </Text>
+        <Text
+          key={this.props.letterInfo.letterIdx}
+          style={contains ? styles.chosenLetters : styles.scrambledText}
+          // eslint-disable-next-line no-loop-func
+        >
+          {this.props.letterInfo.letter}
+        </Text>
+      </TouchableOpacity>
     );
   }
 }
