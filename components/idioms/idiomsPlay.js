@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
 import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
+import { conditionalExpression } from "@babel/types";
 // import Database from "./database";
 // import ShuffleFunc from "./ShuffleFunc";
 
@@ -75,16 +76,17 @@ export default class Idioms extends Component {
           </Text>
         );
       } else {
-        let letterInfo = {
-          letter: letter,
-          letterIdx: i,
-          wordIdx: wordIdx
-        };
+        let chosenLetters = this.state.chosenLetters.slice();
+        let letterInfoArr = chosenLetters.filter(
+          // eslint-disable-next-line no-loop-func
+          letterObj =>
+            letterObj.letter === letter && letterObj.wordIdx === wordIdx
+        );
+        let letterInfo = letterInfoArr.pop();
         interactive.push(
           <ReplaceText
+            idx={i}
             key={i}
-            chosenLetters={this.state.chosenLetters}
-            solutionBox={this.state.solutionBox}
             letterInfo={letterInfo}
             callback={this.removeFromSolution.bind(this)}
           />
@@ -102,18 +104,18 @@ export default class Idioms extends Component {
       chosenLetters: previous.chosenLetters.concat(letterProps)
     }));
   }
-  removeFromSolution(letterInfo) {
+  removeFromSolution(letterInfo, solutionIdx) {
+    let solutionBoxCopy = this.state.solutionBox.slice(0);
     let newSolution =
-      this.state.solutionBox.slice(0, letterInfo.letterIdx) +
+      solutionBoxCopy.slice(0, solutionIdx) +
       "_" +
-      this.state.solutionBox.slice(letterInfo.letterIdx + 1);
+      solutionBoxCopy.slice(solutionIdx + 1);
     this.setState({ solutionBox: newSolution });
-    let newChosenLetters = this.state.chosenLetters.filter(
+    let chosenLettersCopy = this.state.chosenLetters;
+    let newChosenLetters = chosenLettersCopy.filter(
       letter => letter.letterIdx !== letterInfo.letterIdx
     );
-    console.log("before setState", this.state.chosenLetters);
     this.setState({ chosenLetters: newChosenLetters });
-    console.log("after setState", this.state.chosenLetters);
   }
   clearBox() {
     this.setState({ solutionBox: initialBox });
