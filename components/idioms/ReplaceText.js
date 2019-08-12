@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   chosenLetters: {
     fontSize: 40,
-    color: "blue",
+    color: "midnightblue",
     lineHeight: 60,
     textAlign: "center"
   }

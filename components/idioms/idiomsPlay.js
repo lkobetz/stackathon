@@ -4,16 +4,28 @@ import React, { Component } from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
 import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
-import { conditionalExpression } from "@babel/types";
 // import Database from "./database";
 // import ShuffleFunc from "./ShuffleFunc";
 
-// this info will ultimately come from the database
-let definition = "Being far away from someone makes you love them more.";
-// remember that the solution needs an empty space after the period
-let solution = "Absence makes the heart grow fonder. ";
+const idioms = [
+  {
+    idiom: "Absence makes the heart grow fonder. ",
+    definition: "Being far away from someone makes you love them more."
+  },
+  {
+    idiom: "Don't rain on my parade. ",
+    definition: "If I'm happy, don't try to make me sad. "
+  },
+  {
+    idiom: "Don't count your chickens before they hatch. ",
+    definition:
+      "Don't be too sure that something you hope for will really happen. "
+  }
+];
 
-// it would be nice to put the function in another file (instead of under Idioms) for modularity
+let current = 0;
+let definition = idioms[current].definition;
+let solution = idioms[current].idiom;
 let shuffled = shuffle(solution);
 let initialBox = createSolutionBox(solution);
 
@@ -155,6 +167,13 @@ export default class Idioms extends Component {
           title="Clear"
           onPress={() => this.clearBox()}
         />
+        <Button
+          style={styles.buttonText}
+          color="white"
+          backgroundColor="black"
+          title="Next"
+          onPress={() => current++}
+        />
       </View>
     );
   }
@@ -196,22 +215,22 @@ function createSolutionBox(sentence) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: "column",
     paddingTop: 15,
-    backgroundColor: "steelblue"
+    backgroundColor: "steelblue",
+    alignItems: "center"
   },
   definitionContainer: {
     alignItems: "center",
     marginHorizontal: 10,
     marginVertical: 20,
-    flexDirection: "row"
-    // flexWrap: "wrap"
+    flexDirection: "row",
+    flexWrap: "wrap"
   },
   definitionText: {
-    fontSize: 20,
-    color: "whitesmoke",
-    lineHeight: 25,
+    fontSize: 30,
+    color: "yellow",
+    lineHeight: 35,
     textAlign: "center"
   },
   scrambledContainer: {
@@ -228,13 +247,13 @@ const styles = StyleSheet.create({
   },
   chosenLetters: {
     fontSize: 40,
-    color: "blue",
+    color: "darkslategray",
     lineHeight: 60,
     textAlign: "center"
   },
   solutionText: {
     fontSize: 40,
-    color: "red",
+    color: "firebrick",
     lineHeight: 60,
     textAlign: "center"
   },

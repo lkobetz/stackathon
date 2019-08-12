@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     fontSize: 17,
-    color: "gainsboro",
+    color: "yellow",
     lineHeight: 24,
     textAlign: "center",
     marginHorizontal: 10

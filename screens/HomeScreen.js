@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 30,
     color: "white"
   },
   sampleContainer: {
