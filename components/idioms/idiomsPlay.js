@@ -4,26 +4,46 @@ import React, { Component } from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
 import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
-// import Database from "./database";
-// import ShuffleFunc from "./ShuffleFunc";
+import idioms from "../../data/data.json";
 
-const idioms = [
-  {
-    idiom: "Absence makes the heart grow fonder. ",
-    definition: "Being far away from someone makes you love them more."
-  },
-  {
-    idiom: "Don't rain on my parade. ",
-    definition: "If I'm happy, don't try to make me sad. "
-  },
-  {
-    idiom: "Don't count your chickens before they hatch. ",
-    definition:
-      "Don't be too sure that something you hope for will really happen. "
+function shuffle(sentence) {
+  let shuffled = sentence.split(" ");
+  let shuffledSolution = [];
+  shuffled.map(word => {
+    let a = word.split(""),
+      n = a.length;
+
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    a = a.join("");
+    shuffledSolution.push(a);
+  });
+  shuffledSolution = shuffledSolution.join(" ");
+  return shuffledSolution;
+}
+
+function createSolutionBox(sentence) {
+  let newBox = "";
+  for (let i = 0; i < sentence.length; i++) {
+    let letter = sentence[i];
+    if (letter === " ") {
+      newBox += " ";
+    } else {
+      newBox += "_";
+    }
   }
-];
+  return newBox;
+}
 
-let current = 0;
+function randomNumber(min, max) {
+  let random = Math.random() * (max - min) + min;
+  return Math.round(random);
+}
+let current = randomNumber(0, idioms.length);
 let definition = idioms[current].definition;
 let solution = idioms[current].idiom;
 let shuffled = shuffle(solution);
@@ -172,45 +192,24 @@ export default class Idioms extends Component {
           color="white"
           backgroundColor="black"
           title="Next"
-          onPress={() => current++}
+          // onPress={() => }
         />
       </View>
     );
   }
 }
 
-function shuffle(sentence) {
-  let shuffled = sentence.split(" ");
-  let shuffledSolution = [];
-  shuffled.map(word => {
-    let a = word.split(""),
-      n = a.length;
-
-    for (var i = n - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i];
-      a[i] = a[j];
-      a[j] = tmp;
-    }
-    a = a.join("");
-    shuffledSolution.push(a);
-  });
-  shuffledSolution = shuffledSolution.join(" ");
-  return shuffledSolution;
-}
-
-function createSolutionBox(sentence) {
-  let newBox = "";
-  for (let i = 0; i < sentence.length; i++) {
-    let letter = sentence[i];
-    if (letter === " ") {
-      newBox += " ";
-    } else {
-      newBox += "_";
-    }
-  }
-  return newBox;
-}
+// function getNextIdiom(idiomList) {
+//   let usedIdioms = [];
+//   let nextIdiom = {};
+//   for (let i = 0; idiomList.length; i++) {
+//     if (!usedIdioms.includes[i]) {
+//       nextIdiom = idiomList[i];
+//       usedIdioms.push(i);
+//     }
+//   }
+//   return nextIdiom;
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -218,7 +217,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingTop: 15,
     backgroundColor: "steelblue",
-    alignItems: "center"
+    alignItems: "center",
+    alignContent: "space-between"
   },
   definitionContainer: {
     alignItems: "center",
