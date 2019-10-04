@@ -43,7 +43,7 @@ function randomNumber(min, max) {
   let random = Math.random() * (max - min) + min;
   return Math.round(random);
 }
-let current = randomNumber(0, idioms.length);
+let current = randomNumber(0, idioms.length - 1);
 let definition = idioms[current].definition;
 let solution = idioms[current].idiom;
 let shuffled = shuffle(solution);
@@ -54,7 +54,8 @@ export default class Idioms extends Component {
     solutionBox: initialBox,
     correct: false,
     chosenLetters: [],
-    scrambled: shuffled
+    scrambled: shuffled,
+    points: 0
   };
   createInteractiveSentence(sentence) {
     const interactive = [];
@@ -157,7 +158,10 @@ export default class Idioms extends Component {
     this.setState({ chosenLetters: [] });
   }
   reset() {
-    current = randomNumber(0, idioms.length);
+    if (this.state.correct) {
+      this.setState({ points: this.state.points + 1 });
+    }
+    current = randomNumber(0, idioms.length - 1);
     definition = idioms[current].definition;
     solution = idioms[current].idiom;
     shuffled = shuffle(solution);
@@ -205,22 +209,14 @@ export default class Idioms extends Component {
           title="Next"
           onPress={() => this.reset()}
         />
+
+        <View>
+          <Text style={styles.points}>Points: {this.state.points}</Text>
+        </View>
       </View>
     );
   }
 }
-
-// function getNextIdiom(idiomList) {
-//   let usedIdioms = [];
-//   let nextIdiom = {};
-//   for (let i = 0; idiomList.length; i++) {
-//     if (!usedIdioms.includes[i]) {
-//       nextIdiom = idiomList[i];
-//       usedIdioms.push(i);
-//     }
-//   }
-//   return nextIdiom;
-// }
 
 const styles = StyleSheet.create({
   container: {
@@ -271,6 +267,12 @@ const styles = StyleSheet.create({
   correctSolution: {
     fontSize: 40,
     color: "springgreen",
+    lineHeight: 60,
+    textAlign: "center"
+  },
+  points: {
+    fontSize: 40,
+    color: "blueviolet",
     lineHeight: 60,
     textAlign: "center"
   }
