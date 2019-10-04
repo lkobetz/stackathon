@@ -156,6 +156,17 @@ export default class Idioms extends Component {
     this.setState({ correct: false });
     this.setState({ chosenLetters: [] });
   }
+  reset() {
+    current = randomNumber(0, idioms.length);
+    definition = idioms[current].definition;
+    solution = idioms[current].idiom;
+    shuffled = shuffle(solution);
+    initialBox = createSolutionBox(solution);
+    this.setState({ solutionBox: initialBox });
+    this.setState({ correct: false });
+    this.setState({ chosenLetters: [] });
+    this.setState({ scrambled: shuffled });
+  }
 
   render() {
     return (
@@ -192,7 +203,7 @@ export default class Idioms extends Component {
           color="white"
           backgroundColor="black"
           title="Next"
-          // onPress={() => }
+          onPress={() => this.reset()}
         />
       </View>
     );
