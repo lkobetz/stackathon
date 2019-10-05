@@ -174,7 +174,7 @@ export default class Idioms extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.playContainer}>
         <View style={styles.definitionContainer}>
           <Text style={styles.definitionText}>Meaning: {definition}</Text>
         </View>
@@ -195,23 +195,14 @@ export default class Idioms extends Component {
           </Text>
         </View>
 
-        <Button
-          style={styles.buttonText}
-          color="white"
-          backgroundColor="black"
-          title="Clear"
-          onPress={() => this.clearBox()}
-        />
-        <Button
-          style={styles.buttonText}
-          color="white"
-          backgroundColor="black"
-          title="Next"
-          onPress={() => this.reset()}
-        />
-
-        <View>
-          <Text style={styles.points}>Points: {this.state.points}</Text>
+        <View style={styles.buttons}>
+          <Button
+            color="lavender"
+            title="Clear"
+            onPress={() => this.clearBox()}
+          />
+          <Button color="lavender" title="Next" onPress={() => this.reset()} />
+          <Text style={styles.buttons}>Points: {this.state.points}</Text>
         </View>
       </View>
     );
@@ -219,13 +210,11 @@ export default class Idioms extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  playContainer: {
     flex: 1,
-    flexDirection: "column",
     paddingTop: 15,
     backgroundColor: "steelblue",
-    alignItems: "center",
-    alignContent: "space-between"
+    alignItems: "center"
   },
   definitionContainer: {
     alignItems: "center",
@@ -235,28 +224,16 @@ const styles = StyleSheet.create({
     flexWrap: "wrap"
   },
   definitionText: {
-    fontSize: 30,
+    fontSize: 20,
     color: "yellow",
-    lineHeight: 35,
+    lineHeight: 25,
     textAlign: "center"
   },
   scrambledContainer: {
-    alignItems: "center",
+    flexWrap: "wrap",
     marginHorizontal: 10,
     flexDirection: "row",
-    flexWrap: "wrap"
-  },
-  scrambledText: {
-    fontSize: 40,
-    color: "whitesmoke",
-    lineHeight: 60,
-    textAlign: "center"
-  },
-  chosenLetters: {
-    fontSize: 40,
-    color: "darkslategray",
-    lineHeight: 60,
-    textAlign: "center"
+    justifyContent: "center"
   },
   solutionText: {
     fontSize: 40,
@@ -270,10 +247,11 @@ const styles = StyleSheet.create({
     lineHeight: 60,
     textAlign: "center"
   },
-  points: {
-    fontSize: 40,
-    color: "blueviolet",
-    lineHeight: 60,
-    textAlign: "center"
+  buttons: {
+    flexDirection: "row",
+    color: "lavender",
+    alignItems: "center",
+    fontSize: 17,
+    justifyContent: "space-between"
   }
 });

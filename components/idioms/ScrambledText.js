@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 
 export default class ScrambledText extends Component {
   constructor(props) {
