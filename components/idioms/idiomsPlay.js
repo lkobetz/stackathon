@@ -195,14 +195,14 @@ export default class Idioms extends Component {
           </Text>
         </View>
 
-        <View style={styles.buttons}>
+        <View style={styles.footer}>
           <Button
             color="lavender"
             title="Clear"
             onPress={() => this.clearBox()}
           />
           <Button color="lavender" title="Next" onPress={() => this.reset()} />
-          <Text style={styles.buttons}>Points: {this.state.points}</Text>
+          <Text style={styles.footer}>Points: {this.state.points}</Text>
         </View>
       </View>
     );
@@ -235,6 +235,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center"
   },
+  scrambledText: {
+    fontSize: 40,
+    color: "whitesmoke",
+    lineHeight: 60,
+    textAlign: "center"
+  },
   solutionText: {
     fontSize: 40,
     color: "firebrick",
@@ -247,7 +253,7 @@ const styles = StyleSheet.create({
     lineHeight: 60,
     textAlign: "center"
   },
-  buttons: {
+  footer: {
     flexDirection: "row",
     color: "lavender",
     alignItems: "center",
