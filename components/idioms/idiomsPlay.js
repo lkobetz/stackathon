@@ -64,9 +64,13 @@ export default class Idioms extends Component {
     for (let i = 0; i < sentence.length; i++) {
       let letter = sentence[i];
       if (letter === " ") {
-        interactive.push(word);
+        interactive.push(
+          <View style={styles.word} key={wordIdx + sentence.length}>
+            {word}
+          </View>
+        );
         word = [];
-        wordIdx = wordIdx + 1;
+        wordIdx++;
         interactive.push(
           <Text style={styles.scrambledText} key={i} wordIdx={wordIdx}>
             {" "}
@@ -259,5 +263,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 17,
     justifyContent: "space-between"
+  },
+  word: {
+    flexWrap: "nowrap",
+    flexDirection: "row",
+    marginHorizontal: 0
   }
 });

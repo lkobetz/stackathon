@@ -1,19 +1,10 @@
-import React, { Component } from "react";
-import { Text, StyleSheet } from "react-native";
+import React from "react";
+import { Text } from "react-native";
 
-export default class ReplaceText extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <Text
-        onPress={() =>
-          this.props.callback(this.props.letterInfo, this.props.idx)
-        }
-      >
-        {this.props.letterInfo.letter}
-      </Text>
-    );
-  }
-}
+export default ReplaceText = props => {
+  return (
+    <Text onPress={() => props.callback(props.letterInfo, props.idx)}>
+      {props.letterInfo.letter}
+    </Text>
+  );
+};
