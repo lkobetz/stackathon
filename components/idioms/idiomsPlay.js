@@ -1,9 +1,10 @@
 /* eslint-disable quotes */
 /* eslint-disable no-use-before-define */
 import React, { Component } from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
+import { Text, View, Button, StyleSheet, ScrollView } from "react-native";
 import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
+import CountDown from "react-native-countdown-component";
 import idioms from "../../data/data.json";
 
 function shuffle(sentence) {
@@ -50,13 +51,18 @@ let shuffled = shuffle(solution);
 let initialBox = createSolutionBox(solution);
 
 export default class Idioms extends Component {
-  state = {
-    solutionBox: initialBox,
-    correct: false,
-    chosenLetters: [],
-    scrambled: shuffled,
-    points: 0
-  };
+  constructor() {
+    super();
+    this.state = {
+      solutionBox: initialBox,
+      correct: false,
+      chosenLetters: [],
+      scrambled: shuffled,
+      points: 0,
+      timeUp: false,
+      showSolution: false
+    };
+  }
   createInteractiveSentence(sentence) {
     const interactive = [];
     let wordIdx = 0;
@@ -174,50 +180,84 @@ export default class Idioms extends Component {
     this.setState({ correct: false });
     this.setState({ chosenLetters: [] });
     this.setState({ scrambled: shuffled });
+    this.setState({ timeUp: false });
+    this.setState({ showSolution: false });
+  }
+  showSolution() {
+    this.setState({ showSolution: true });
+    this.setState(prev => ({ points: prev.points - 1 }));
+    this.clearBox();
   }
 
   render() {
     return (
-      <View style={styles.playContainer}>
-        <View style={styles.definitionContainer}>
-          <Text style={styles.definitionText}>Meaning: {definition}</Text>
-        </View>
+      <ScrollView style={styles.scrollContainer}>
+        <View style={styles.playContainer}>
+          <View style={styles.definitionContainer}>
+            <Text style={styles.definitionText}>Meaning: {definition}</Text>
+          </View>
 
-        <View style={styles.scrambledContainer}>
-          {this.createInteractiveSentence(this.state.scrambled)}
-        </View>
+          <View style={styles.scrambledContainer}>
+            {this.state.showSolution
+              ? this.createInteractiveSentence(solution)
+              : this.createInteractiveSentence(this.state.scrambled)}
+          </View>
 
-        <View style={styles.sampleContainer}>
-          <Text
-            style={
-              this.state.correct === false
-                ? styles.solutionText
-                : styles.correctSolution
-            }
-          >
-            {this.createInteractiveSolutionBox(this.state.solutionBox)}
-          </Text>
-        </View>
+          <View style={styles.sampleContainer}>
+            <Text
+              style={
+                this.state.correct === false
+                  ? styles.solutionText
+                  : styles.correctSolution
+              }
+            >
+              {this.createInteractiveSolutionBox(this.state.solutionBox)}
+            </Text>
+          </View>
 
-        <View style={styles.footer}>
-          <Button
-            color="lavender"
-            title="Clear"
-            onPress={() => this.clearBox()}
-          />
-          <Button color="lavender" title="Next" onPress={() => this.reset()} />
-          <Text style={styles.footer}>Points: {this.state.points}</Text>
+          <View style={styles.footer}>
+            <Button
+              color="lavender"
+              title="Clear"
+              onPress={() => this.clearBox()}
+            />
+            <Button
+              color="lavender"
+              title="Next"
+              onPress={() => this.reset()}
+            />
+            <Text style={styles.footer}>Points: {this.state.points}</Text>
+            {!this.state.timeUp && (
+              <CountDown
+                until={10}
+                onFinish={() => this.setState({ timeUp: true })}
+                size={15}
+                timeToShow={["S"]}
+              ></CountDown>
+            )}
+            {this.state.timeUp && (
+              <Button
+                onPress={() => this.showSolution()}
+                title="Show Solution"
+                color="lavender"
+              ></Button>
+            )}
+          </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    backgroundColor: "darkslateblue",
+    marginVertical: 0
+  },
   playContainer: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "steelblue",
+    backgroundColor: "darkslateblue",
     alignItems: "center"
   },
   definitionContainer: {
@@ -228,6 +268,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap"
   },
   definitionText: {
+    fontStyle: "italic",
     fontSize: 20,
     color: "yellow",
     lineHeight: 25,
@@ -240,21 +281,21 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   scrambledText: {
-    fontSize: 40,
-    color: "whitesmoke",
-    lineHeight: 60,
+    fontSize: 60,
+    color: "lightskyblue",
+    lineHeight: 70,
     textAlign: "center"
   },
   solutionText: {
-    fontSize: 40,
-    color: "firebrick",
-    lineHeight: 60,
+    fontSize: 60,
+    color: "mediumvioletred",
+    lineHeight: 70,
     textAlign: "center"
   },
   correctSolution: {
-    fontSize: 40,
-    color: "springgreen",
-    lineHeight: 60,
+    fontSize: 60,
+    color: "aquamarine",
+    lineHeight: 70,
     textAlign: "center"
   },
   footer: {
@@ -265,6 +306,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   word: {
+    fontSize: 60,
+    lineHeight: 70,
     flexWrap: "nowrap",
     flexDirection: "row",
     marginHorizontal: 0

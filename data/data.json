@@ -13,7 +13,7 @@
   },
   {
     "idiom":"Let's hit the road! ",
-    "definition":"It's time to begin our journey. "
+    "definition":"It's time to begin our journey! "
   },
   {
     "idiom":"Better safe than sorry. ",
@@ -56,8 +56,8 @@
     "definition":"It's extremely expensive. "
   },
   {
-    "idiom":"It's no use crying over spilled milk. ",
-    "definition":"There's not reason to stay upset about something that happened in the past. "
+    "idiom":"There's no use crying over spilled milk. ",
+    "definition":"There's no reason to stay upset about something that happened in the past. "
   },
   {
     "idiom":"Curiosity killed the cat. ",
@@ -126,5 +126,89 @@
   {
     "idiom":"I'm just pulling your leg. ",
     "definition":"I'm just joking with you. "
+  },
+  {
+    "idiom":"It's as easy as pie. ",
+    "definition":"It's really easy. "
+  },
+  {
+    "idiom":"I feel like a fish out of water. ",
+    "definition":"I feel like I don't belong here. "
+  },
+  {
+    "idiom":"Don't be a chicken. ",
+    "definition":"Don't be so afraid. "
+  },
+  {
+    "idiom":"I'm broke. ",
+    "definition":"I don't have any money. "
+  },
+  {
+    "idiom":"It's still up in the air. ",
+    "definition":"It hasn't been decided yet. "
+  },
+  {
+    "idiom":"They were giving me the cold shoulder. ",
+    "definition":"They refused to talk to me because they were angry at me. "
+  },
+  {
+    "idiom":"He's a happy camper. ",
+    "definition":"He's happy and content today. "
+  },
+  {
+    "idiom":"Just sit tight. ",
+    "definition":"Just wait. "
+  },
+  {
+    "idiom":"He's head over heels in love. ",
+    "definition":"He's very much in love. "
+  },
+  {
+    "idiom":"It's time to get the ball rolling. ",
+    "definition":"It's time to start. "
+  },
+  {
+    "idiom":"She was born with a silver spoon in her mouth. ",
+    "definition":"She was born into a rich family. "
+  },
+  {
+    "idiom":"It won't break the bank. ",
+    "definition":"It's not very expensive. "
+  },
+  {
+    "idiom":"I need to bring home the bacon. ",
+    "definition":"I need to make money to support my family. "
+  },
+  {
+    "idiom":"Don't worry, I'll foot the bill. ",
+    "definition":"It's ok, I'll pay for it. "
+  },
+  {
+    "idiom":"He went from rags to riches. ",
+    "definition":"He started out poor, but he became very wealthy. "
+  },
+  {
+    "idiom":"She frequently steals things from stores. ",
+    "definition":"She is a shoplifter. "
+  },
+  {
+    "idiom":"He's living from hand to mouth. ",
+    "definition":"He can't afford to save any money. "
+  },
+  {
+    "idiom":"I can pick up the tab. ",
+    "definition":"I can pay the entire bill. "
+  },
+  {
+    "idiom":"You're pouring money down the drain. ",
+    "definition":"You're wasting money. "
+  },
+  {
+    "idiom":"May I put in my two cents? ",
+    "definition":"May I share my opinion? "
+  },
+  {
+    "idiom":"Put your money where your mouth is. ",
+    "definition":"Stop talking about doing it and just do it. "
   }
 ]

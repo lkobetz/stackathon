@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "steelblue"
+    backgroundColor: "darkslateblue"
   },
   buttonText: {
     fontSize: 25,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   getStartedText: {
     fontSize: 20,
-    color: "whitesmoke",
+    color: "yellow",
     lineHeight: 24,
     textAlign: "center"
   },

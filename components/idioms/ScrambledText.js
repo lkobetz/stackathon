@@ -45,15 +45,15 @@ export default class ScrambledText extends Component {
 
 const styles = StyleSheet.create({
   scrambledText: {
-    fontSize: 40,
-    color: "whitesmoke",
-    lineHeight: 60,
+    fontSize: 60,
+    color: "lightskyblue",
+    lineHeight: 70,
     textAlign: "center"
   },
   chosenLetters: {
-    fontSize: 40,
+    fontSize: 60,
     color: "midnightblue",
-    lineHeight: 60,
+    lineHeight: 70,
     textAlign: "center"
   }
 });

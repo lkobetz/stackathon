@@ -114,7 +114,7 @@ HomeScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "steelblue"
+    backgroundColor: "darkslateblue"
   },
   contentContainer: {
     paddingTop: 30
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   getStartedText: {
     fontSize: 17,
-    color: "whitesmoke",
+    color: "yellow",
     lineHeight: 24,
     textAlign: "center"
   },
