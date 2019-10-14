@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import { Text, View, Button, StyleSheet, ScrollView } from "react-native";
 import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
-import CountDown from "react-native-countdown-component";
 import idioms from "../../data/data.json";
+import Timer from "./Timer";
 
 function shuffle(sentence) {
   let shuffled = sentence.split(" ");
@@ -60,8 +60,12 @@ export default class Idioms extends Component {
       scrambled: shuffled,
       points: 0,
       timeUp: false,
-      showSolution: false
+      showSolution: false,
+      started: true
     };
+  }
+  componentDidMount() {
+    this.setState({ started: true });
   }
   createInteractiveSentence(sentence) {
     const interactive = [];
@@ -182,11 +186,19 @@ export default class Idioms extends Component {
     this.setState({ scrambled: shuffled });
     this.setState({ timeUp: false });
     this.setState({ showSolution: false });
+    this.setState({ started: false });
   }
   showSolution() {
     this.setState({ showSolution: true });
     this.setState(prev => ({ points: prev.points - 1 }));
     this.clearBox();
+  }
+  startTimer() {
+    this.setState({ started: true });
+  }
+  timeFinished() {
+    this.setState({ timeUp: true });
+    this.setState({ started: false });
   }
 
   render() {
@@ -226,21 +238,19 @@ export default class Idioms extends Component {
               title="Next"
               onPress={() => this.reset()}
             />
-            <Text style={styles.footer}>Points: {this.state.points}</Text>
-            {!this.state.timeUp && (
-              <CountDown
-                until={10}
-                onFinish={() => this.setState({ timeUp: true })}
-                size={15}
-                timeToShow={["S"]}
-              ></CountDown>
-            )}
-            {this.state.timeUp && (
+            <Text style={styles.footer}>Points: {this.state.points} </Text>
+            {this.state.timeUp ? (
               <Button
                 onPress={() => this.showSolution()}
                 title="Show Solution"
                 color="lavender"
               ></Button>
+            ) : (
+              <Timer
+                started={this.state.started}
+                startTimer={this.startTimer.bind(this)}
+                timeFinished={this.timeFinished.bind(this)}
+              />
             )}
           </View>
         </View>
@@ -288,13 +298,13 @@ const styles = StyleSheet.create({
   },
   solutionText: {
     fontSize: 60,
-    color: "mediumvioletred",
+    color: "orange",
     lineHeight: 70,
     textAlign: "center"
   },
   correctSolution: {
     fontSize: 60,
-    color: "aquamarine",
+    color: "springgreen",
     lineHeight: 70,
     textAlign: "center"
   },
