@@ -24,40 +24,14 @@ export default function HomeScreen(props) {
           <Text style={styles.title}>IDIOMATIC</Text>
         </View>
 
-        <View style={styles.getStartedContainer}>
-          <Text style={styles.getStartedText}>
-            What would you like to learn today?
-          </Text>
-        </View>
-
         <View style={styles.helpContainer}>
-          {/* <TouchableOpacity style={styles.helpLink}> */}
           <Button
             style={styles.buttonText}
             color="white"
             backgroundColor="black"
-            title="Idioms"
+            title="Get Started!"
             onPress={() => props.navigation.navigate("IdiomsIntro")}
           />
-          {/* </TouchableOpacity> */}
-          {/* <TouchableOpacity style={styles.helpLink}> */}
-          <Button
-            style={styles.buttonText}
-            color="white"
-            backgroundColor="black"
-            title="Jokes"
-            onPress={() => props.navigation.navigate("IdiomsIntro")}
-          />
-          {/* </TouchableOpacity> */}
-          {/* <TouchableOpacity style={styles.helpLink}> */}
-          <Button
-            style={styles.buttonText}
-            color="white"
-            backgroundColor="black"
-            title="Quotes"
-            onPress={() => props.navigation.navigate("IdiomsIntro")}
-          />
-          {/* </TouchableOpacity> */}
         </View>
       </ScrollView>
 
@@ -125,9 +99,9 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   title: {
-    fontSize: 20,
-    lineHeight: 30,
-    color: "whitesmoke"
+    fontSize: 60,
+    lineHeight: 80,
+    color: "yellow"
   },
   getStartedContainer: {
     alignItems: "center",

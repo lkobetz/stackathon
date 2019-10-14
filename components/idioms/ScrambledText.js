@@ -46,7 +46,7 @@ export default class ScrambledText extends Component {
 const styles = StyleSheet.create({
   scrambledText: {
     fontSize: 60,
-    color: "lightskyblue",
+    color: "aquamarine",
     lineHeight: 70,
     textAlign: "center"
   },

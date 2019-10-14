@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
   },
   scrambledText: {
     fontSize: 60,
-    color: "lightskyblue",
+    color: "aquamarine",
     lineHeight: 70,
     textAlign: "center"
   },
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   },
   correctSolution: {
     fontSize: 60,
-    color: "springgreen",
+    color: "yellowgreen",
     lineHeight: 70,
     textAlign: "center"
   },
