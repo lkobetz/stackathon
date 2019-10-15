@@ -175,7 +175,7 @@ export default class Idioms extends Component {
     if (this.state.correct) {
       this.setState({ points: this.state.points + 1 });
     }
-    current = randomNumber(0, idioms.length - 1);
+    current = randomNumber(idioms.length - 1);
     definition = idioms[current].definition;
     solution = idioms[current].idiom;
     shuffled = shuffle(solution);
@@ -250,6 +250,7 @@ export default class Idioms extends Component {
                 started={this.state.started}
                 startTimer={this.startTimer.bind(this)}
                 timeFinished={this.timeFinished.bind(this)}
+                current={current}
               />
             )}
           </View>

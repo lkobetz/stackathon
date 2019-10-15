@@ -6,28 +6,38 @@ import momentDurationFormatSetup from "moment-duration-format";
 
 momentDurationFormatSetup(moment);
 
-export default Timer = props => {
-  return (
-    <View>
-      {!props.started && props.startTimer()}
-      <Text style={styles.footer}>
-        Time:{" "}
-        <TimerMachine
-          timeStart={60000}
-          timeEnd={0}
-          started={props.started}
-          paused={false}
-          countdown={true}
-          interval={1000}
-          onComplete={props.timeFinished}
-          formatTimer={(time, ms) =>
-            moment.duration(ms, "milliseconds").format("h:mm:ss")
-          }
-        />
-      </Text>
-    </View>
-  );
-};
+export default class Timer extends Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    this.props.startTimer();
+  }
+  componentDidUpdate() {
+    !this.props.started && this.props.startTimer();
+  }
+  render() {
+    return (
+      <View>
+        <Text style={styles.footer}>
+          Time:{" "}
+          <TimerMachine
+            timeStart={10000}
+            timeEnd={0}
+            started={this.props.started}
+            paused={false}
+            countdown={true}
+            interval={1000}
+            onComplete={this.props.timeFinished}
+            formatTimer={(time, ms) =>
+              moment.duration(ms, "milliseconds").format("h:mm:ss")
+            }
+          />
+        </Text>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   footer: {
