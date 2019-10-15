@@ -40,11 +40,11 @@ function createSolutionBox(sentence) {
   return newBox;
 }
 
-function randomNumber(min, max) {
-  let random = Math.random() * (max - min) + min;
+function randomNumber(max) {
+  let random = Math.random() * max;
   return Math.round(random);
 }
-let current = randomNumber(0, idioms.length - 1);
+let current = randomNumber(idioms.length - 1);
 let definition = idioms[current].definition;
 let solution = idioms[current].idiom;
 let shuffled = shuffle(solution);
