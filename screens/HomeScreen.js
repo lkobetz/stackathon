@@ -13,6 +13,8 @@ import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 
 import { MonoText } from "../components/StyledText";
 
+import { Random } from "react-animated-text";
+
 export default function HomeScreen(props) {
   return (
     <View style={styles.container}>

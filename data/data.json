@@ -192,8 +192,8 @@
     "definition":"She frequently steals things from stores. "
   },
   {
-    "idiom":"He's living from hand to mouth. ",
-    "definition":"He can't afford to save any money. "
+    "idiom":"They're living from hand to mouth. ",
+    "definition":"They can't afford to save any money. "
   },
   {
     "idiom":"I can pick up the tab. ",
@@ -210,5 +210,85 @@
   {
     "idiom":"Put your money where your mouth is. ",
     "definition":"Stop talking about doing it and just do it. "
+  },
+  {
+    "idiom":"I have butterflies in my stomach. ",
+    "definition":"I'm nervous but excited. "
+  },
+  {
+    "idiom":"Cat got your tongue? ",
+    "definition":"Why can't you speak? "
+  },
+  {
+    "idiom":"You should cut them some slack. ",
+    "definition":"You should not judge them too harshly. "
+  },
+  {
+    "idiom":"It's like looking for a needle in a haystack. ",
+    "definition":"It's extremely difficult to find. "
+  },
+  {
+    "idiom":"She's a tree-hugger. ",
+    "definition":"She believes strongly in saving the environment. "
+  },
+  {
+    "idiom":"This is where I draw the line. ",
+    "definition":"I refuse to take this any further. "
+  },
+  {
+    "idiom":"I need to get this off my chest. ",
+    "definition":"I need to tell someone this secret that's been bothering me. "
+  },
+  {
+    "idiom":"Why don't you give it a whirl? ",
+    "definition":"You should try this new hobby. "
+  },
+  {
+    "idiom":"It's going to go down in flames. ",
+    "definition":"It's going to be a total failure. "
+  },
+  {
+    "idiom":"You need to go the extra mile. ",
+    "definition":"You need to put in extra effort. "
+  },
+  {
+    "idiom":"We got here in the nick of time. ",
+    "definition":"We were almost too late. "
+  },
+  {
+    "idiom":"It's as plain as day. ",
+    "definition":"It's very clear and obvious. "
+  },
+  {
+    "idiom":"Don't put your foot in your mouth. ",
+    "definition":"Don't say something you'll regret later. "
+  },
+  {
+    "idiom":"You should sleep on it. ",
+    "definition":"You should think about it for at least another day before making a decision. "
+  },
+  {
+    "idiom":"You need to pull yourself together! ",
+    "definition":"You need to calm down and behave normally. "
+  },
+  {
+    "idiom":"I feel as snug as a bug in a rug. ",
+    "definition":"I feel very cozy and warm. "
+  },
+  {
+    "idiom":"You need to step up your game. ",
+    "definition":"You need to do something more impressive. "
+  },
+  {
+    "idiom":"That's just the tip of the iceberg. ",
+    "definition":"That's only a small part of a much larger problem. "
+  },
+  {
+    "idiom":"It looks like we're up a creek without a paddle. ",
+    "definition":"We're in an unlucky situation without a lot of options. "
+  },
+  {
+    "idiom":"You rock! ",
+    "definition":"You're doing a great job! "
   }
 ]
