@@ -335,6 +335,6 @@ const styles = StyleSheet.create({
   },
   wholeScreen: {
     width: 414,
-    height: 896
+    height: 810
   }
 });
