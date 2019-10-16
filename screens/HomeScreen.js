@@ -32,7 +32,7 @@ export default function HomeScreen(props) {
             color="white"
             backgroundColor="black"
             title="Get Started!"
-            onPress={() => props.navigation.navigate("IdiomsIntro")}
+            onPress={() => props.navigation.push("IdiomsIntro")}
           />
         </View>
       </ScrollView>

@@ -6,6 +6,7 @@ import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
 import idioms from "../../data/data.json";
 import Timer from "./Timer";
+import ConfettiCannon from "react-native-confetti-cannon";
 
 function shuffle(sentence) {
   let shuffled = sentence.split(" ");
@@ -254,6 +255,9 @@ export default class Idioms extends Component {
               />
             )}
           </View>
+          {this.state.correct && (
+            <ConfettiCannon count={300} origin={{ x: 0, y: 0 }} />
+          )}
         </View>
       </ScrollView>
     );
@@ -305,7 +309,7 @@ const styles = StyleSheet.create({
   },
   correctSolution: {
     fontSize: 60,
-    color: "yellowgreen",
+    color: "greenyellow",
     lineHeight: 70,
     textAlign: "center"
   },

@@ -22,7 +22,7 @@ export default class Timer extends Component {
         <Text style={styles.footer}>
           Time:{" "}
           <TimerMachine
-            timeStart={10000}
+            timeStart={60000}
             timeEnd={0}
             started={this.props.started}
             paused={false}
