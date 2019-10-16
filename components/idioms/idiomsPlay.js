@@ -204,73 +204,79 @@ export default class Idioms extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.scrollContainer}>
-        <View style={styles.playContainer}>
-          <View style={styles.definitionContainer}>
-            <Text style={styles.definitionText}>Meaning: {definition}</Text>
-          </View>
+      <View style={styles.wholeScreen}>
+        <ScrollView style={styles.scrollContainer}>
+          <View style={styles.playContainer}>
+            <View style={styles.definitionContainer}>
+              <Text style={styles.definitionText}>Meaning: {definition}</Text>
+            </View>
 
-          <View style={styles.scrambledContainer}>
-            {this.state.showSolution
-              ? this.createInteractiveSentence(solution)
-              : this.createInteractiveSentence(this.state.scrambled)}
-          </View>
+            <View style={styles.scrambledContainer}>
+              {this.state.showSolution
+                ? this.createInteractiveSentence(solution)
+                : this.createInteractiveSentence(this.state.scrambled)}
+            </View>
 
-          <View style={styles.sampleContainer}>
-            <Text
-              style={
-                this.state.correct === false
-                  ? styles.solutionText
-                  : styles.correctSolution
-              }
-            >
-              {this.createInteractiveSolutionBox(this.state.solutionBox)}
-            </Text>
-          </View>
+            <View style={styles.sampleContainer}>
+              <Text
+                style={
+                  this.state.correct === false
+                    ? styles.solutionText
+                    : styles.correctSolution
+                }
+              >
+                {this.createInteractiveSolutionBox(this.state.solutionBox)}
+              </Text>
+            </View>
 
-          <View style={styles.footer}>
-            <Button
-              color="lavender"
-              title="Clear"
-              onPress={() => this.clearBox()}
-            />
-            <Button
-              color="lavender"
-              title="Next"
-              onPress={() => this.reset()}
-            />
-            <Text style={styles.footer}>Points: {this.state.points} </Text>
-            {this.state.timeUp ? (
+            <View style={styles.footer}>
               <Button
-                onPress={() => this.showSolution()}
-                title="Show Solution"
                 color="lavender"
-              ></Button>
-            ) : (
-              <Timer
-                started={this.state.started}
-                startTimer={this.startTimer.bind(this)}
-                timeFinished={this.timeFinished.bind(this)}
-                current={current}
+                title="Clear"
+                onPress={() => this.clearBox()}
               />
-            )}
+              <Button
+                color="lavender"
+                title="Next"
+                onPress={() => this.reset()}
+              />
+              <Text style={styles.footer}>Points: {this.state.points} </Text>
+              {this.state.timeUp ? (
+                <Button
+                  onPress={() => this.showSolution()}
+                  title="Show Solution"
+                  color="lavender"
+                ></Button>
+              ) : (
+                <Timer
+                  started={this.state.started}
+                  startTimer={this.startTimer.bind(this)}
+                  timeFinished={this.timeFinished.bind(this)}
+                  current={current}
+                />
+              )}
+            </View>
           </View>
-          {this.state.correct && (
-            <ConfettiCannon count={300} origin={{ x: 0, y: 0 }} />
-          )}
-        </View>
-      </ScrollView>
+        </ScrollView>
+        {this.state.correct && (
+          <ConfettiCannon
+            count={300}
+            origin={{
+              x: this.props.navigation.state.params.width, // 414
+              y: this.props.navigation.state.params.height // 896
+            }}
+          />
+        )}
+      </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   scrollContainer: {
     backgroundColor: "darkslateblue",
     marginVertical: 0
   },
   playContainer: {
-    flex: 1,
     paddingTop: 15,
     backgroundColor: "darkslateblue",
     alignItems: "center"
@@ -326,5 +332,9 @@ const styles = StyleSheet.create({
     flexWrap: "nowrap",
     flexDirection: "row",
     marginHorizontal: 0
+  },
+  wholeScreen: {
+    width: 414,
+    height: 896
   }
 });

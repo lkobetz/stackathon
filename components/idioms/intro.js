@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button, Dimensions } from "react-native";
+
+const { height, width } = Dimensions.get("window");
 
 export default class Idioms extends Component {
   state = {
@@ -30,7 +32,12 @@ export default class Idioms extends Component {
           style={styles.buttonText}
           title="Play!"
           color="white"
-          onPress={() => this.props.navigation.navigate("IdiomsPlay")}
+          onPress={() =>
+            this.props.navigation.navigate("IdiomsPlay", {
+              height: height,
+              width: width
+            })
+          }
         />
       </View>
     );
