@@ -2,7 +2,7 @@
   {
     "idiom":"Absence makes the heart grow fonder. ",
     "definition":"Being far away from someone makes you love them more.",
-    "categories": ["other", "family"]
+    "categories": ["other"]
   },
   {
     "idiom":"Don't rain on my parade. ",
@@ -127,12 +127,12 @@
   {
     "idiom":"We're cutting it down to the wire. ",
     "definition":"We're almost out of time. ",
-    "categories": ["time", "work"]
+    "categories": ["time"]
   },
   {
     "idiom":"It's time to hit the books. ",
     "definition":"It's time to study. ",
-    "categories": ["work"]
+    "categories": ["other"]
   },
   {
     "idiom":"It happened in the blink of an eye. ",
@@ -483,7 +483,7 @@
   {
     "idiom":"She's the black sheep of the family. ",
     "definition":"She doesn't fit in with the family. ",
-    "categories": ["colors", "family"]
+    "categories": ["colors", "animals"]
   },
   {
     "idiom":"He was caught red-handed. ",
