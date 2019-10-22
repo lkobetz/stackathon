@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button, Dimensions } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Dimensions,
+  Platform
+} from "react-native";
 
 const { height, width } = Dimensions.get("window");
 
@@ -16,7 +23,7 @@ export default class Idioms extends Component {
         <Button
           style={styles.buttonText}
           title="Instructions"
-          color="white"
+          color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
           onPress={() => this.setState({ showInstructions: true })}
         />
         {this.state.showInstructions && (
@@ -31,7 +38,7 @@ export default class Idioms extends Component {
         <Button
           style={styles.buttonText}
           title="Play!"
-          color="white"
+          color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
           onPress={() =>
             this.props.navigation.navigate("IdiomsPlay", {
               height: height,

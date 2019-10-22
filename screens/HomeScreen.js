@@ -29,8 +29,7 @@ export default function HomeScreen(props) {
         <View style={styles.helpContainer}>
           <Button
             style={styles.buttonText}
-            color="white"
-            backgroundColor="black"
+            color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
             title="Get Started!"
             onPress={() => props.navigation.push("IdiomsIntro")}
           />

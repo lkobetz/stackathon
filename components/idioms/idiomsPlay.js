@@ -1,12 +1,21 @@
 /* eslint-disable quotes */
 /* eslint-disable no-use-before-define */
 import React, { Component } from "react";
-import { Text, View, Button, StyleSheet, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  ScrollView,
+  Dimensions
+} from "react-native";
 import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
 import idioms from "../../data/data.json";
 import Timer from "./Timer";
 import ConfettiCannon from "react-native-confetti-cannon";
+import { Platform } from "@unimodules/core";
+const { height, width } = Dimensions.get("window");
 
 function shuffle(sentence) {
   let shuffled = sentence.split(" ");
@@ -231,12 +240,12 @@ export default class Idioms extends Component {
 
             <View style={styles.footer}>
               <Button
-                color="lavender"
+                color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
                 title="Clear"
                 onPress={() => this.clearBox()}
               />
               <Button
-                color="lavender"
+                color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
                 title="Next"
                 onPress={() => this.reset()}
               />
@@ -245,7 +254,7 @@ export default class Idioms extends Component {
                 <Button
                   onPress={() => this.showSolution()}
                   title="Show Solution"
-                  color="lavender"
+                  color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
                 ></Button>
               ) : (
                 <Timer
@@ -265,6 +274,8 @@ export default class Idioms extends Component {
               x: this.props.navigation.state.params.width, // 414
               y: this.props.navigation.state.params.height // 896
             }}
+            explosionSpeed={400}
+            fallSpeed={2000}
           />
         )}
       </View>
@@ -334,7 +345,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 0
   },
   wholeScreen: {
-    width: 414,
+    width: width,
     height: 810
   }
 });
