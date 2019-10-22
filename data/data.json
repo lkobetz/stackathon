@@ -1,410 +1,508 @@
 [
   {
     "idiom":"Absence makes the heart grow fonder. ",
-    "definition":"Being far away from someone makes you love them more."
+    "definition":"Being far away from someone makes you love them more.",
+    "categories": ["other", "family"]
   },
   {
     "idiom":"Don't rain on my parade. ",
-    "definition":"If I'm happy, don't try to make me sad. "
+    "definition":"If I'm happy, don't try to make me sad. ",
+    "categories": ["nature", "recreation"]
   },
   {
     "idiom":"Don't count your chickens before they hatch. ",
-    "definition":"Don't be too sure that something you hope for will really happen. "
+    "definition":"Don't be too sure that something you hope for will really happen. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"Let's hit the road! ",
-    "definition":"It's time to begin our journey! "
+    "definition":"It's time to begin our journey! ",
+    "categories": ["traveling"]
   },
   {
     "idiom":"Better safe than sorry. ",
-    "definition":"It's better to be extremely careful than to make a dangerous mistake. "
+    "definition":"It's better to be extremely careful than to make a dangerous mistake. ",
+    "categories": ["wisdom"]
   },
   {
     "idiom":"The ball is in your court. ",
-    "definition":"It's your turn to make a decision. "
+    "definition":"It's your turn to make a decision. ",
+    "categories": ["recreation"]
   },
   {
     "idiom":"Actions speak louder than words. ",
-    "definition":"What you do is more important than what you say. "
+    "definition":"What you do is more important than what you say. ",
+    "categories": ["wisdom"]
   },
   {
     "idiom":"You're barking up the wrong tree. ",
-    "definition":"You're looking in the wrong place. "
-  },
-  {
-    "idiom":"The ball is in your court. ",
-    "definition":"It's your turn to make a decision. "
+    "definition":"You're looking in the wrong place. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"It's time to go back to the drawing board. ",
-    "definition":"Our plan didn't work, so we have to start over. "
+    "definition":"Our plan didn't work, so we have to start over. ",
+    "categories": ["recreation"]
   },
   {
     "idiom":"It's the best thing since sliced bread. ",
-    "definition":"It's an amazing new invention. "
+    "definition":"It's an amazing new invention. ",
+    "categories": ["food"]
   },
   {
     "idiom":"Don't bite off more than you can chew. ",
-    "definition":"Don't agree to do more work than you can handle. "
+    "definition":"Don't agree to do more work than you can handle. ",
+    "categories": ["food"]
   },
   {
     "idiom":"You can't judge a book by its cover. ",
-    "definition":"You can't tell what something is like based only on its appearance. "
+    "definition":"You can't tell what something is like based only on its appearance. ",
+    "categories": ["recreation", "wisdom"]
   },
   {
     "idiom":"It costs an arm and a leg. ",
-    "definition":"It's extremely expensive. "
+    "definition":"It's extremely expensive. ",
+    "categories": ["money", "body parts"]
   },
   {
     "idiom":"There's no use crying over spilled milk. ",
-    "definition":"There's no reason to stay upset about something that happened in the past. "
+    "definition":"There's no reason to stay upset about something that happened in the past. ",
+    "categories": ["food", "wisdom"]
   },
   {
     "idiom":"Curiosity killed the cat. ",
-    "definition":"Being too curious can get you into trouble. "
+    "definition":"Being too curious can get you into trouble. ",
+    "categories": ["animals", "wisdom"]
   },
   {
     "idiom":"Don't put all your eggs in one basket. ",
-    "definition":"Don't invest all your resources in one thing. "
+    "definition":"Don't invest all your resources in one thing. ",
+    "categories": ["animals", "food", "wisdom"]
   },
   {
     "idiom":"I'm feeling under the weather. ",
-    "definition":"I'm sick today. "
+    "definition":"I'm sick today. ",
+    "categories": ["nature"]
   },
   {
     "idiom":"You hit the nail on the head. ",
-    "definition":"You got it exactly right. "
+    "definition":"You got it exactly right. ",
+    "categories": ["recreation"]
   },
   {
     "idiom":"It's time to hit the sack. ",
-    "definition":"I'm going to go to bed now. "
+    "definition":"I'm going to go to bed now. ",
+    "categories": ["sleep"]
   },
   {
     "idiom":"Don't let the cat out of the bag. ",
-    "definition":"Don't tell the secret. "
+    "definition":"Don't tell the secret. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"It happens once in a blue moon. ",
-    "definition":"It almost never happens. "
+    "definition":"It almost never happens. ",
+    "categories": ["nature", "time", "colors"]
   },
   {
     "idiom":"It will be a piece of cake. ",
-    "definition":"It will be very easy. "
+    "definition":"It will be very easy. ",
+    "categories": ["food"]
   },
   {
     "idiom":"Take it with a grain of salt. ",
-    "definition":"Don't take it too seriously. "
+    "definition":"Don't take it too seriously. ",
+    "categories": ["food"]
   },
   {
     "idiom":"We're all in the same boat. ",
-    "definition":"We are all having the same problem. "
+    "definition":"We are all having the same problem. ",
+    "categories": ["traveling"]
   },
   {
     "idiom":"It's time to call it a night. ",
-    "definition":"I think we should stop and go home. "
+    "definition":"I think we should stop and go home. ",
+    "categories": ["sleep", "time"]
   },
   {
     "idiom":"We're cutting it down to the wire. ",
-    "definition":"We're almost out of time. "
+    "definition":"We're almost out of time. ",
+    "categories": ["time", "work"]
   },
   {
     "idiom":"It's time to hit the books. ",
-    "definition":"It's time to study. "
+    "definition":"It's time to study. ",
+    "categories": ["work"]
   },
   {
     "idiom":"It happened in the blink of an eye. ",
-    "definition":"It happened very quickly. "
+    "definition":"It happened very quickly. ",
+    "categories": ["body parts", "time"]
   },
   {
     "idiom":"Don't lose your head. ",
-    "definition":"Don't get too emotional. "
+    "definition":"Don't get too emotional. ",
+    "categories": ["body parts"]
   },
   {
     "idiom":"It happened out of the blue. ",
-    "definition":"It was completely unexpected. "
+    "definition":"It was completely unexpected. ",
+    "categories": ["colors"]
   },
   {
     "idiom":"I'm just pulling your leg. ",
-    "definition":"I'm just joking with you. "
+    "definition":"I'm just joking with you. ",
+    "categories": ["body parts"]
   },
   {
     "idiom":"It's as easy as pie. ",
-    "definition":"It's really easy. "
+    "definition":"It's really easy. ",
+    "categories": ["food"]
   },
   {
     "idiom":"I feel like a fish out of water. ",
-    "definition":"I feel like I don't belong here. "
+    "definition":"I feel like I don't belong here. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"Don't be a chicken. ",
-    "definition":"Don't be so afraid. "
+    "definition":"Don't be so afraid. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"I'm broke. ",
-    "definition":"I don't have any money. "
+    "definition":"I don't have any money. ",
+    "categories": ["money"]
   },
   {
     "idiom":"It's still up in the air. ",
-    "definition":"It hasn't been decided yet. "
+    "definition":"It hasn't been decided yet. ",
+    "categories": ["nature"]
   },
   {
     "idiom":"They were giving me the cold shoulder. ",
-    "definition":"They refused to talk to me because they were angry at me. "
+    "definition":"They refused to talk to me because they were angry at me. ",
+    "categories": ["body parts"]
   },
   {
     "idiom":"He's a happy camper. ",
-    "definition":"He's happy and content today. "
+    "definition":"He's happy and content today. ",
+    "categories": ["recreation"]
   },
   {
     "idiom":"Just sit tight. ",
-    "definition":"Just wait. "
+    "definition":"Just wait. ",
+    "categories": ["other"]
   },
   {
     "idiom":"He's head over heels in love. ",
-    "definition":"He's very much in love. "
+    "definition":"He's very much in love. ",
+    "categories": ["body parts"]
   },
   {
     "idiom":"It's time to get the ball rolling. ",
-    "definition":"It's time to start. "
+    "definition":"It's time to start. ",
+    "categories": ["recreation", "time"]
   },
   {
     "idiom":"She was born with a silver spoon in her mouth. ",
-    "definition":"She was born into a rich family. "
+    "definition":"She was born into a rich family. ",
+    "categories": ["food", "money"]
   },
   {
     "idiom":"It won't break the bank. ",
-    "definition":"It's not very expensive. "
+    "definition":"It's not very expensive. ",
+    "categories": ["money"]
   },
   {
     "idiom":"I need to bring home the bacon. ",
-    "definition":"I need to make money to support my family. "
+    "definition":"I need to make money to support my family. ",
+    "categories": ["food", "money"]
   },
   {
-    "idiom":"Don't worry, I'll foot the bill. ",
-    "definition":"It's ok, I'll pay for it. "
+    "idiom":"Don't worry, I can foot the bill. ",
+    "definition":"It's ok, I'll pay for it. ",
+    "categories": ["money", "body parts"]
   },
   {
     "idiom":"He went from rags to riches. ",
-    "definition":"He started out poor, but he became very wealthy. "
+    "definition":"He started out poor, but he became very wealthy. ",
+    "categories": ["money"]
   },
   {
     "idiom":"She is a shoplifter. ",
-    "definition":"She frequently steals things from stores. "
+    "definition":"She frequently steals things from stores. ",
+    "categories": ["money"]
   },
   {
     "idiom":"They're living from hand to mouth. ",
-    "definition":"They can't afford to save any money. "
+    "definition":"They can't afford to save any money. ",
+    "categories": ["body parts", "money"]
   },
   {
     "idiom":"I can pick up the tab. ",
-    "definition":"I can pay the entire bill. "
+    "definition":"I can pay the entire bill. ",
+    "categories": ["money"]
   },
   {
     "idiom":"You're pouring money down the drain. ",
-    "definition":"You're wasting money. "
+    "definition":"You're wasting money. ",
+    "categories": ["money"]
   },
   {
     "idiom":"May I put in my two cents? ",
-    "definition":"May I share my opinion? "
+    "definition":"May I share my opinion? ",
+    "categories": ["money"]
   },
   {
     "idiom":"Put your money where your mouth is. ",
-    "definition":"Stop talking about doing it and just do it. "
+    "definition":"Stop talking about doing it and just do it. ",
+    "categories": ["money", "body parts"]
   },
   {
     "idiom":"I have butterflies in my stomach. ",
-    "definition":"I'm nervous but excited. "
+    "definition":"I'm nervous but excited. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"Cat got your tongue? ",
-    "definition":"Why can't you speak? "
+    "definition":"Why can't you speak? ",
+    "categories": ["animals", "body parts"]
   },
   {
     "idiom":"You should cut them some slack. ",
-    "definition":"You should not judge them too harshly. "
+    "definition":"You should not judge them too harshly. ",
+    "categories": ["other"]
   },
   {
     "idiom":"It's like looking for a needle in a haystack. ",
-    "definition":"It's extremely difficult to find. "
+    "definition":"It's extremely difficult to find. ",
+    "categories": ["nature"]
   },
   {
     "idiom":"She's a tree-hugger. ",
-    "definition":"She believes strongly in saving the environment. "
+    "definition":"She believes strongly in saving the environment. ",
+    "categories": ["nature"]
   },
   {
     "idiom":"This is where I draw the line. ",
-    "definition":"I refuse to take this any further. "
+    "definition":"I refuse to take this any further. ",
+    "categories": ["other"]
   },
   {
     "idiom":"I need to get this off my chest. ",
-    "definition":"I need to tell someone this secret that's been bothering me. "
+    "definition":"I need to tell someone this secret that's been bothering me. ",
+    "categories": ["body parts"]
   },
   {
     "idiom":"Why don't you give it a whirl? ",
-    "definition":"You should try this new hobby. "
+    "definition":"You should try this new hobby. ",
+    "categories": ["other"]
   },
   {
     "idiom":"It's going to go down in flames. ",
-    "definition":"It's going to be a total failure. "
+    "definition":"It's going to be a total failure. ",
+    "categories": ["other"]
   },
   {
     "idiom":"You need to go the extra mile. ",
-    "definition":"You need to put in extra effort. "
+    "definition":"You need to put in extra effort. ",
+    "categories": ["traveling", "recreation"]
   },
   {
     "idiom":"We got here in the nick of time. ",
-    "definition":"We were almost too late. "
+    "definition":"We were almost too late. ",
+    "categories": ["time"]
   },
   {
     "idiom":"It's as plain as day. ",
-    "definition":"It's very clear and obvious. "
+    "definition":"It's very clear and obvious. ",
+    "categories": ["nature"]
   },
   {
     "idiom":"Don't put your foot in your mouth. ",
-    "definition":"Don't say something you'll regret later. "
+    "definition":"Don't say something you'll regret later. ",
+    "categories": ["body parts"]
   },
   {
     "idiom":"You should sleep on it. ",
-    "definition":"You should think about it for at least another day before making a decision. "
+    "definition":"You should think about it for at least another day before making a decision. ",
+    "categories": ["sleep"]
   },
   {
     "idiom":"You need to pull yourself together! ",
-    "definition":"You need to calm down and behave normally. "
+    "definition":"You need to calm down and behave normally. ",
+    "categories": ["body parts"]
   },
   {
     "idiom":"I feel as snug as a bug in a rug. ",
-    "definition":"I feel very cozy and warm. "
+    "definition":"I feel very cozy and warm. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"You need to step up your game. ",
-    "definition":"You need to do something more impressive. "
+    "definition":"You need to do something more impressive. ",
+    "categories": ["recreation"]
   },
   {
     "idiom":"That's just the tip of the iceberg. ",
-    "definition":"That's only a small part of a much larger problem. "
+    "definition":"That's only a small part of a much larger problem. ",
+    "categories": ["nature"]
   },
   {
     "idiom":"It looks like we're up a creek without a paddle. ",
-    "definition":"We're in an unlucky situation without a lot of options. "
+    "definition":"We're in an unlucky situation without a lot of options. ",
+    "categories": ["recreation", "traveling", "nature"]
   },
   {
     "idiom":"You rock! ",
-    "definition":"You're doing a great job! "
+    "definition":"You're doing a great job! ",
+    "categories": ["other"]
   },
   {
     "idiom":"It's not my cup of tea. ",
-    "definition":"I don't enjoy it. "
+    "definition":"I don't enjoy it. ",
+    "categories": ["food"]
   },
   {
     "idiom":"We have bigger fish to fry. ",
-    "definition":"We have more important things to do. "
+    "definition":"We have more important things to do. ",
+    "categories": ["food", "animals"]
   },
   {
     "idiom":"He's a tough nut to crack. ",
-    "definition":"It's difficult to tell how he really feels. "
+    "definition":"It's difficult to tell how he really feels. ",
+    "categories": ["food"]
   },
   {
     "idiom":"I have a lot on my plate. ",
-    "definition":"I have a lot of work to do. "
+    "definition":"I have a lot of work to do. ",
+    "categories": ["food"]
   },
   {
     "idiom":"He's a couch potato. ",
-    "definition":"He sits on the couch all day. "
+    "definition":"He sits on the couch all day. ",
+    "categories": ["recreation", "food"]
   },
   {
     "idiom":"It gives you food for thought. ",
-    "definition":"It gives you a lot to think about. "
+    "definition":"It gives you a lot to think about. ",
+    "categories": ["food"]
   },
   {
     "idiom":"That's the story in a nutshell. ",
-    "definition":"That's a short version of the story. "
+    "definition":"That's a short version of the story. ",
+    "categories": ["food"]
   },
   {
     "idiom":"They're like two peas in a pod. ",
-    "definition":"They're best friends. "
+    "definition":"They're best friends. ",
+    "categories": ["food"]
   },
   {
     "idiom":"Don't spill the beans. ",
-    "definition":"Don't tell the secret. "
+    "definition":"Don't tell the secret. ",
+    "categories": ["food"]
   },
   {
     "idiom":"That one takes the cake. ",
-    "definition":"That's the most extreme instance. "
+    "definition":"That's the most extreme instance. ",
+    "categories": ["food"]
   },
   {
     "idiom":"I was over the moon! ",
-    "definition":"I was really happy. "
+    "definition":"I was really happy. ",
+    "categories": ["nature"]
   },
   {
     "idiom":"He's like a bull in a china shop. ",
-    "definition":"He's very clumsy. "
+    "definition":"He's very clumsy. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"He's a copycat. ",
-    "definition":"He copies what other people do. "
+    "definition":"He copies what other people do. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"We're just killing time. ",
-    "definition":"We're not doing anything important, we're just waiting. "
+    "definition":"We're not doing anything important, we're just waiting. ",
+    "categories": ["time"]
   },
   {
     "idiom":"We're working around the clock. ",
-    "definition":"We're working 24 hours a day. "
+    "definition":"We're working 24 hours a day. ",
+    "categories": ["time"]
   },
   {
     "idiom":"She's as cool as a cucumber. ",
-    "definition":"She's calm and relaxed. "
+    "definition":"She's calm and relaxed. ",
+    "categories": ["food"]
   },
   {
     "idiom":"Speak of the devil! ",
-    "definition":"We were talking about you just before you walked in. "
+    "definition":"We were talking about you just before you walked in. ",
+    "categories": ["other"]
   },
   {
     "idiom":"I don't think we see eye to eye. ",
-    "definition":"I don't think we understand each other. "
+    "definition":"I don't think we understand each other. ",
+    "categories": ["body parts"]
   },
   {
     "idiom":"That will happen when pigs fly. ",
-    "definition":"That will never happen. "
+    "definition":"That will never happen. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"We can kill two birds with one stone. ",
-    "definition":"We can solve two problems at the same time. "
+    "definition":"We can solve two problems at the same time. ",
+    "categories": ["animals"]
   },
   {
     "idiom":"Break a leg! ",
-    "definition":"Good luck with your performance! "
+    "definition":"Good luck with your performance! ",
+    "categories": ["body parts"]
   },
   {
-    "idiom":"We got the best of both worlds. ",
-    "definition":"We were able to enjoy two opposite opportunities at the same time. "
+    "idiom":"We've got the best of both worlds. ",
+    "definition":"We are able to enjoy two opposite opportunities at the same time. ",
+    "categories": ["other"]
+
   },
   {
     "idiom":"He's green with envy. ",
-    "definition":"He's very jealous. "
+    "definition":"He's very jealous. ",
+    "categories": ["colors"]
   },
   {
     "idiom":"He has a green thumb. ",
-    "definition":"He's good at gardening. "
+    "definition":"He's good at gardening. ",
+    "categories": ["nature", "colors"]
   },
   {
     "idiom":"She's the black sheep of the family. ",
-    "definition":"She doesn't fit in with the family. "
+    "definition":"She doesn't fit in with the family. ",
+    "categories": ["colors", "family"]
   },
   {
     "idiom":"He was caught red-handed. ",
-    "definition":"They found him doing something illegal. "
+    "definition":"They found him doing something illegal. ",
+    "categories": ["colors"]
   },
   {
     "idiom":"I took a red eye flight. ",
-    "definition":"I took a flight in the middle of the night. "
+    "definition":"I took a flight in the middle of the night. ",
+    "categories": ["colors", "traveling"]
   },
   {
     "idiom":"She was tickled pink. ",
-    "definition":"She was extremely pleased. "
+    "definition":"She was extremely pleased. ",
+    "categories": ["colors"]
   },
   {
     "idiom":"It's only a white lie. ",
-    "definition":"It's just a very small lie. "
+    "definition":"It's just a very small lie. ",
+    "categories": ["colors"]
   }
 ]
