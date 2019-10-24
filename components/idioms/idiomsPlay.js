@@ -55,15 +55,15 @@ function randomNumber(max) {
   let random = Math.random() * max;
   return Math.round(random);
 }
-let current = randomNumber(idioms.length - 1);
-let definition = idioms[current].definition;
-let solution = idioms[current].idiom;
-let shuffled = shuffle(solution);
-let initialBox = createSolutionBox(solution);
 
 export default class Idioms extends Component {
   constructor(props) {
     super(props);
+    let current = randomNumber(idioms.length - 1);
+    let definition = idioms[current].definition;
+    let solution = idioms[current].idiom;
+    let shuffled = shuffle(solution);
+    let initialBox = createSolutionBox(solution);
     this.state = {
       solutionBox: initialBox,
       correct: false,
@@ -73,12 +73,15 @@ export default class Idioms extends Component {
       timeUp: false,
       showSolution: false,
       started: true,
-      categories: this.props.navigation.state.params.categories
+      categories: this.props.navigation.state.params.categories,
+      definition,
+      solution,
+      current,
+      initialBox
     };
   }
   componentDidMount() {
     this.setState({ started: true });
-    console.log(this.state.categories);
   }
   createInteractiveSentence(sentence) {
     const interactive = [];
@@ -158,7 +161,7 @@ export default class Idioms extends Component {
     return interactive;
   }
   addToSolution(newSolution, letterProps) {
-    if (newSolution === solution) {
+    if (newSolution === this.state.solution) {
       this.setState({ correct: true });
     }
     this.setState(previous => ({
@@ -180,7 +183,7 @@ export default class Idioms extends Component {
     this.setState({ chosenLetters: newChosenLetters });
   }
   clearBox() {
-    this.setState({ solutionBox: initialBox });
+    this.setState({ solutionBox: this.state.initialBox });
     this.setState({ correct: false });
     this.setState({ chosenLetters: [] });
   }
@@ -188,18 +191,23 @@ export default class Idioms extends Component {
     if (this.state.correct) {
       this.setState({ points: this.state.points + 1 });
     }
-    current = randomNumber(idioms.length - 1);
-    definition = idioms[current].definition;
-    solution = idioms[current].idiom;
-    shuffled = shuffle(solution);
-    initialBox = createSolutionBox(solution);
-    this.setState({ solutionBox: initialBox });
+    let newCurrent = randomNumber(idioms.length - 1);
+    let newDefinition = idioms[newCurrent].definition;
+    let newSolution = idioms[newCurrent].idiom;
+    let newShuffled = shuffle(newSolution);
+    let newInitialBox = createSolutionBox(newSolution);
+    let newCategories = idioms[newCurrent].categories;
+    this.setState({ solutionBox: newInitialBox });
     this.setState({ correct: false });
     this.setState({ chosenLetters: [] });
-    this.setState({ scrambled: shuffled });
+    this.setState({ scrambled: newShuffled });
     this.setState({ timeUp: false });
     this.setState({ showSolution: false });
     this.setState({ started: false });
+    this.setState({ definition: newDefinition });
+    this.setState({ solution: newSolution });
+    this.setState({ categories: newCategories });
+    this.setState({ current: newCurrent });
   }
   showSolution() {
     this.setState({ showSolution: true });
@@ -220,12 +228,14 @@ export default class Idioms extends Component {
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.playContainer}>
             <View style={styles.definitionContainer}>
-              <Text style={styles.definitionText}>Meaning: {definition}</Text>
+              <Text style={styles.definitionText}>
+                Meaning: {this.state.definition}
+              </Text>
             </View>
 
             <View style={styles.scrambledContainer}>
               {this.state.showSolution
-                ? this.createInteractiveSentence(solution)
+                ? this.createInteractiveSentence(this.state.solution)
                 : this.createInteractiveSentence(this.state.scrambled)}
             </View>
 
@@ -264,7 +274,7 @@ export default class Idioms extends Component {
                   started={this.state.started}
                   startTimer={this.startTimer.bind(this)}
                   timeFinished={this.timeFinished.bind(this)}
-                  current={current}
+                  current={this.state.current}
                 />
               )}
             </View>
@@ -273,20 +283,20 @@ export default class Idioms extends Component {
             <Text>
               <CountIdioms
                 idioms={idioms}
-                categories={idioms[current].categories}
+                categories={idioms[this.state.current].categories}
               />
             </Text>
           </View>
         </ScrollView>
         {this.state.correct && (
           <ConfettiCannon
-            count={300}
+            count={200}
             origin={{
               x: this.props.navigation.state.params.width, // 414
               y: this.props.navigation.state.params.height // 896
             }}
-            explosionSpeed={400}
-            fallSpeed={2000}
+            explosionSpeed={200}
+            fallSpeed={1000}
           />
         )}
       </View>
