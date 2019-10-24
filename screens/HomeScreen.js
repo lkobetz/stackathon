@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React from "react";
+import React, { Component } from "react";
 import {
   Button,
   Platform,
@@ -13,30 +13,125 @@ import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 
 import { MonoText } from "../components/StyledText";
 
-import { Random } from "react-animated-text";
+export default class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: []
+    };
+  }
+  setCategories(input) {
+    if (this.state.categories.includes(input)) {
+      this.setState(previous => ({
+        categories: previous.categories.filter(category => category !== input)
+      }));
+    } else {
+      this.setState(previous => ({
+        categories: previous.categories.concat(input)
+      }));
+    }
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
+          <View style={styles.welcomeContainer}>
+            <Text style={styles.title}>IDIOMATIC</Text>
+          </View>
 
-export default function HomeScreen(props) {
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <View style={styles.welcomeContainer}>
-          <Text style={styles.title}>IDIOMATIC</Text>
-        </View>
+          <Text style={styles.text}>Choose a Category:</Text>
+          <View>
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Animals"
+              onPress={() => this.setCategories("animals")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Body Parts"
+              onPress={() => this.setCategories("body parts")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Colors"
+              onPress={() => this.setCategories("colors")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Food"
+              onPress={() => this.setCategories("food")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Money"
+              onPress={() => this.setCategories("money")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Nature"
+              onPress={() => this.setCategories("nature")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Other"
+              onPress={() => this.setCategories("other")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Recreation"
+              onPress={() => this.setCategories("recreation")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Sleep"
+              onPress={() => this.setCategories("sleep")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Time"
+              onPress={() => this.setCategories("time")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Traveling"
+              onPress={() => this.setCategories("traveling")}
+            />
+            <Button
+              style={styles.buttonText}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Wisdom"
+              onPress={() => this.setCategories("wisdom")}
+            />
+          </View>
+          <View style={styles.helpContainer}>
+            <Button
+              style={styles.text}
+              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
+              title="Start!"
+              onPress={() =>
+                this.props.navigation.push("IdiomsIntro", {
+                  categories: this.state.categories
+                })
+              }
+            />
+          </View>
+        </ScrollView>
 
-        <View style={styles.helpContainer}>
-          <Button
-            style={styles.buttonText}
-            color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
-            title="Get Started!"
-            onPress={() => props.navigation.push("IdiomsIntro")}
-          />
-        </View>
-      </ScrollView>
-
-      {/* <View style={styles.tabBarInfoContainer}>
+        {/* <View style={styles.tabBarInfoContainer}>
         <Text style={styles.tabBarInfoText}>
           This is a tab bar. You can edit it in:
         </Text>
@@ -49,8 +144,9 @@ export default function HomeScreen(props) {
           </MonoText>
         </View>
       </View> */}
-    </View>
-  );
+      </View>
+    );
+  }
 }
 
 HomeScreen.navigationOptions = {
@@ -174,6 +270,11 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: "whitesmoke",
     lineHeight: 60,
+    textAlign: "center"
+  },
+  text: {
+    color: "aquamarine",
+    fontSize: 30,
     textAlign: "center"
   }
 });

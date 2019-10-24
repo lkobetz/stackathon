@@ -11,9 +11,13 @@ import {
 const { height, width } = Dimensions.get("window");
 
 export default class Idioms extends Component {
-  state = {
-    showInstructions: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      showInstructions: false,
+      categories: this.props.navigation.state.params.categories
+    };
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -42,7 +46,8 @@ export default class Idioms extends Component {
           onPress={() =>
             this.props.navigation.navigate("IdiomsPlay", {
               height: height,
-              width: width
+              width: width,
+              categories: this.state.categories
             })
           }
         />

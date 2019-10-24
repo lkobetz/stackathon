@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
+import CountIdioms from "./CountIdioms";
 import idioms from "../../data/data.json";
 import Timer from "./Timer";
 import ConfettiCannon from "react-native-confetti-cannon";
@@ -21,17 +22,17 @@ function shuffle(sentence) {
   let shuffled = sentence.split(" ");
   let shuffledSolution = [];
   shuffled.map(word => {
-    let a = word.split(""),
-      n = a.length;
+    let wordArr = word.split(""),
+      wordLength = wordArr.length;
 
-    for (var i = n - 1; i > 0; i--) {
+    for (var i = wordLength - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i];
-      a[i] = a[j];
-      a[j] = tmp;
+      var tmp = wordArr[i];
+      wordArr[i] = wordArr[j];
+      wordArr[j] = tmp;
     }
-    a = a.join("");
-    shuffledSolution.push(a);
+    wordArr = wordArr.join("");
+    shuffledSolution.push(wordArr);
   });
   shuffledSolution = shuffledSolution.join(" ");
   return shuffledSolution;
@@ -61,8 +62,8 @@ let shuffled = shuffle(solution);
 let initialBox = createSolutionBox(solution);
 
 export default class Idioms extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       solutionBox: initialBox,
       correct: false,
@@ -71,11 +72,13 @@ export default class Idioms extends Component {
       points: 0,
       timeUp: false,
       showSolution: false,
-      started: true
+      started: true,
+      categories: this.props.navigation.state.params.categories
     };
   }
   componentDidMount() {
     this.setState({ started: true });
+    console.log(this.state.categories);
   }
   createInteractiveSentence(sentence) {
     const interactive = [];
@@ -265,6 +268,14 @@ export default class Idioms extends Component {
                 />
               )}
             </View>
+          </View>
+          <View>
+            <Text>
+              <CountIdioms
+                idioms={idioms}
+                categories={idioms[current].categories}
+              />
+            </Text>
           </View>
         </ScrollView>
         {this.state.correct && (
