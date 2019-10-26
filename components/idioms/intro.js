@@ -7,6 +7,8 @@ import {
   Dimensions,
   Platform
 } from "react-native";
+import data from "../../data/data.json";
+import CountIdioms from "../idioms/CountIdioms";
 
 const { height, width } = Dimensions.get("window");
 
@@ -15,8 +17,31 @@ export default class Idioms extends Component {
     super(props);
     this.state = {
       showInstructions: false,
-      categories: this.props.navigation.state.params.categories
+      categories: this.props.navigation.state.params.categories,
+      idioms: data
     };
+  }
+  componentDidMount() {
+    let filteredIdioms = this.filterIdioms(data);
+    this.setState({ idioms: filteredIdioms });
+  }
+  filterIdioms(idioms) {
+    let filtered = [];
+    idioms.forEach(idiom => {
+      let value = this.matchIdioms(idiom, this.state.categories);
+      if (value) {
+        filtered.push(value);
+      }
+    });
+    return filtered;
+  }
+  matchIdioms(idiom, categories) {
+    for (let i = 0; i < categories.length; i++) {
+      let category = categories[i];
+      if (idiom.categories.includes(category)) {
+        return idiom;
+      }
+    }
   }
   render() {
     return (
@@ -47,10 +72,16 @@ export default class Idioms extends Component {
             this.props.navigation.navigate("IdiomsPlay", {
               height: height,
               width: width,
-              categories: this.state.categories
+              categories: this.state.categories,
+              idioms: this.state.idioms
             })
           }
         />
+        <View>
+          <Text>
+            <CountIdioms idioms={data} categories={this.state.categories} />
+          </Text>
+        </View>
       </View>
     );
   }

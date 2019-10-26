@@ -11,8 +11,6 @@ import {
 } from "react-native";
 import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
-import CountIdioms from "./CountIdioms";
-import idioms from "../../data/data.json";
 import Timer from "./Timer";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { Platform } from "@unimodules/core";
@@ -55,10 +53,10 @@ function randomNumber(max) {
   let random = Math.random() * max;
   return Math.round(random);
 }
-
 export default class Idioms extends Component {
   constructor(props) {
     super(props);
+    let idioms = this.props.navigation.state.params.idioms;
     let current = randomNumber(idioms.length - 1);
     let definition = idioms[current].definition;
     let solution = idioms[current].idiom;
@@ -77,7 +75,8 @@ export default class Idioms extends Component {
       definition,
       solution,
       current,
-      initialBox
+      initialBox,
+      idioms
     };
   }
   componentDidMount() {
@@ -191,12 +190,12 @@ export default class Idioms extends Component {
     if (this.state.correct) {
       this.setState({ points: this.state.points + 1 });
     }
-    let newCurrent = randomNumber(idioms.length - 1);
-    let newDefinition = idioms[newCurrent].definition;
-    let newSolution = idioms[newCurrent].idiom;
+    let newCurrent = randomNumber(this.state.idioms.length - 1);
+    let newDefinition = this.state.idioms[newCurrent].definition;
+    let newSolution = this.state.idioms[newCurrent].idiom;
     let newShuffled = shuffle(newSolution);
     let newInitialBox = createSolutionBox(newSolution);
-    let newCategories = idioms[newCurrent].categories;
+    // let newCategories = this.state.idioms[newCurrent].categories;
     this.setState({ solutionBox: newInitialBox });
     this.setState({ correct: false });
     this.setState({ chosenLetters: [] });
@@ -206,7 +205,7 @@ export default class Idioms extends Component {
     this.setState({ started: false });
     this.setState({ definition: newDefinition });
     this.setState({ solution: newSolution });
-    this.setState({ categories: newCategories });
+    // this.setState({ categories: newCategories });
     this.setState({ current: newCurrent });
     this.setState({ initialBox: newInitialBox });
   }
@@ -279,13 +278,8 @@ export default class Idioms extends Component {
                 />
               )}
             </View>
-          </View>
-          <View>
             <Text>
-              <CountIdioms
-                idioms={idioms}
-                categories={idioms[this.state.current].categories}
-              />
+              Categories: {this.state.idioms[this.state.current].categories}
             </Text>
           </View>
         </ScrollView>
