@@ -208,6 +208,7 @@ export default class Idioms extends Component {
     this.setState({ solution: newSolution });
     this.setState({ categories: newCategories });
     this.setState({ current: newCurrent });
+    this.setState({ initialBox: newInitialBox });
   }
   showSolution() {
     this.setState({ showSolution: true });
@@ -290,13 +291,13 @@ export default class Idioms extends Component {
         </ScrollView>
         {this.state.correct && (
           <ConfettiCannon
-            count={200}
+            count={300}
             origin={{
               x: this.props.navigation.state.params.width, // 414
               y: this.props.navigation.state.params.height // 896
             }}
-            explosionSpeed={200}
-            fallSpeed={1000}
+            explosionSpeed={300}
+            fallSpeed={2000}
           />
         )}
       </View>

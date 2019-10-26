@@ -21,6 +21,5 @@ export default countCategories = props => {
   countArr.sort((a, b) => {
     return a.count > b.count;
   });
-
   return <Text>Categories: {props.categories}</Text>;
 };
