@@ -227,6 +227,23 @@ export default class Idioms extends Component {
       <View style={styles.wholeScreen}>
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.playContainer}>
+            <View style={styles.footer}>
+              <Text style={styles.footer}>Points: {this.state.points} </Text>
+              {this.state.timeUp ? (
+                <Button
+                  onPress={() => this.showSolution()}
+                  title="Show Solution"
+                  color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
+                ></Button>
+              ) : (
+                <Timer
+                  started={this.state.started}
+                  startTimer={this.startTimer.bind(this)}
+                  timeFinished={this.timeFinished.bind(this)}
+                  current={this.state.current}
+                />
+              )}
+            </View>
             <View style={styles.definitionContainer}>
               <Text style={styles.definitionText}>
                 Meaning: {this.state.definition}
@@ -262,24 +279,10 @@ export default class Idioms extends Component {
                 title="Next"
                 onPress={() => this.reset()}
               />
-              <Text style={styles.footer}>Points: {this.state.points} </Text>
-              {this.state.timeUp ? (
-                <Button
-                  onPress={() => this.showSolution()}
-                  title="Show Solution"
-                  color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
-                ></Button>
-              ) : (
-                <Timer
-                  started={this.state.started}
-                  startTimer={this.startTimer.bind(this)}
-                  timeFinished={this.timeFinished.bind(this)}
-                  current={this.state.current}
-                />
-              )}
             </View>
-            <Text>
-              Categories: {this.state.idioms[this.state.current].categories}
+            <Text style={styles.footer}>
+              Categories:{" "}
+              {this.state.idioms[this.state.current].categories.join(", ")}
             </Text>
           </View>
         </ScrollView>

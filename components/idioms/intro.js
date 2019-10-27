@@ -26,6 +26,9 @@ export default class Idioms extends Component {
     this.setState({ idioms: filteredIdioms });
   }
   filterIdioms(idioms) {
+    if (this.state.categories.length === 0) {
+      return data;
+    }
     let filtered = [];
     idioms.forEach(idiom => {
       let value = this.matchIdioms(idiom, this.state.categories);
