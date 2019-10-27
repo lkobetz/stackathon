@@ -16,52 +16,15 @@ import ConfettiCannon from "react-native-confetti-cannon";
 import { Platform } from "@unimodules/core";
 const { height, width } = Dimensions.get("window");
 
-function shuffle(sentence) {
-  let shuffled = sentence.split(" ");
-  let shuffledSolution = [];
-  shuffled.map(word => {
-    let wordArr = word.split(""),
-      wordLength = wordArr.length;
-
-    for (var i = wordLength - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = wordArr[i];
-      wordArr[i] = wordArr[j];
-      wordArr[j] = tmp;
-    }
-    wordArr = wordArr.join("");
-    shuffledSolution.push(wordArr);
-  });
-  shuffledSolution = shuffledSolution.join(" ");
-  return shuffledSolution;
-}
-
-function createSolutionBox(sentence) {
-  let newBox = "";
-  for (let i = 0; i < sentence.length; i++) {
-    let letter = sentence[i];
-    if (letter === " ") {
-      newBox += " ";
-    } else {
-      newBox += "_";
-    }
-  }
-  return newBox;
-}
-
-function randomNumber(max) {
-  let random = Math.random() * max;
-  return Math.round(random);
-}
 export default class Idioms extends Component {
   constructor(props) {
     super(props);
     let idioms = this.props.navigation.state.params.idioms;
-    let current = randomNumber(idioms.length - 1);
+    let current = this.randomNumber(idioms.length - 1);
     let definition = idioms[current].definition;
     let solution = idioms[current].idiom;
-    let shuffled = shuffle(solution);
-    let initialBox = createSolutionBox(solution);
+    let shuffled = this.shuffle(solution);
+    let initialBox = this.createSolutionBox(solution);
     this.state = {
       solutionBox: initialBox,
       correct: false,
@@ -81,6 +44,41 @@ export default class Idioms extends Component {
   }
   componentDidMount() {
     this.setState({ started: true });
+  }
+  shuffle(sentence) {
+    let shuffled = sentence.split(" ");
+    let shuffledSolution = [];
+    shuffled.map(word => {
+      let wordArr = word.split(""),
+        wordLength = wordArr.length;
+
+      for (var i = wordLength - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = wordArr[i];
+        wordArr[i] = wordArr[j];
+        wordArr[j] = tmp;
+      }
+      wordArr = wordArr.join("");
+      shuffledSolution.push(wordArr);
+    });
+    shuffledSolution = shuffledSolution.join(" ");
+    return shuffledSolution;
+  }
+  createSolutionBox(sentence) {
+    let newBox = "";
+    for (let i = 0; i < sentence.length; i++) {
+      let letter = sentence[i];
+      if (letter === " ") {
+        newBox += " ";
+      } else {
+        newBox += "_";
+      }
+    }
+    return newBox;
+  }
+  randomNumber(max) {
+    let random = Math.random() * max;
+    return Math.round(random);
   }
   createInteractiveSentence(sentence) {
     const interactive = [];
@@ -190,11 +188,11 @@ export default class Idioms extends Component {
     if (this.state.correct) {
       this.setState({ points: this.state.points + 1 });
     }
-    let newCurrent = randomNumber(this.state.idioms.length - 1);
+    let newCurrent = this.randomNumber(this.state.idioms.length - 1);
     let newDefinition = this.state.idioms[newCurrent].definition;
     let newSolution = this.state.idioms[newCurrent].idiom;
-    let newShuffled = shuffle(newSolution);
-    let newInitialBox = createSolutionBox(newSolution);
+    let newShuffled = this.shuffle(newSolution);
+    let newInitialBox = this.createSolutionBox(newSolution);
     // let newCategories = this.state.idioms[newCurrent].categories;
     this.setState({ solutionBox: newInitialBox });
     this.setState({ correct: false });
