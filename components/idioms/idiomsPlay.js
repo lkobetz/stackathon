@@ -193,7 +193,6 @@ export default class Idioms extends Component {
     let newSolution = this.state.idioms[newCurrent].idiom;
     let newShuffled = this.shuffle(newSolution);
     let newInitialBox = this.createSolutionBox(newSolution);
-    // let newCategories = this.state.idioms[newCurrent].categories;
     this.setState({ solutionBox: newInitialBox });
     this.setState({ correct: false });
     this.setState({ chosenLetters: [] });
@@ -203,7 +202,6 @@ export default class Idioms extends Component {
     this.setState({ started: false });
     this.setState({ definition: newDefinition });
     this.setState({ solution: newSolution });
-    // this.setState({ categories: newCategories });
     this.setState({ current: newCurrent });
     this.setState({ initialBox: newInitialBox });
   }

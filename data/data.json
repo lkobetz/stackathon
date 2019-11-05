@@ -504,5 +504,75 @@
     "idiom":"It's only a white lie. ",
     "definition":"It's just a very small lie. ",
     "categories": ["colors"]
+  },
+  {
+    "idiom":"She's got a bun in the oven. ",
+    "definition":"She's pregnant. ",
+    "categories": ["food"]
+  },
+  {
+    "idiom":"Grab life by the horns! ",
+    "definition":"You should live an adventurous life. ",
+    "categories": ["animals"]
+  },
+  {
+    "idiom":"They're a dime a dozen. ",
+    "definition":"They're very common, cheap, and easy to find. ",
+    "categories": ["money"]
+  },
+  {
+    "idiom":"She's got a bun in the oven. ",
+    "definition":"She's pregnant. ",
+    "categories": ["food"]
+  },
+  {
+    "idiom":"He's a basket case. ",
+    "definition":"He's always nervous and stressed out. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"You're beating a dead horse. ",
+    "definition":"You're wasting your energy on something that can't change. ",
+    "categories": ["animals"]
+  },
+  {
+    "idiom":"We were flying by the seat of our pants. ",
+    "definition":"We didn't have a plan. ",
+    "categories": ["other", "clothing"]
+  },
+  {
+    "idiom":"Let's call a spade a spade. ",
+    "definition":"I think we should tell the truth, even if it upsets people. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"They were chomping at the bit to get in. ",
+    "definition":"They couldn't wait to get in. ",
+    "categories": ["animals"]
+  },
+  {
+    "idiom":"He clammed up. ",
+    "definition":"He was too nervous or shy to speak. ",
+    "categories": ["animals"]
+  },
+  {
+    "idiom":"She's crying crocodile tears. ",
+    "definition":"She's not really crying, her tears are fake. ",
+    "categories": ["animals"]
+  },
+  {
+    "idiom":"Don't have a cow. ",
+    "definition":"Don't overreact. ",
+    "categories": ["animals"]
+  },
+  {
+    "idiom":"I'm fit as a fiddle! ",
+    "definition":"I'm in good physical health. ",
+    "categories": ["recreation"]
+  },
+  {
+    "idiom":"We made it from scratch. ",
+    "definition":"We created every part of it by ourselves, without using anything pre-made. ",
+    "categories": ["food"]
   }
 ]
