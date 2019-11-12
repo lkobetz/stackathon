@@ -14,6 +14,7 @@ import ReplaceText from "./ReplaceText";
 import Timer from "./Timer";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { Platform } from "@unimodules/core";
+import { throwStatement } from "@babel/types";
 const { height, width } = Dimensions.get("window");
 
 export default class Idioms extends Component {
@@ -39,7 +40,8 @@ export default class Idioms extends Component {
       solution,
       current,
       initialBox,
-      idioms
+      idioms,
+      hintSolution: solution
     };
   }
   componentDidMount() {
@@ -204,11 +206,57 @@ export default class Idioms extends Component {
     this.setState({ solution: newSolution });
     this.setState({ current: newCurrent });
     this.setState({ initialBox: newInitialBox });
+    this.setState({ hintSolution: newSolution });
   }
   showSolution() {
     this.setState({ showSolution: true });
     this.setState(prev => ({ points: prev.points - 1 }));
     this.clearBox();
+  }
+  showHint() {
+    let hintSolutionArr = this.state.hintSolution.split(" ");
+    let solutionBoxArr = this.state.solutionBox.split(" ");
+    // hintSolutionArr = hintSolutionArr.slice(0, hintSolutionArr.length - 1);
+    // solutionBoxArr = solutionBoxArr.slice(0, solutionBoxArr.length - 1);
+    let replacementSolution = solutionBoxArr.map(word => word.split(""));
+    let newSolution = "";
+    for (let i = 0; i < hintSolutionArr.length - 1; i++) {
+      let word = hintSolutionArr[i];
+      let first = word[0];
+      let letterInfoFirst = {
+        letter: first,
+        letterIdx: 0,
+        wordIdx: i
+      };
+      let last = word[word.length - 1];
+      let letterInfoLast = {
+        letter: last,
+        letterIdx: word.length - 1,
+        wordIdx: i
+      };
+      replacementSolution[i][0] = first;
+      replacementSolution[i][replacementSolution[i].length - 1] = last;
+      newSolution = this.stringify(replacementSolution);
+      this.addToSolution(newSolution, letterInfoFirst);
+      // if (i === hintSolutionArr.length - 1) {
+      // this.addToSolution(newSolution + " ", letterInfoLast);
+      // } else {
+      this.addToSolution(newSolution, letterInfoLast);
+      // }
+    }
+  }
+  stringify(arr) {
+    let string = "";
+    for (let i = 0; i < arr.length; i++) {
+      let elem = arr[i];
+      if (Array.isArray(elem)) {
+        string += this.stringify(elem);
+      } else {
+        string += elem;
+      }
+    }
+    string += " ";
+    return string;
   }
   startTimer() {
     this.setState({ started: true });
@@ -280,6 +328,11 @@ export default class Idioms extends Component {
               Categories:{" "}
               {this.state.idioms[this.state.current].categories.join(", ")}
             </Text>
+            <Button
+              color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
+              title="Show Hint"
+              onPress={() => this.showHint()}
+            />
           </View>
         </ScrollView>
         {this.state.correct && (

@@ -34,16 +34,12 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
+        <ScrollView contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Text style={styles.title}>IDIOMATIC</Text>
           </View>
-
           <Text style={styles.text}>Choose a Category:</Text>
-          <View>
+          <View style={styles.categories}>
             <Button
               style={styles.buttonText}
               color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
@@ -118,16 +114,15 @@ export default class HomeScreen extends Component {
             />
           </View>
           <View style={styles.helpContainer}>
-            <Button
-              style={styles.text}
-              color={Platform.OS === "ios" ? "yellow" : "darkslateblue"}
-              title="Start!"
+            <TouchableOpacity
               onPress={() =>
                 this.props.navigation.push("IdiomsIntro", {
                   categories: this.state.categories
                 })
               }
-            />
+            >
+              <Text style={styles.text}>Start!</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
 
@@ -188,7 +183,8 @@ const styles = StyleSheet.create({
     backgroundColor: "darkslateblue"
   },
   contentContainer: {
-    paddingTop: 30
+    paddingTop: 30,
+    alignItems: "center"
   },
   welcomeContainer: {
     alignItems: "center",
@@ -276,5 +272,10 @@ const styles = StyleSheet.create({
     color: "aquamarine",
     fontSize: 30,
     textAlign: "center"
+  },
+  categories: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center"
   }
 });
