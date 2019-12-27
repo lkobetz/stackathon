@@ -5,6 +5,7 @@ export default class ScrambledText extends Component {
   constructor(props) {
     super(props);
   }
+  // maybe just put this in idiomsPlay?
   fillInBox(letter, solutionBox) {
     solutionBox = solutionBox.split(" ");
     let newWord = "";
@@ -17,12 +18,19 @@ export default class ScrambledText extends Component {
     }
     solutionBox.splice(letter.wordIdx, 1, newWord);
     newSolution = solutionBox.join(" ");
+    // callback is addToSolution
     this.props.callback(newSolution, letter);
   }
   render() {
     var contains = this.props.chosenLetters.some(letter => {
       return JSON.stringify(this.props.letterInfo) === JSON.stringify(letter);
     });
+    // console.log(
+    //   "solutionBox:",
+    //   this.props.solutionBox,
+    //   "chosenLetters:",
+    //   this.props.chosenLetters
+    // );
     return (
       // eslint-disable-next-line react/react-in-jsx-scope
       <TouchableOpacity
