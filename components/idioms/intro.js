@@ -10,11 +10,19 @@ import {
 import data from "../../data/data.json";
 import CountIdioms from "../idioms/CountIdioms";
 
+// import connect from react-redux for mapState and mapDispatch
+// import filterIdioms thunk?
+// change all this.state.idioms and this.state.categories to this.props
+
 const { height, width } = Dimensions.get("window");
 
 export default class Idioms extends Component {
   constructor(props) {
     super(props);
+
+    // categories and idioms should come from the store in mapState, not be local
+    // dispatch an action to filter idioms by category - reducer filters idioms?
+
     this.state = {
       showInstructions: false,
       categories: this.props.navigation.state.params.categories,

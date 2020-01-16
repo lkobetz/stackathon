@@ -17,6 +17,42 @@ import { Platform } from "@unimodules/core";
 import { throwStatement } from "@babel/types";
 const { height, width } = Dimensions.get("window");
 
+// import connect from react-redux for mapState and mapDispatch
+
+// thunks: -getSolutionBox -
+//   addToChosen -
+//   removeFromChosen -
+//   incrementPoints -
+//   decrementPoints -
+//   getCategories -
+//   clearBox -
+//   nextIdiom -
+//   addToSolution -
+//   removeFromSolution -
+//   showHint
+//   showSolution
+//   startGame
+//   correctSolution
+//   startTimer
+//   timeUp
+
+// state from redux:
+// - idioms
+// - current(idx of idioms)
+// - definition
+// - solution
+// - shuffled / scrambled (can they be the same?)
+// - initialBox
+// - solutionBox
+// - correct (boolean)
+// - chosenLetters
+// - points (number)
+// - timeUp (boolean)
+// - started (boolean)
+// - showSolution (boolean)
+// - categories (of current idiom), here are passed down from parent componentDidMount
+// - hintSolution (distinct from solution because it modifies it. necessary?)
+
 export default class Idioms extends Component {
   constructor(props) {
     super(props);

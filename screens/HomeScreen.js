@@ -9,6 +9,10 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+
+// import connect from react-redux for mapState and mapDispatch
+// import addCategory and removeCategory thunks?
+
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 
 import { MonoText } from "../components/StyledText";
@@ -21,11 +25,15 @@ export default class HomeScreen extends Component {
     };
   }
   setCategories(input) {
+    //
     if (this.state.categories.includes(input)) {
+      // allow the user to remove a category if they change their mind
+      // create thunks to add and remove categories as the output of this function?
       this.setState(previous => ({
         categories: previous.categories.filter(category => category !== input)
       }));
     } else {
+      // add a category that the user chooses
       this.setState(previous => ({
         categories: previous.categories.concat(input)
       }));
