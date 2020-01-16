@@ -11,6 +11,7 @@ import data from "../../data/data.json";
 import CountIdioms from "../idioms/CountIdioms";
 
 // import connect from react-redux for mapState and mapDispatch
+import { connect } from "react-redux";
 // import filterIdioms thunk?
 // change all this.state.idioms and this.state.categories to this.props
 
@@ -25,7 +26,6 @@ export default class Idioms extends Component {
 
     this.state = {
       showInstructions: false,
-      categories: this.props.navigation.state.params.categories,
       idioms: data
     };
   }
@@ -34,12 +34,12 @@ export default class Idioms extends Component {
     this.setState({ idioms: filteredIdioms });
   }
   filterIdioms(idioms) {
-    if (this.state.categories.length === 0) {
+    if (this.props.chosenCategories.length === 0) {
       return data;
     }
     let filtered = [];
     idioms.forEach(idiom => {
-      let value = this.matchIdioms(idiom, this.state.categories);
+      let value = this.matchIdioms(idiom, this.props.chosenCategories);
       if (value) {
         filtered.push(value);
       }
@@ -83,14 +83,17 @@ export default class Idioms extends Component {
             this.props.navigation.navigate("IdiomsPlay", {
               height: height,
               width: width,
-              categories: this.state.categories,
+              categories: this.props.chosenCategories,
               idioms: this.state.idioms
             })
           }
         />
         <View>
           <Text>
-            <CountIdioms idioms={data} categories={this.state.categories} />
+            <CountIdioms
+              idioms={data}
+              categories={this.props.chosenCategories}
+            />
           </Text>
         </View>
       </View>
@@ -123,3 +126,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   }
 });
+
+const mapStateToProps = state => ({
+  chosenCategories: state.chosenCategories
+});
+
+module.exports = connect(mapStateToProps, null)(Idioms);
