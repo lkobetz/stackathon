@@ -7,35 +7,33 @@ import {
   Dimensions,
   Platform
 } from "react-native";
-import data from "../../data/data.json";
 import CountIdioms from "../idioms/CountIdioms";
 
 // import connect from react-redux for mapState and mapDispatch
 import { connect } from "react-redux";
-// import filterIdioms thunk?
+import { filterIdioms } from "../../store/gameReducer";
 // change all this.state.idioms and this.state.categories to this.props
 
 const { height, width } = Dimensions.get("window");
 
 export default class Idioms extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     // categories and idioms should come from the store in mapState, not be local
     // dispatch an action to filter idioms by category - reducer filters idioms?
 
     this.state = {
-      showInstructions: false,
-      idioms: data
+      showInstructions: false
     };
   }
   componentDidMount() {
-    let filteredIdioms = this.filterIdioms(data);
-    this.setState({ idioms: filteredIdioms });
+    let filteredIdioms = this.filter(this.props.idioms);
+    this.props.filterIdioms(filteredIdioms);
   }
-  filterIdioms(idioms) {
+  filter(idioms) {
     if (this.props.chosenCategories.length === 0) {
-      return data;
+      return this.props.idioms;
     }
     let filtered = [];
     idioms.forEach(idiom => {
@@ -82,18 +80,13 @@ export default class Idioms extends Component {
           onPress={() =>
             this.props.navigation.navigate("IdiomsPlay", {
               height: height,
-              width: width,
-              categories: this.props.chosenCategories,
-              idioms: this.state.idioms
+              width: width
             })
           }
         />
         <View>
           <Text>
-            <CountIdioms
-              idioms={data}
-              categories={this.props.chosenCategories}
-            />
+            <CountIdioms />
           </Text>
         </View>
       </View>
@@ -128,7 +121,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  chosenCategories: state.chosenCategories
+  chosenCategories: state.chosenCategories,
+  idioms: state.idioms
 });
 
-module.exports = connect(mapStateToProps, null)(Idioms);
+const mapDispatchToProps = dispatch => ({
+  filterIdioms: filtered => dispatch(filterIdioms(filtered))
+});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);

@@ -13,9 +13,6 @@ import { connect } from "react-redux";
 // import thunks:
 import { addCategories, removeCategories } from "../store/gameReducer";
 
-// import connect from react-redux for mapState and mapDispatch
-// import addCategory and removeCategory thunks?
-
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 
 import { MonoText } from "../components/StyledText";
@@ -27,7 +24,6 @@ export default class HomeScreen extends Component {
   setCategories(input) {
     if (this.props.chosenCategories.includes(input)) {
       // allow the user to remove a category if they change their mind
-      // create thunks to add and remove categories as the output of this function?
       this.props.removeCategories(input);
     } else {
       // add a category that the user chooses
@@ -35,7 +31,6 @@ export default class HomeScreen extends Component {
     }
   }
   render() {
-    console.log(this.props.chosenCategories);
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
