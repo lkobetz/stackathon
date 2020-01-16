@@ -16,6 +16,7 @@ import ConfettiCannon from "react-native-confetti-cannon";
 import { Platform } from "@unimodules/core";
 import { throwStatement } from "@babel/types";
 const { height, width } = Dimensions.get("window");
+import { connect } from "react-redux";
 
 // import connect from react-redux for mapState and mapDispatch
 
@@ -56,7 +57,7 @@ const { height, width } = Dimensions.get("window");
 export default class Idioms extends Component {
   constructor(props) {
     super(props);
-    let idioms = this.props.navigation.state.params.idioms;
+    let idioms = this.props.idioms;
     let current = this.randomNumber(idioms.length - 1);
     let definition = idioms[current].definition;
     let solution = idioms[current].idiom;
@@ -71,7 +72,7 @@ export default class Idioms extends Component {
       timeUp: false,
       showSolution: false,
       started: true,
-      categories: this.props.navigation.state.params.categories,
+      categories: this.props.chosenCategories,
       definition,
       solution,
       current,
@@ -226,9 +227,9 @@ export default class Idioms extends Component {
     if (this.state.correct) {
       this.setState({ points: this.state.points + 1 });
     }
-    let newCurrent = this.randomNumber(this.state.idioms.length - 1);
-    let newDefinition = this.state.idioms[newCurrent].definition;
-    let newSolution = this.state.idioms[newCurrent].idiom;
+    let newCurrent = this.randomNumber(this.props.idioms.length - 1);
+    let newDefinition = this.props.idioms[newCurrent].definition;
+    let newSolution = this.props.idioms[newCurrent].idiom;
     let newShuffled = this.shuffle(newSolution);
     let newInitialBox = this.createSolutionBox(newSolution);
     this.setState({ solutionBox: newInitialBox });
@@ -362,7 +363,7 @@ export default class Idioms extends Component {
             </View>
             <Text style={styles.footer}>
               Categories:{" "}
-              {this.state.idioms[this.state.current].categories.join(", ")}
+              {this.props.idioms[this.state.current].categories.join(", ")}
             </Text>
             <Button
               color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
@@ -453,3 +454,12 @@ const styles = StyleSheet.create({
     height: 810
   }
 });
+
+const mapStateToProps = state => ({
+  chosenCategories: state.chosenCategories,
+  idioms: state.idioms
+});
+
+const mapDispatchToProps = dispatch => ({});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);
