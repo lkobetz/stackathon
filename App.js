@@ -6,8 +6,8 @@ import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import AppNavigator from "./navigation/AppNavigator";
-// remember to import the Provider from redux here: import { Provider } from "react-redux";
-// also import store from "./js/store/index"; (or whatever address it's at)
+import { Provider } from "react-redux";
+import store from "./store/index";
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
