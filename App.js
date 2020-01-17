@@ -4,6 +4,8 @@ import * as Font from "expo-font";
 import React, { useState } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import firebase from "firebase";
+import firebaseConfig from "./config";
 
 import AppNavigator from "./navigation/AppNavigator";
 import { Provider } from "react-redux";
@@ -11,6 +13,10 @@ import store from "./store/index";
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
