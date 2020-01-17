@@ -7,31 +7,37 @@ import {
   Dimensions,
   Platform
 } from "react-native";
-import data from "../../data/data.json";
 import CountIdioms from "../idioms/CountIdioms";
+
+// import connect from react-redux for mapState and mapDispatch
+import { connect } from "react-redux";
+import { filterIdioms } from "../../store/gameReducer";
+// change all this.state.idioms and this.state.categories to this.props
 
 const { height, width } = Dimensions.get("window");
 
 export default class Idioms extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
+    // categories and idioms should come from the store in mapState, not be local
+    // dispatch an action to filter idioms by category - reducer filters idioms?
+
     this.state = {
-      showInstructions: false,
-      categories: this.props.navigation.state.params.categories,
-      idioms: data
+      showInstructions: false
     };
   }
   componentDidMount() {
-    let filteredIdioms = this.filterIdioms(data);
-    this.setState({ idioms: filteredIdioms });
+    let filteredIdioms = this.filter(this.props.idioms);
+    this.props.filterIdioms(filteredIdioms);
   }
-  filterIdioms(idioms) {
-    if (this.state.categories.length === 0) {
-      return data;
+  filter(idioms) {
+    if (this.props.chosenCategories.length === 0) {
+      return this.props.idioms;
     }
     let filtered = [];
     idioms.forEach(idiom => {
-      let value = this.matchIdioms(idiom, this.state.categories);
+      let value = this.matchIdioms(idiom, this.props.chosenCategories);
       if (value) {
         filtered.push(value);
       }
@@ -74,15 +80,13 @@ export default class Idioms extends Component {
           onPress={() =>
             this.props.navigation.navigate("IdiomsPlay", {
               height: height,
-              width: width,
-              categories: this.state.categories,
-              idioms: this.state.idioms
+              width: width
             })
           }
         />
         <View>
           <Text>
-            <CountIdioms idioms={data} categories={this.state.categories} />
+            <CountIdioms />
           </Text>
         </View>
       </View>
@@ -115,3 +119,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   }
 });
+
+const mapStateToProps = state => ({
+  chosenCategories: state.chosenCategories,
+  idioms: state.idioms
+});
+
+const mapDispatchToProps = dispatch => ({
+  filterIdioms: filtered => dispatch(filterIdioms(filtered))
+});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);

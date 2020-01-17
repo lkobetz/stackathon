@@ -1,8 +1,12 @@
 import React from "react";
 import { Text } from "react-native";
+import { connect } from "react-redux";
 
+import allIdioms from "../../data/data";
+
+// necessary to include props from store in parameters since this is a functional component
 export default countCategories = props => {
-  const idioms = props.idioms;
+  const idioms = allIdioms;
   let count = {};
   for (let i = 0; i < idioms.length; i++) {
     let idiom = idioms[i];
@@ -21,5 +25,13 @@ export default countCategories = props => {
   countArr.sort((a, b) => {
     return a.count > b.count;
   });
-  return <Text>Categories: {props.categories.join(", ")}</Text>;
+  // uncomment this to see the frequency of each category
+  // console.log(countArr);
+  return <Text>Categories: {props.chosenCategories.join(", ")}</Text>;
 };
+
+const mapStateToProps = state => ({
+  chosenCategories: state.chosenCategories
+});
+
+module.exports = connect(mapStateToProps)(countCategories);

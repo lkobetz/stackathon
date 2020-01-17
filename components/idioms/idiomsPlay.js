@@ -16,14 +16,54 @@ import ConfettiCannon from "react-native-confetti-cannon";
 import { Platform } from "@unimodules/core";
 import { throwStatement } from "@babel/types";
 const { height, width } = Dimensions.get("window");
+import { connect } from "react-redux";
+import { saveCurrent } from "../../store/gameReducer";
+
+// import connect from react-redux for mapState and mapDispatch
+
+// thunks: -getSolutionBox -
+//   addToChosen -
+//   removeFromChosen -
+//   incrementPoints -
+//   decrementPoints -
+//   getCategories -
+//   clearBox -
+//   nextIdiom -
+//   addToSolution -
+//   removeFromSolution -
+//   showHint
+//   showSolution
+//   startGame
+//   correctSolution
+//   startTimer
+//   timeUp
+
+// state from redux:
+// - idioms
+// - current(idx of idioms)
+// - definition
+// - solution
+// - shuffled / scrambled (can they be the same?)
+// - initialBox
+// - solutionBox
+// - correct (boolean)
+// - chosenLetters
+// - points (number)
+// - timeUp (boolean)
+// - started (boolean)
+// - showSolution (boolean)
+// - categories (of current idiom), here are passed down from parent componentDidMount
+// - hintSolution (distinct from solution because it modifies it. necessary?)
 
 export default class Idioms extends Component {
   constructor(props) {
     super(props);
-    let idioms = this.props.navigation.state.params.idioms;
+    let idioms = this.props.idioms;
     let current = this.randomNumber(idioms.length - 1);
+    this.props.saveCurrent(current);
     let definition = idioms[current].definition;
     let solution = idioms[current].idiom;
+    // this.props.saveIdiom(solution);
     let shuffled = this.shuffle(solution);
     let initialBox = this.createSolutionBox(solution);
     this.state = {
@@ -35,10 +75,10 @@ export default class Idioms extends Component {
       timeUp: false,
       showSolution: false,
       started: true,
-      categories: this.props.navigation.state.params.categories,
+      categories: this.props.chosenCategories,
       definition,
       solution,
-      current,
+      // current,
       initialBox,
       idioms,
       hintSolution: solution
@@ -198,9 +238,10 @@ export default class Idioms extends Component {
     if (this.state.correct) {
       this.setState({ points: this.state.points + 1 });
     }
-    let newCurrent = this.randomNumber(this.state.idioms.length - 1);
-    let newDefinition = this.state.idioms[newCurrent].definition;
-    let newSolution = this.state.idioms[newCurrent].idiom;
+    let newCurrent = this.randomNumber(this.props.idioms.length - 1);
+    this.props.saveCurrent(newCurrent);
+    let newDefinition = this.props.idioms[newCurrent].definition;
+    let newSolution = this.props.idioms[newCurrent].idiom;
     let newShuffled = this.shuffle(newSolution);
     let newInitialBox = this.createSolutionBox(newSolution);
     this.setState({ solutionBox: newInitialBox });
@@ -212,7 +253,6 @@ export default class Idioms extends Component {
     this.setState({ started: false });
     this.setState({ definition: newDefinition });
     this.setState({ solution: newSolution });
-    this.setState({ current: newCurrent });
     this.setState({ initialBox: newInitialBox });
     this.setState({ hintSolution: newSolution });
   }
@@ -301,7 +341,7 @@ export default class Idioms extends Component {
                   started={this.state.started}
                   startTimer={this.startTimer.bind(this)}
                   timeFinished={this.timeFinished.bind(this)}
-                  current={this.state.current}
+                  current={this.props.current}
                 />
               )}
             </View>
@@ -343,7 +383,7 @@ export default class Idioms extends Component {
             </View>
             <Text style={styles.footer}>
               Categories:{" "}
-              {this.state.idioms[this.state.current].categories.join(", ")}
+              {this.props.idioms[this.props.current].categories.join(", ")}
             </Text>
             <Button
               color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
@@ -434,3 +474,17 @@ const styles = StyleSheet.create({
     height: 810
   }
 });
+
+const mapStateToProps = state => ({
+  chosenCategories: state.chosenCategories,
+  idioms: state.idioms,
+  current: state.currentIdx,
+  solution: state.solution
+});
+
+const mapDispatchToProps = dispatch => ({
+  saveCurrent: current => dispatch(saveCurrent(current))
+  // saveIdiom: solution => dispatch(saveIdiom(solution))
+});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);

@@ -9,6 +9,10 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import { connect } from "react-redux";
+// import thunks:
+import { addCategories, removeCategories } from "../store/gameReducer";
+
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 
 import { MonoText } from "../components/StyledText";
@@ -16,19 +20,14 @@ import { MonoText } from "../components/StyledText";
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      categories: []
-    };
   }
   setCategories(input) {
-    if (this.state.categories.includes(input)) {
-      this.setState(previous => ({
-        categories: previous.categories.filter(category => category !== input)
-      }));
+    if (this.props.chosenCategories.includes(input)) {
+      // allow the user to remove a category if they change their mind
+      this.props.removeCategories(input);
     } else {
-      this.setState(previous => ({
-        categories: previous.categories.concat(input)
-      }));
+      // add a category that the user chooses
+      this.props.addCategories(input);
     }
   }
   render() {
@@ -117,7 +116,7 @@ export default class HomeScreen extends Component {
             <TouchableOpacity
               onPress={() =>
                 this.props.navigation.push("IdiomsIntro", {
-                  categories: this.state.categories
+                  categories: this.props.chosenCategories
                 })
               }
             >
@@ -279,3 +278,16 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    chosenCategories: state.chosenCategories
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  addCategories: categories => dispatch(addCategories(categories)),
+  removeCategories: categories => dispatch(removeCategories(categories))
+});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 
+// I think all of the state can be passed down from the parent component, not redux
+
 export default class ScrambledText extends Component {
   constructor(props) {
     super(props);
