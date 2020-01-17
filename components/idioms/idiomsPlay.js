@@ -63,6 +63,7 @@ export default class Idioms extends Component {
     this.props.saveCurrent(current);
     let definition = idioms[current].definition;
     let solution = idioms[current].idiom;
+    // this.props.saveIdiom(solution);
     let shuffled = this.shuffle(solution);
     let initialBox = this.createSolutionBox(solution);
     this.state = {
@@ -77,7 +78,7 @@ export default class Idioms extends Component {
       categories: this.props.chosenCategories,
       definition,
       solution,
-      current,
+      // current,
       initialBox,
       idioms,
       hintSolution: solution
@@ -244,7 +245,6 @@ export default class Idioms extends Component {
     this.setState({ started: false });
     this.setState({ definition: newDefinition });
     this.setState({ solution: newSolution });
-    // this.setState({ current: newCurrent });
     this.setState({ initialBox: newInitialBox });
     this.setState({ hintSolution: newSolution });
   }
@@ -324,7 +324,7 @@ export default class Idioms extends Component {
                   started={this.state.started}
                   startTimer={this.startTimer.bind(this)}
                   timeFinished={this.timeFinished.bind(this)}
-                  current={this.state.current}
+                  current={this.props.current}
                 />
               )}
             </View>
@@ -366,7 +366,7 @@ export default class Idioms extends Component {
             </View>
             <Text style={styles.footer}>
               Categories:{" "}
-              {this.props.idioms[this.state.current].categories.join(", ")}
+              {this.props.idioms[this.props.current].categories.join(", ")}
             </Text>
             <Button
               color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
@@ -461,11 +461,13 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   chosenCategories: state.chosenCategories,
   idioms: state.idioms,
-  current: state.currentIdx
+  current: state.currentIdx,
+  solution: state.solution
 });
 
 const mapDispatchToProps = dispatch => ({
   saveCurrent: current => dispatch(saveCurrent(current))
+  // saveIdiom: solution => dispatch(saveIdiom(solution))
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);
