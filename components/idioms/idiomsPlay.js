@@ -147,20 +147,22 @@ export default class Idioms extends Component {
           letterIdx: i,
           wordIdx: wordIdx
         };
-        word.push(
-          <ScrambledText
-            letterInfo={letterInfo}
-            solutionBox={this.state.solutionBox}
-            chosenLetters={this.state.chosenLetters}
-            key={i}
-            callback={this.addToSolution.bind(this)}
-          />
-        );
+        word.push(this.scrambleText(letterInfo));
       }
     }
     return interactive;
   }
-
+  scrambleText(letterInfo) {
+    return (
+      <ScrambledText
+        letterInfo={letterInfo}
+        solutionBox={this.state.solutionBox}
+        chosenLetters={this.state.chosenLetters}
+        key={i}
+        callback={this.addToSolution.bind(this)}
+      />
+    );
+  }
   createInteractiveSolutionBox(solutionBox) {
     let wordIdx = 0;
     let interactive = [];
@@ -208,6 +210,12 @@ export default class Idioms extends Component {
       chosenLetters: previous.chosenLetters.concat(letterProps)
     }));
   }
+  // wanted this to await the setState in addToSolution but it doesn't seem to work that way
+  // setStateAsync(state, context) {
+  //   return new Promise(resolve => {
+  //     context.setState(state, resolve);
+  //   });
+  // }
   removeFromSolution(letterInfo, solutionIdx) {
     let solutionBoxCopy = this.state.solutionBox.slice(0);
     let newSolution =
@@ -255,12 +263,13 @@ export default class Idioms extends Component {
     this.clearBox();
   }
   showHint() {
+    this.clearBox();
+    // copies of arrays to get the first and last letters of each word in the solution
     let hintSolutionArr = this.state.hintSolution.split(" ");
     let solutionBoxArr = this.state.solutionBox.split(" ");
-    // hintSolutionArr = hintSolutionArr.slice(0, hintSolutionArr.length - 1);
-    // solutionBoxArr = solutionBoxArr.slice(0, solutionBoxArr.length - 1);
     let replacementSolution = solutionBoxArr.map(word => word.split(""));
     let newSolution = "";
+    let letterInfoArr = [];
     for (let i = 0; i < hintSolutionArr.length - 1; i++) {
       let word = hintSolutionArr[i];
       let first = word[0];
@@ -278,13 +287,21 @@ export default class Idioms extends Component {
       replacementSolution[i][0] = first;
       replacementSolution[i][replacementSolution[i].length - 1] = last;
       newSolution = this.stringify(replacementSolution);
-      this.addToSolution(newSolution, letterInfoFirst);
-      // if (i === hintSolutionArr.length - 1) {
-      // this.addToSolution(newSolution + " ", letterInfoLast);
-      // } else {
-      this.addToSolution(newSolution, letterInfoLast);
-      // }
+      letterInfoArr.push(letterInfoFirst, letterInfoLast);
+      // this.addToSolution(newSolution, letterInfoFirst);
+      // this.addToSolution(newSolution, letterInfoLast);
+      // these two calls get overwritten by... this.createInteractiveSentence?
+      // this.scrambleText(letterInfoFirst);
+      // this.scrambleText(letterInfoLast);
     }
+    // console.log(newSolution, letterInfoArr);
+    this.setState({ solutionBox: newSolution });
+    this.setState(previous => ({
+      chosenLetters: previous.chosenLetters.concat(letterInfoArr)
+    }));
+    // the following setState should be taken care of by addToSolution but isn't
+
+    // console.log(newSolution);
   }
   stringify(arr) {
     let string = "";
