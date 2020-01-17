@@ -17,7 +17,7 @@ import { Platform } from "@unimodules/core";
 import { throwStatement } from "@babel/types";
 const { height, width } = Dimensions.get("window");
 import { connect } from "react-redux";
-import { saveCurrent } from "../../store/gameReducer";
+import { saveCurrent, saveIdiom } from "../../store/gameReducer";
 
 // import connect from react-redux for mapState and mapDispatch
 
@@ -63,7 +63,7 @@ export default class Idioms extends Component {
     this.props.saveCurrent(current);
     let definition = idioms[current].definition;
     let solution = idioms[current].idiom;
-    // this.props.saveIdiom(solution);
+    this.props.saveIdiom(solution);
     let shuffled = this.shuffle(solution);
     let initialBox = this.createSolutionBox(solution);
     this.state = {
@@ -77,7 +77,7 @@ export default class Idioms extends Component {
       started: true,
       categories: this.props.chosenCategories,
       definition,
-      solution,
+      // solution,
       // current,
       initialBox,
       idioms,
@@ -200,7 +200,7 @@ export default class Idioms extends Component {
     return interactive;
   }
   addToSolution(newSolution, letterProps) {
-    if (newSolution === this.state.solution) {
+    if (newSolution === this.props.solution) {
       this.setState({ correct: true });
     }
     this.setState(previous => ({
@@ -234,6 +234,7 @@ export default class Idioms extends Component {
     this.props.saveCurrent(newCurrent);
     let newDefinition = this.props.idioms[newCurrent].definition;
     let newSolution = this.props.idioms[newCurrent].idiom;
+    this.props.saveIdiom(newSolution);
     let newShuffled = this.shuffle(newSolution);
     let newInitialBox = this.createSolutionBox(newSolution);
     this.setState({ solutionBox: newInitialBox });
@@ -244,7 +245,7 @@ export default class Idioms extends Component {
     this.setState({ showSolution: false });
     this.setState({ started: false });
     this.setState({ definition: newDefinition });
-    this.setState({ solution: newSolution });
+    // this.setState({ solution: newSolution });
     this.setState({ initialBox: newInitialBox });
     this.setState({ hintSolution: newSolution });
   }
@@ -336,7 +337,7 @@ export default class Idioms extends Component {
 
             <View style={styles.scrambledContainer}>
               {this.state.showSolution
-                ? this.createInteractiveSentence(this.state.solution)
+                ? this.createInteractiveSentence(this.props.solution)
                 : this.createInteractiveSentence(this.state.scrambled)}
             </View>
 
@@ -466,8 +467,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  saveCurrent: current => dispatch(saveCurrent(current))
-  // saveIdiom: solution => dispatch(saveIdiom(solution))
+  saveCurrent: current => dispatch(saveCurrent(current)),
+  saveIdiom: solution => dispatch(saveIdiom(solution))
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);

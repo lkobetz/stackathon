@@ -5,6 +5,7 @@ export const ADD_CATEGORY = "ADD_CATEGORY";
 export const REMOVE_CATEGORY = "REMOVE_CATEGORY";
 export const FILTER_IDIOMS = "FILTER_IDIOMS";
 export const UPDATE_CURRENT = "UPDATE_CURRENT";
+export const UPDATE_IDIOM = "UPDATE_IDIOM";
 
 // action types
 export const addToCategories = categories => {
@@ -34,6 +35,14 @@ export const updateCurrentIdx = newIdx => {
     newIdx
   };
 };
+
+export const updateIdiom = newIdiom => {
+  return {
+    type: UPDATE_IDIOM,
+    newIdiom
+  };
+};
+
 // thunks
 export function addCategories(cats) {
   return async dispatch => {
@@ -75,10 +84,21 @@ export function saveCurrent(idx) {
   };
 }
 
+export function saveIdiom(idiom) {
+  return async dispatch => {
+    try {
+      dispatch(updateIdiom(idiom));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
 let initialState = {
   chosenCategories: [],
   idioms: idioms,
-  currentIdx: 0
+  currentIdx: 0,
+  solution: ""
 };
 
 export default function reducer(state = initialState, action) {
@@ -104,6 +124,8 @@ export default function reducer(state = initialState, action) {
         ...state,
         currentIdx: action.newIdx
       };
+    case UPDATE_IDIOM:
+      return { ...state, solution: action.newIdiom };
     default:
       return state;
   }
