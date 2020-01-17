@@ -4,6 +4,7 @@ import idioms from "../data/data.json";
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const REMOVE_CATEGORY = "REMOVE_CATEGORY";
 export const FILTER_IDIOMS = "FILTER_IDIOMS";
+export const UPDATE_CURRENT = "UPDATE_CURRENT";
 
 // action types
 export const addToCategories = categories => {
@@ -27,6 +28,12 @@ export const idiomFilter = filtered => {
   };
 };
 
+export const updateCurrentIdx = newIdx => {
+  return {
+    type: UPDATE_CURRENT,
+    newIdx
+  };
+};
 // thunks
 export function addCategories(cats) {
   return async dispatch => {
@@ -58,9 +65,20 @@ export function filterIdioms(filtered) {
   };
 }
 
+export function saveCurrent(idx) {
+  return async dispatch => {
+    try {
+      dispatch(updateCurrentIdx(idx));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
 let initialState = {
   chosenCategories: [],
-  idioms: idioms
+  idioms: idioms,
+  currentIdx: 0
 };
 
 export default function reducer(state = initialState, action) {
@@ -81,6 +99,11 @@ export default function reducer(state = initialState, action) {
       };
     case FILTER_IDIOMS:
       return { ...state, idioms: action.filtered };
+    case UPDATE_CURRENT:
+      return {
+        ...state,
+        currentIdx: action.newIdx
+      };
     default:
       return state;
   }

@@ -17,6 +17,7 @@ import { Platform } from "@unimodules/core";
 import { throwStatement } from "@babel/types";
 const { height, width } = Dimensions.get("window");
 import { connect } from "react-redux";
+import { saveCurrent } from "../../store/gameReducer";
 
 // import connect from react-redux for mapState and mapDispatch
 
@@ -59,6 +60,7 @@ export default class Idioms extends Component {
     super(props);
     let idioms = this.props.idioms;
     let current = this.randomNumber(idioms.length - 1);
+    this.props.saveCurrent(current);
     let definition = idioms[current].definition;
     let solution = idioms[current].idiom;
     let shuffled = this.shuffle(solution);
@@ -228,6 +230,7 @@ export default class Idioms extends Component {
       this.setState({ points: this.state.points + 1 });
     }
     let newCurrent = this.randomNumber(this.props.idioms.length - 1);
+    this.props.saveCurrent(newCurrent);
     let newDefinition = this.props.idioms[newCurrent].definition;
     let newSolution = this.props.idioms[newCurrent].idiom;
     let newShuffled = this.shuffle(newSolution);
@@ -241,7 +244,7 @@ export default class Idioms extends Component {
     this.setState({ started: false });
     this.setState({ definition: newDefinition });
     this.setState({ solution: newSolution });
-    this.setState({ current: newCurrent });
+    // this.setState({ current: newCurrent });
     this.setState({ initialBox: newInitialBox });
     this.setState({ hintSolution: newSolution });
   }
@@ -457,9 +460,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   chosenCategories: state.chosenCategories,
-  idioms: state.idioms
+  idioms: state.idioms,
+  current: state.currentIdx
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  saveCurrent: current => dispatch(saveCurrent(current))
+});
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);
