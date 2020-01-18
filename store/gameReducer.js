@@ -1,13 +1,24 @@
 import idioms from "../data/data.json";
 
 // action creators
+
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const REMOVE_CATEGORY = "REMOVE_CATEGORY";
 export const FILTER_IDIOMS = "FILTER_IDIOMS";
 export const UPDATE_CURRENT = "UPDATE_CURRENT";
 export const UPDATE_IDIOM = "UPDATE_IDIOM";
+export const SCRAMBLE_IDIOM = "SCRAMBLE_IDIOM";
+export const UPDATE_DEFINITION = "UPDATE_DEFINITION";
+export const START_GAME = "START_GAME";
 
 // action types
+
+export const startGame = () => {
+  return {
+    type: START_GAME
+  };
+};
+
 export const addToCategories = categories => {
   return {
     type: ADD_CATEGORY,
@@ -43,7 +54,32 @@ export const updateIdiom = newIdiom => {
   };
 };
 
+export const updateDefinition = newDef => {
+  return {
+    type: UPDATE_DEFINITION,
+    newDef
+  };
+};
+
+export const scrambleThisIdiom = scrambledIdiom => {
+  return {
+    type: SCRAMBLE_IDIOM,
+    scrambledIdiom
+  };
+};
+
 // thunks
+
+export function start() {
+  return async dispatch => {
+    try {
+      dispatch(startGame());
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
 export function addCategories(cats) {
   return async dispatch => {
     try {
@@ -94,15 +130,40 @@ export function saveIdiom(idiom) {
   };
 }
 
+export function saveDefinition(def) {
+  return async dispatch => {
+    try {
+      dispatch(updateDefinition(def));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+export function scrambleIdiom(scrambled) {
+  return async dispatch => {
+    try {
+      dispatch(scrambleThisIdiom(scrambled));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
 let initialState = {
+  started: false,
   chosenCategories: [],
   idioms: idioms,
   currentIdx: 0,
-  solution: ""
+  solution: "",
+  definition: "",
+  scrambled: ""
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case START_GAME:
+      return { ...state, start: !start };
     case ADD_CATEGORY:
       return {
         ...state,
@@ -126,6 +187,10 @@ export default function reducer(state = initialState, action) {
       };
     case UPDATE_IDIOM:
       return { ...state, solution: action.newIdiom };
+    case UPDATE_DEFINITION:
+      return { ...state, definition: action.newDef };
+    case SCRAMBLE_IDIOM:
+      return { ...state, scrambled: action.scrambledIdiom };
     default:
       return state;
   }

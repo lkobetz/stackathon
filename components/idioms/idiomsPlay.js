@@ -17,7 +17,13 @@ import { Platform } from "@unimodules/core";
 import { throwStatement } from "@babel/types";
 const { height, width } = Dimensions.get("window");
 import { connect } from "react-redux";
-import { saveCurrent, saveIdiom } from "../../store/gameReducer";
+import {
+  start,
+  saveCurrent,
+  saveIdiom,
+  saveDefinition,
+  scrambleIdiom
+} from "../../store/gameReducer";
 
 // import connect from react-redux for mapState and mapDispatch
 
@@ -62,30 +68,33 @@ export default class Idioms extends Component {
     let current = this.randomNumber(idioms.length - 1);
     this.props.saveCurrent(current);
     let definition = idioms[current].definition;
+    this.props.saveDefinition(definition);
     let solution = idioms[current].idiom;
     this.props.saveIdiom(solution);
     let shuffled = this.shuffle(solution);
+    this.props.scrambleIdiom(shuffled);
     let initialBox = this.createSolutionBox(solution);
     this.state = {
       solutionBox: initialBox,
       correct: false,
       chosenLetters: [],
-      scrambled: shuffled,
+      // scrambled: shuffled,
       points: 0,
       timeUp: false,
       showSolution: false,
-      started: true,
+      // started: true,
       categories: this.props.chosenCategories,
-      definition,
+      // definition,
       // solution,
       // current,
       initialBox,
-      idioms,
+      // idioms,
       hintSolution: solution
     };
   }
   componentDidMount() {
-    this.setState({ started: true });
+    // this.setState({ started: true });
+    this.props.start();
   }
   shuffle(sentence) {
     let shuffled = sentence.split(" ");
@@ -241,18 +250,21 @@ export default class Idioms extends Component {
     let newCurrent = this.randomNumber(this.props.idioms.length - 1);
     this.props.saveCurrent(newCurrent);
     let newDefinition = this.props.idioms[newCurrent].definition;
+    this.props.saveDefinition(newDefinition);
     let newSolution = this.props.idioms[newCurrent].idiom;
     this.props.saveIdiom(newSolution);
     let newShuffled = this.shuffle(newSolution);
+    this.props.scrambleIdiom(newShuffled);
     let newInitialBox = this.createSolutionBox(newSolution);
+    this.props.start();
     this.setState({ solutionBox: newInitialBox });
     this.setState({ correct: false });
     this.setState({ chosenLetters: [] });
-    this.setState({ scrambled: newShuffled });
+    // this.setState({ scrambled: newShuffled });
     this.setState({ timeUp: false });
     this.setState({ showSolution: false });
-    this.setState({ started: false });
-    this.setState({ definition: newDefinition });
+    // this.setState({ started: false });
+    // this.setState({ definition: newDefinition });
     // this.setState({ solution: newSolution });
     this.setState({ initialBox: newInitialBox });
     this.setState({ hintSolution: newSolution });
@@ -348,14 +360,14 @@ export default class Idioms extends Component {
             </View>
             <View style={styles.definitionContainer}>
               <Text style={styles.definitionText}>
-                Meaning: {this.state.definition}
+                Meaning: {this.props.definition}
               </Text>
             </View>
 
             <View style={styles.scrambledContainer}>
               {this.state.showSolution
                 ? this.createInteractiveSentence(this.props.solution)
-                : this.createInteractiveSentence(this.state.scrambled)}
+                : this.createInteractiveSentence(this.props.scrambled)}
             </View>
 
             <View style={styles.sampleContainer}>
@@ -480,12 +492,17 @@ const mapStateToProps = state => ({
   chosenCategories: state.chosenCategories,
   idioms: state.idioms,
   current: state.currentIdx,
-  solution: state.solution
+  solution: state.solution,
+  definition: state.definition,
+  scrambled: state.scrambled
 });
 
 const mapDispatchToProps = dispatch => ({
+  start: () => dispatch(start()),
   saveCurrent: current => dispatch(saveCurrent(current)),
-  saveIdiom: solution => dispatch(saveIdiom(solution))
+  saveIdiom: solution => dispatch(saveIdiom(solution)),
+  saveDefinition: definition => dispatch(saveDefinition(definition)),
+  scrambleIdiom: scrambled => dispatch(scrambleIdiom(scrambled))
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);
