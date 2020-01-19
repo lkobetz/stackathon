@@ -10,6 +10,10 @@ export const UPDATE_IDIOM = "UPDATE_IDIOM";
 export const SCRAMBLE_IDIOM = "SCRAMBLE_IDIOM";
 export const UPDATE_DEFINITION = "UPDATE_DEFINITION";
 export const START_GAME = "START_GAME";
+export const UPDATE_SOLUTIONBOX = "UPDATE_SOLUTIONBOX";
+export const CLEAR = "CLEAR";
+export const ADD_LETTER = "ADD_LETTER";
+export const REMOVE_LETTER = "REMOVE_LETTER";
 
 // action types
 
@@ -65,6 +69,34 @@ export const scrambleThisIdiom = scrambledIdiom => {
   return {
     type: SCRAMBLE_IDIOM,
     scrambledIdiom
+  };
+};
+
+export const updateSolutionBox = newBox => {
+  return {
+    type: UPDATE_SOLUTIONBOX,
+    newBox
+  };
+};
+
+export const clearBox = box => {
+  return {
+    type: CLEAR,
+    box
+  };
+};
+
+export const addLetterToChosen = letter => {
+  return {
+    type: ADD_LETTER,
+    letter
+  };
+};
+
+export const removeLetterFromChosen = letter => {
+  return {
+    type: REMOVE_LETTER,
+    letter
   };
 };
 
@@ -150,6 +182,46 @@ export function scrambleIdiom(scrambled) {
   };
 }
 
+export function makeSolutionBox(box) {
+  return async dispatch => {
+    try {
+      dispatch(updateSolutionBox(box));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+export function clear(box) {
+  return async dispatch => {
+    try {
+      dispatch(clearBox(box));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+export function addToChosen(letter) {
+  return async dispatch => {
+    try {
+      dispatch(addLetterToChosen(letter));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+export function removeFromChosen(letter) {
+  return async dispatch => {
+    try {
+      dispatch(removeLetterFromChosen(letter));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
 let initialState = {
   started: false,
   chosenCategories: [],
@@ -157,7 +229,9 @@ let initialState = {
   currentIdx: 0,
   solution: "",
   definition: "",
-  scrambled: ""
+  scrambled: "",
+  solutionBox: "",
+  chosenLetters: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -191,6 +265,26 @@ export default function reducer(state = initialState, action) {
       return { ...state, definition: action.newDef };
     case SCRAMBLE_IDIOM:
       return { ...state, scrambled: action.scrambledIdiom };
+    case UPDATE_SOLUTIONBOX:
+      return { ...state, solutionBox: action.newBox };
+    case ADD_LETTER:
+      return {
+        ...state,
+        chosenLetters: [...state.chosenLetters, action.letter]
+      };
+    case REMOVE_LETTER:
+      return {
+        ...state,
+        chosenLetters: [
+          ...state.chosenLetters.filter(element => element !== action.letter)
+        ]
+      };
+    case CLEAR:
+      return {
+        ...state,
+        chosenLetters: [],
+        solutionBox: action.box
+      };
     default:
       return state;
   }

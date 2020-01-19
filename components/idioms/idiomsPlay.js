@@ -22,7 +22,11 @@ import {
   saveCurrent,
   saveIdiom,
   saveDefinition,
-  scrambleIdiom
+  scrambleIdiom,
+  makeSolutionBox,
+  addToChosen,
+  removeFromChosen,
+  clear
 } from "../../store/gameReducer";
 
 // import connect from react-redux for mapState and mapDispatch
@@ -74,10 +78,11 @@ export default class Idioms extends Component {
     let shuffled = this.shuffle(solution);
     this.props.scrambleIdiom(shuffled);
     let initialBox = this.createSolutionBox(solution);
+    this.props.makeSolutionBox(initialBox);
     this.state = {
-      solutionBox: initialBox,
+      // solutionBox: initialBox,
       correct: false,
-      chosenLetters: [],
+      // chosenLetters: [],
       // scrambled: shuffled,
       points: 0,
       timeUp: false,
@@ -132,6 +137,7 @@ export default class Idioms extends Component {
     return Math.round(random);
   }
   createInteractiveSentence(sentence) {
+    let scrambledCopy = this.props.scrambled.split("");
     const interactive = [];
     let wordIdx = 0;
     let word = [];
@@ -153,7 +159,7 @@ export default class Idioms extends Component {
       } else {
         let letterInfo = {
           letter: letter,
-          letterIdx: i,
+          letterIdx: this.getScrambledIdx(wordIdx, letter, scrambledCopy),
           wordIdx: wordIdx
         };
         word.push(this.scrambleText(letterInfo));
@@ -165,8 +171,6 @@ export default class Idioms extends Component {
     return (
       <ScrambledText
         letterInfo={letterInfo}
-        solutionBox={this.state.solutionBox}
-        chosenLetters={this.state.chosenLetters}
         key={i}
         callback={this.addToSolution.bind(this)}
       />
@@ -191,7 +195,7 @@ export default class Idioms extends Component {
           </Text>
         );
       } else {
-        let chosenLetters = this.state.chosenLetters.slice();
+        let chosenLetters = this.props.chosenLetters.slice();
         let letterInfoArr = chosenLetters.filter(
           // eslint-disable-next-line no-loop-func
           letterObj =>
@@ -214,10 +218,12 @@ export default class Idioms extends Component {
     if (newSolution === this.props.solution) {
       this.setState({ correct: true });
     }
-    this.setState(previous => ({
-      solutionBox: newSolution,
-      chosenLetters: previous.chosenLetters.concat(letterProps)
-    }));
+    this.props.makeSolutionBox(newSolution);
+    this.props.addToChosen(letterProps);
+    // this.setState(previous => ({
+    //   solutionBox: newSolution,
+    //   chosenLetters: previous.chosenLetters.concat(letterProps)
+    // }));
   }
   // wanted this to await the setState in addToSolution but it doesn't seem to work that way
   // setStateAsync(state, context) {
@@ -226,22 +232,27 @@ export default class Idioms extends Component {
   //   });
   // }
   removeFromSolution(letterInfo, solutionIdx) {
-    let solutionBoxCopy = this.state.solutionBox.slice(0);
+    let solutionBoxCopy = this.props.solutionBox.slice(0);
     let newSolution =
       solutionBoxCopy.slice(0, solutionIdx) +
       "_" +
       solutionBoxCopy.slice(solutionIdx + 1);
-    this.setState({ solutionBox: newSolution });
-    let chosenLettersCopy = this.state.chosenLetters;
-    let newChosenLetters = chosenLettersCopy.filter(
-      letter => letter.letterIdx !== letterInfo.letterIdx
-    );
-    this.setState({ chosenLetters: newChosenLetters });
+    // this.setState({ solutionBox: newSolution });
+    // the following updates the solutionBox correctly
+    this.props.makeSolutionBox(newSolution);
+    // let chosenLettersCopy = this.props.chosenLetters;
+    // let newChosenLetters = chosenLettersCopy.filter(
+    //   letter => letter.letterIdx !== letterInfo.letterIdx
+    // );
+    // this.setState({ chosenLetters: newChosenLetters });
+    this.props.removeFromChosen(letterInfo);
   }
   clearBox() {
-    this.setState({ solutionBox: this.state.initialBox });
+    // this.setState({ solutionBox: this.state.initialBox });
+    // this.props.makeSolutionBox(this.state.initialBox);
     this.setState({ correct: false });
-    this.setState({ chosenLetters: [] });
+    // this.setState({ chosenLetters: [] });
+    this.props.clear(this.state.initialBox);
   }
   reset() {
     if (this.state.correct) {
@@ -256,17 +267,20 @@ export default class Idioms extends Component {
     let newShuffled = this.shuffle(newSolution);
     this.props.scrambleIdiom(newShuffled);
     let newInitialBox = this.createSolutionBox(newSolution);
+    this.props.makeSolutionBox(newInitialBox);
     this.props.start();
-    this.setState({ solutionBox: newInitialBox });
+    this.props.clear(newInitialBox);
+    // this.setState({ solutionBox: newInitialBox });
     this.setState({ correct: false });
-    this.setState({ chosenLetters: [] });
+    // this.setState({ chosenLetters: [] });
+    // this.props.saveChosenLetters([]);
     // this.setState({ scrambled: newShuffled });
     this.setState({ timeUp: false });
     this.setState({ showSolution: false });
     // this.setState({ started: false });
     // this.setState({ definition: newDefinition });
     // this.setState({ solution: newSolution });
-    this.setState({ initialBox: newInitialBox });
+    // this.setState({ initialBox: newInitialBox });
     this.setState({ hintSolution: newSolution });
   }
   showSolution() {
@@ -278,28 +292,45 @@ export default class Idioms extends Component {
     this.clearBox();
     // copies of arrays to get the first and last letters of each word in the solution
     let hintSolutionArr = this.state.hintSolution.split(" ");
-    let solutionBoxArr = this.state.solutionBox.split(" ");
+    let solutionBoxArr = this.props.solutionBox.split(" ");
+    solutionBoxArr.pop();
     let replacementSolution = solutionBoxArr.map(word => word.split(""));
     let newSolution = "";
-    let letterInfoArr = [];
+    let scrambledCopy = this.props.scrambled.split("");
     for (let i = 0; i < hintSolutionArr.length - 1; i++) {
       let word = hintSolutionArr[i];
       let first = word[0];
       let letterInfoFirst = {
         letter: first,
-        letterIdx: 0,
+        // this shouldn't be the index of the letter in the solution, it should be the index of the letter in scrambled
+        letterIdx: this.getScrambledIdx(i, first, scrambledCopy),
         wordIdx: i
       };
       let last = word[word.length - 1];
       let letterInfoLast = {
         letter: last,
-        letterIdx: word.length - 1,
+        letterIdx: this.getScrambledIdx(i, last, scrambledCopy),
         wordIdx: i
       };
       replacementSolution[i][0] = first;
       replacementSolution[i][replacementSolution[i].length - 1] = last;
       newSolution = this.stringify(replacementSolution);
-      letterInfoArr.push(letterInfoFirst, letterInfoLast);
+      newSolution = newSolution.trim();
+      newSolution = newSolution + " ";
+      // console.log(
+      //   "newSolution:",
+      //   newSolution,
+      //   newSolution.length,
+      //   this.props.solution.length
+      // );
+
+      // replace the following line with two calls to the thunk
+      // letterInfoArr.push(letterInfoFirst, letterInfoLast);
+
+      // the redux store is being updated correctly, it just isn't rendering correctly afterwards
+      this.props.addToChosen(letterInfoFirst);
+      this.props.addToChosen(letterInfoLast);
+      this.props.makeSolutionBox(newSolution);
       // this.addToSolution(newSolution, letterInfoFirst);
       // this.addToSolution(newSolution, letterInfoLast);
       // these two calls get overwritten by... this.createInteractiveSentence?
@@ -307,13 +338,35 @@ export default class Idioms extends Component {
       // this.scrambleText(letterInfoLast);
     }
     // console.log(newSolution, letterInfoArr);
-    this.setState({ solutionBox: newSolution });
-    this.setState(previous => ({
-      chosenLetters: previous.chosenLetters.concat(letterInfoArr)
-    }));
+    // this.setState({ solutionBox: newSolution });
+    // this.props.makeSolutionBox(newSolution);
+    // letterInfo.map(letter => {
+    //   this.props.addToChosen(letter);
+    // });
+
+    // this.setState(previous => ({
+    //   chosenLetters: previous.chosenLetters.concat(letterInfoArr)
+    // }));
     // the following setState should be taken care of by addToSolution but isn't
 
     // console.log(newSolution);
+  }
+  getScrambledIdx(wordIdx, letter, scrambled) {
+    let wordIndex = 0;
+    let idxToReturn = -1;
+    for (let i = 0; i < scrambled.length; i++) {
+      if (scrambled[i] === " ") {
+        wordIndex++;
+      }
+      if (wordIndex === wordIdx) {
+        let thisLetter = scrambled[i];
+        if (thisLetter === letter) {
+          idxToReturn = i;
+          scrambled.splice(i, 1, "_");
+        }
+      }
+    }
+    return idxToReturn;
   }
   stringify(arr) {
     let string = "";
@@ -337,6 +390,11 @@ export default class Idioms extends Component {
   }
 
   render() {
+    console.log(
+      this.props.solutionBox.length,
+      this.props.solution.length,
+      this.props.solutionBox == this.props.solution
+    );
     return (
       <View style={styles.wholeScreen}>
         <ScrollView style={styles.scrollContainer}>
@@ -378,7 +436,7 @@ export default class Idioms extends Component {
                     : styles.correctSolution
                 }
               >
-                {this.createInteractiveSolutionBox(this.state.solutionBox)}
+                {this.createInteractiveSolutionBox(this.props.solutionBox)}
               </Text>
             </View>
 
@@ -494,7 +552,9 @@ const mapStateToProps = state => ({
   current: state.currentIdx,
   solution: state.solution,
   definition: state.definition,
-  scrambled: state.scrambled
+  scrambled: state.scrambled,
+  solutionBox: state.solutionBox,
+  chosenLetters: state.chosenLetters
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -502,7 +562,11 @@ const mapDispatchToProps = dispatch => ({
   saveCurrent: current => dispatch(saveCurrent(current)),
   saveIdiom: solution => dispatch(saveIdiom(solution)),
   saveDefinition: definition => dispatch(saveDefinition(definition)),
-  scrambleIdiom: scrambled => dispatch(scrambleIdiom(scrambled))
+  scrambleIdiom: scrambled => dispatch(scrambleIdiom(scrambled)),
+  makeSolutionBox: box => dispatch(makeSolutionBox(box)),
+  addToChosen: letter => dispatch(addToChosen(letter)),
+  removeFromChosen: letter => dispatch(removeFromChosen(letter)),
+  clear: box => dispatch(clear(box))
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);

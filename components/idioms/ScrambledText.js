@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import { connect } from "react-redux";
 
 // I think all of the state can be passed down from the parent component, not redux
 
@@ -27,6 +28,7 @@ export default class ScrambledText extends Component {
     var contains = this.props.chosenLetters.some(letter => {
       return JSON.stringify(this.props.letterInfo) === JSON.stringify(letter);
     });
+    // console.log("contains letter info?", this.props.letterInfo, contains);
     // console.log(
     //   "solutionBox:",
     //   this.props.solutionBox,
@@ -67,3 +69,13 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
+// need to use mergeProps to get access to store props(solutionBox and chosenLetters) as well as parentProps(letterIdx)
+
+const mapStateToProps = (state, ownProps) => ({
+  letterInfo: ownProps.letterInfo,
+  solutionBox: state.solutionBox,
+  chosenLetters: state.chosenLetters
+});
+
+module.exports = connect(mapStateToProps)(ScrambledText);
