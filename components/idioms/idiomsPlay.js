@@ -205,8 +205,10 @@ export default class Idioms extends Component {
     this.props.saveCurrent(newCurrent);
     this.props.saveDefinition(newDefinition);
     this.props.saveIdiom(newSolution);
-    this.props.saveInitialBox(newInitialBox);
-    this.props.makeSolutionBox(this.props.initialBox);
+    Promise.resolve(this.props.saveInitialBox(newInitialBox)).then(() =>
+      this.props.makeSolutionBox(this.props.initialBox)
+    );
+
     this.props.scrambleIdiom(newShuffled);
     this.props.clear(this.props.initialBox);
     this.setState({ started: false });
