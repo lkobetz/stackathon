@@ -30,41 +30,10 @@ import {
   saveInitialBox
 } from "../../store/gameReducer";
 
-// import connect from react-redux for mapState and mapDispatch
+// To fix:
 
-// thunks: -getSolutionBox -
-//   addToChosen -
-//   removeFromChosen -
-//   incrementPoints -
-//   decrementPoints -
-//   getCategories -
-//   clearBox -
-//   nextIdiom -
-//   addToSolution -
-//   removeFromSolution -
-//   showHint
-//   showSolution
-//   startGame
-//   correctSolution
-//   startTimer
-//   timeUp
-
-// state from redux:
-// - idioms
-// - current(idx of idioms)
-// - definition
-// - solution
-// - shuffled / scrambled (can they be the same?)
-// - initialBox
-// - solutionBox
-// - correct (boolean)
-// - chosenLetters
-// - points (number)
-// - timeUp (boolean)
-// - started (boolean)
-// - showSolution (boolean)
-// - categories (of current idiom), here are passed down from parent componentDidMount
-// - hintSolution (distinct from solution because it modifies it. necessary?)
+// sometimes showHint letters appear green
+// timer is broken
 
 export default class Idioms extends Component {
   constructor(props) {
@@ -82,26 +51,18 @@ export default class Idioms extends Component {
     this.props.saveInitialBox(newEmptyBox);
     this.props.makeSolutionBox(newEmptyBox);
     this.state = {
-      // solutionBox: initialBox,
       correct: false,
-      // chosenLetters: [],
-      // scrambled: shuffled,
       points: 0,
       timeUp: false,
       showSolution: false,
-      // started: true,
       categories: this.props.chosenCategories,
-      // definition,
-      // solution,
-      // current,
-      // initialBox,
-      // idioms,
-      hintSolution: solution
+      hintSolution: solution,
+      started: false
     };
   }
   componentDidMount() {
-    // this.setState({ started: true });
-    this.props.start();
+    this.setState({ started: true });
+    // this.props.start();
   }
   shuffle(sentence) {
     let shuffled = sentence.split(" ");
@@ -222,31 +183,14 @@ export default class Idioms extends Component {
     }
     this.props.makeSolutionBox(newSolution);
     this.props.addToChosen(letterProps);
-    // this.setState(previous => ({
-    //   solutionBox: newSolution,
-    //   chosenLetters: previous.chosenLetters.concat(letterProps)
-    // }));
   }
-  // wanted this to await the setState in addToSolution but it doesn't seem to work that way
-  // setStateAsync(state, context) {
-  //   return new Promise(resolve => {
-  //     context.setState(state, resolve);
-  //   });
-  // }
   removeFromSolution(letterInfo, solutionIdx) {
     let solutionBoxCopy = this.props.solutionBox.slice(0);
     let newSolution =
       solutionBoxCopy.slice(0, solutionIdx) +
       "_" +
       solutionBoxCopy.slice(solutionIdx + 1);
-    // this.setState({ solutionBox: newSolution });
-    // the following updates the solutionBox correctly
     this.props.makeSolutionBox(newSolution);
-    // let chosenLettersCopy = this.props.chosenLetters;
-    // let newChosenLetters = chosenLettersCopy.filter(
-    //   letter => letter.letterIdx !== letterInfo.letterIdx
-    // );
-    // this.setState({ chosenLetters: newChosenLetters });
     this.props.removeFromChosen(letterInfo);
   }
   reset() {
@@ -254,29 +198,21 @@ export default class Idioms extends Component {
       this.setState({ points: this.state.points + 1 });
     }
     let newCurrent = this.randomNumber(this.props.idioms.length - 1);
-    this.props.saveCurrent(newCurrent);
     let newDefinition = this.props.idioms[newCurrent].definition;
-    this.props.saveDefinition(newDefinition);
     let newSolution = this.props.idioms[newCurrent].idiom;
-    this.props.saveIdiom(newSolution);
     let newShuffled = this.shuffle(newSolution);
-    this.props.scrambleIdiom(newShuffled);
     let newInitialBox = this.createSolutionBox(newSolution);
+    this.props.saveCurrent(newCurrent);
+    this.props.saveDefinition(newDefinition);
+    this.props.saveIdiom(newSolution);
     this.props.saveInitialBox(newInitialBox);
     this.props.makeSolutionBox(this.props.initialBox);
-    this.props.start();
+    this.props.scrambleIdiom(newShuffled);
     this.props.clear(this.props.initialBox);
-    // this.setState({ solutionBox: newInitialBox });
+    this.setState({ started: false });
     this.setState({ correct: false });
-    // this.setState({ chosenLetters: [] });
-    // this.props.saveChosenLetters([]);
-    // this.setState({ scrambled: newShuffled });
     this.setState({ timeUp: false });
     this.setState({ showSolution: false });
-    // this.setState({ started: false });
-    // this.setState({ definition: newDefinition });
-    // this.setState({ solution: newSolution });
-    // this.setState({ initialBox: newInitialBox });
     this.setState({ hintSolution: newSolution });
   }
   showSolution() {
@@ -288,24 +224,10 @@ export default class Idioms extends Component {
     this.setState({ hint: !false });
   }
   clearBox() {
-    // this.setState({ solutionBox: this.state.initialBox });
-    // this.props.makeSolutionBox(this.state.initialBox);
-    // this.setState({ correct: false });
-    // this.setState({ chosenLetters: [] });
+    this.setState({ correct: false });
     this.props.clear(this.props.initialBox);
-    // if (hint === "hint") {
-    //   Promise.resolve(this.props.clear(this.props.initialBox)).then(
-    //     this.showHint()
-    //   );
-    // } else {
-    //   this.props.clear(this.props.initialBox);
-    // }
   }
   showHint() {
-    // if (
-    //   this.props.solutionBox === this.props.initialBox &&
-    //   this.props.chosenLetters.length === 0
-    // ) {
     // copies of arrays to get the first and last letters of each word in the solution
     let hintSolutionArr = this.state.hintSolution.split(" ");
     let solutionBoxArr = this.props.solutionBox.split(" ");
@@ -531,6 +453,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+  started: state.started,
   chosenCategories: state.chosenCategories,
   idioms: state.idioms,
   current: state.currentIdx,

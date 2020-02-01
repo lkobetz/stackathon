@@ -241,7 +241,7 @@ export function saveInitialBox(box) {
 }
 
 let initialState = {
-  started: false,
+  // started: false,
   chosenCategories: [],
   idioms: idioms,
   currentIdx: 0,
@@ -255,8 +255,8 @@ let initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case START_GAME:
-      return { ...state, start: !start };
+    // case START_GAME:
+    //   return { ...state, started: !started };
     case ADD_CATEGORY:
       return {
         ...state,
