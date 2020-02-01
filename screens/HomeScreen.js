@@ -179,11 +179,13 @@ HomeScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "darkslateblue"
+    backgroundColor: "darkslateblue",
+    display: "flex"
   },
   contentContainer: {
     paddingTop: 30,
-    alignItems: "center"
+    alignItems: "center",
+    display: "flex"
   },
   welcomeContainer: {
     alignItems: "center",
@@ -275,7 +277,8 @@ const styles = StyleSheet.create({
   categories: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 

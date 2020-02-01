@@ -27,7 +27,11 @@ export default countCategories = props => {
   });
   // uncomment this to see the frequency of each category
   // console.log(countArr);
-  return <Text>Categories: {props.chosenCategories.join(", ")}</Text>;
+  if (props.chosenCategories.length) {
+    return <Text>Chosen categories: {props.chosenCategories.join(", ")}</Text>;
+  } else {
+    return null;
+  }
 };
 
 const mapStateToProps = state => ({

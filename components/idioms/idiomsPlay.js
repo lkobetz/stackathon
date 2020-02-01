@@ -26,7 +26,8 @@ import {
   makeSolutionBox,
   addToChosen,
   removeFromChosen,
-  clear
+  clear,
+  saveInitialBox
 } from "../../store/gameReducer";
 
 // import connect from react-redux for mapState and mapDispatch
@@ -77,8 +78,9 @@ export default class Idioms extends Component {
     this.props.saveIdiom(solution);
     let shuffled = this.shuffle(solution);
     this.props.scrambleIdiom(shuffled);
-    let initialBox = this.createSolutionBox(solution);
-    this.props.makeSolutionBox(initialBox);
+    let newEmptyBox = this.createSolutionBox(solution);
+    this.props.saveInitialBox(newEmptyBox);
+    this.props.makeSolutionBox(newEmptyBox);
     this.state = {
       // solutionBox: initialBox,
       correct: false,
@@ -92,7 +94,7 @@ export default class Idioms extends Component {
       // definition,
       // solution,
       // current,
-      initialBox,
+      // initialBox,
       // idioms,
       hintSolution: solution
     };
@@ -247,13 +249,6 @@ export default class Idioms extends Component {
     // this.setState({ chosenLetters: newChosenLetters });
     this.props.removeFromChosen(letterInfo);
   }
-  clearBox() {
-    // this.setState({ solutionBox: this.state.initialBox });
-    // this.props.makeSolutionBox(this.state.initialBox);
-    this.setState({ correct: false });
-    // this.setState({ chosenLetters: [] });
-    this.props.clear(this.state.initialBox);
-  }
   reset() {
     if (this.state.correct) {
       this.setState({ points: this.state.points + 1 });
@@ -267,9 +262,10 @@ export default class Idioms extends Component {
     let newShuffled = this.shuffle(newSolution);
     this.props.scrambleIdiom(newShuffled);
     let newInitialBox = this.createSolutionBox(newSolution);
-    this.props.makeSolutionBox(newInitialBox);
+    this.props.saveInitialBox(newInitialBox);
+    this.props.makeSolutionBox(this.props.initialBox);
     this.props.start();
-    this.props.clear(newInitialBox);
+    this.props.clear(this.props.initialBox);
     // this.setState({ solutionBox: newInitialBox });
     this.setState({ correct: false });
     // this.setState({ chosenLetters: [] });
@@ -288,8 +284,28 @@ export default class Idioms extends Component {
     this.setState(prev => ({ points: prev.points - 1 }));
     this.clearBox();
   }
+  changeHint() {
+    this.setState({ hint: !false });
+  }
+  clearBox() {
+    // this.setState({ solutionBox: this.state.initialBox });
+    // this.props.makeSolutionBox(this.state.initialBox);
+    // this.setState({ correct: false });
+    // this.setState({ chosenLetters: [] });
+    this.props.clear(this.props.initialBox);
+    // if (hint === "hint") {
+    //   Promise.resolve(this.props.clear(this.props.initialBox)).then(
+    //     this.showHint()
+    //   );
+    // } else {
+    //   this.props.clear(this.props.initialBox);
+    // }
+  }
   showHint() {
-    this.clearBox();
+    // if (
+    //   this.props.solutionBox === this.props.initialBox &&
+    //   this.props.chosenLetters.length === 0
+    // ) {
     // copies of arrays to get the first and last letters of each word in the solution
     let hintSolutionArr = this.state.hintSolution.split(" ");
     let solutionBoxArr = this.props.solutionBox.split(" ");
@@ -302,7 +318,6 @@ export default class Idioms extends Component {
       let first = word[0];
       let letterInfoFirst = {
         letter: first,
-        // this shouldn't be the index of the letter in the solution, it should be the index of the letter in scrambled
         letterIdx: this.getScrambledIdx(i, first, scrambledCopy),
         wordIdx: i
       };
@@ -317,39 +332,11 @@ export default class Idioms extends Component {
       newSolution = this.stringify(replacementSolution);
       newSolution = newSolution.trim();
       newSolution = newSolution + " ";
-      // console.log(
-      //   "newSolution:",
-      //   newSolution,
-      //   newSolution.length,
-      //   this.props.solution.length
-      // );
-
-      // replace the following line with two calls to the thunk
-      // letterInfoArr.push(letterInfoFirst, letterInfoLast);
-
-      // the redux store is being updated correctly, it just isn't rendering correctly afterwards
       this.props.addToChosen(letterInfoFirst);
       this.props.addToChosen(letterInfoLast);
       this.props.makeSolutionBox(newSolution);
-      // this.addToSolution(newSolution, letterInfoFirst);
-      // this.addToSolution(newSolution, letterInfoLast);
-      // these two calls get overwritten by... this.createInteractiveSentence?
-      // this.scrambleText(letterInfoFirst);
-      // this.scrambleText(letterInfoLast);
     }
-    // console.log(newSolution, letterInfoArr);
-    // this.setState({ solutionBox: newSolution });
-    // this.props.makeSolutionBox(newSolution);
-    // letterInfo.map(letter => {
-    //   this.props.addToChosen(letter);
-    // });
-
-    // this.setState(previous => ({
-    //   chosenLetters: previous.chosenLetters.concat(letterInfoArr)
-    // }));
-    // the following setState should be taken care of by addToSolution but isn't
-
-    // console.log(newSolution);
+    // }
   }
   getScrambledIdx(wordIdx, letter, scrambled) {
     let wordIndex = 0;
@@ -363,10 +350,10 @@ export default class Idioms extends Component {
         if (thisLetter === letter) {
           idxToReturn = i;
           scrambled.splice(i, 1, "_");
+          return idxToReturn;
         }
       }
     }
-    return idxToReturn;
   }
   stringify(arr) {
     let string = "";
@@ -390,11 +377,6 @@ export default class Idioms extends Component {
   }
 
   render() {
-    console.log(
-      this.props.solutionBox.length,
-      this.props.solution.length,
-      this.props.solutionBox == this.props.solution
-    );
     return (
       <View style={styles.wholeScreen}>
         <ScrollView style={styles.scrollContainer}>
@@ -459,7 +441,9 @@ export default class Idioms extends Component {
             <Button
               color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
               title="Show Hint"
-              onPress={() => this.showHint()}
+              onPress={() =>
+                Promise.resolve(this.clearBox()).then(() => this.showHint())
+              }
             />
           </View>
         </ScrollView>
@@ -554,7 +538,8 @@ const mapStateToProps = state => ({
   definition: state.definition,
   scrambled: state.scrambled,
   solutionBox: state.solutionBox,
-  chosenLetters: state.chosenLetters
+  chosenLetters: state.chosenLetters,
+  initialBox: state.initialBox
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -566,7 +551,8 @@ const mapDispatchToProps = dispatch => ({
   makeSolutionBox: box => dispatch(makeSolutionBox(box)),
   addToChosen: letter => dispatch(addToChosen(letter)),
   removeFromChosen: letter => dispatch(removeFromChosen(letter)),
-  clear: box => dispatch(clear(box))
+  clear: box => dispatch(clear(box)),
+  saveInitialBox: box => dispatch(saveInitialBox(box))
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);

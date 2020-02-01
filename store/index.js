@@ -4,8 +4,8 @@ import thunkMiddleware from "redux-thunk";
 import reducer from "./gameReducer";
 
 const middleware = applyMiddleware(
-  thunkMiddleware
-  // createLogger({ collapsed: true })
+  thunkMiddleware,
+  createLogger({ collapsed: true })
 );
 
 const store = createStore(reducer, middleware);

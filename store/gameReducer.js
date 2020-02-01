@@ -14,6 +14,7 @@ export const UPDATE_SOLUTIONBOX = "UPDATE_SOLUTIONBOX";
 export const CLEAR = "CLEAR";
 export const ADD_LETTER = "ADD_LETTER";
 export const REMOVE_LETTER = "REMOVE_LETTER";
+export const INITIAL_BOX = "INITIAL_BOX";
 
 // action types
 
@@ -97,6 +98,13 @@ export const removeLetterFromChosen = letter => {
   return {
     type: REMOVE_LETTER,
     letter
+  };
+};
+
+export const saveEmptyBox = box => {
+  return {
+    type: INITIAL_BOX,
+    box
   };
 };
 
@@ -222,6 +230,16 @@ export function removeFromChosen(letter) {
   };
 }
 
+export function saveInitialBox(box) {
+  return async dispatch => {
+    try {
+      dispatch(saveEmptyBox(box));
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
 let initialState = {
   started: false,
   chosenCategories: [],
@@ -231,7 +249,8 @@ let initialState = {
   definition: "",
   scrambled: "",
   solutionBox: "",
-  chosenLetters: []
+  chosenLetters: [],
+  initialBox: ""
 };
 
 export default function reducer(state = initialState, action) {
@@ -284,6 +303,11 @@ export default function reducer(state = initialState, action) {
         ...state,
         chosenLetters: [],
         solutionBox: action.box
+      };
+    case INITIAL_BOX:
+      return {
+        ...state,
+        initialBox: action.box
       };
     default:
       return state;

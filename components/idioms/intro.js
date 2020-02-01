@@ -85,7 +85,7 @@ export default class Idioms extends Component {
           }
         />
         <View>
-          <Text>
+          <Text style={styles.categories}>
             <CountIdioms />
           </Text>
         </View>
@@ -114,6 +114,13 @@ const styles = StyleSheet.create({
   instructionText: {
     fontSize: 17,
     color: "yellow",
+    lineHeight: 24,
+    textAlign: "center",
+    marginHorizontal: 10
+  },
+  categories: {
+    fontSize: 17,
+    color: "aquamarine",
     lineHeight: 24,
     textAlign: "center",
     marginHorizontal: 10
