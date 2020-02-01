@@ -18,7 +18,6 @@ import { throwStatement } from "@babel/types";
 const { height, width } = Dimensions.get("window");
 import { connect } from "react-redux";
 import {
-  start,
   saveCurrent,
   saveIdiom,
   saveDefinition,
@@ -62,7 +61,6 @@ export default class Idioms extends Component {
   }
   componentDidMount() {
     this.setState({ started: true });
-    // this.props.start();
   }
   shuffle(sentence) {
     let shuffled = sentence.split(" ");
@@ -455,7 +453,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  started: state.started,
   chosenCategories: state.chosenCategories,
   idioms: state.idioms,
   current: state.currentIdx,
@@ -468,7 +465,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  start: () => dispatch(start()),
   saveCurrent: current => dispatch(saveCurrent(current)),
   saveIdiom: solution => dispatch(saveIdiom(solution)),
   saveDefinition: definition => dispatch(saveDefinition(definition)),

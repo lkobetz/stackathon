@@ -9,7 +9,6 @@ export const UPDATE_CURRENT = "UPDATE_CURRENT";
 export const UPDATE_IDIOM = "UPDATE_IDIOM";
 export const SCRAMBLE_IDIOM = "SCRAMBLE_IDIOM";
 export const UPDATE_DEFINITION = "UPDATE_DEFINITION";
-export const START_GAME = "START_GAME";
 export const UPDATE_SOLUTIONBOX = "UPDATE_SOLUTIONBOX";
 export const CLEAR = "CLEAR";
 export const ADD_LETTER = "ADD_LETTER";
@@ -17,12 +16,6 @@ export const REMOVE_LETTER = "REMOVE_LETTER";
 export const INITIAL_BOX = "INITIAL_BOX";
 
 // action types
-
-export const startGame = () => {
-  return {
-    type: START_GAME
-  };
-};
 
 export const addToCategories = categories => {
   return {
@@ -109,16 +102,6 @@ export const saveEmptyBox = box => {
 };
 
 // thunks
-
-export function start() {
-  return async dispatch => {
-    try {
-      dispatch(startGame());
-    } catch (error) {
-      next(error);
-    }
-  };
-}
 
 export function addCategories(cats) {
   return async dispatch => {
@@ -241,7 +224,6 @@ export function saveInitialBox(box) {
 }
 
 let initialState = {
-  // started: false,
   chosenCategories: [],
   idioms: idioms,
   currentIdx: 0,
@@ -255,8 +237,6 @@ let initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    // case START_GAME:
-    //   return { ...state, started: !started };
     case ADD_CATEGORY:
       return {
         ...state,
