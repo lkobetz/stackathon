@@ -12,6 +12,7 @@ import {
 import { connect } from "react-redux";
 // import thunks:
 import { addCategories, removeCategories } from "../store/gameReducer";
+import CountIdioms from "../components/idioms/CountIdioms";
 
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 
@@ -122,6 +123,11 @@ export default class HomeScreen extends Component {
             >
               <Text style={styles.text}>Start!</Text>
             </TouchableOpacity>
+          </View>
+          <View>
+            <Text style={styles.chosenCategories}>
+              <CountIdioms />
+            </Text>
           </View>
         </ScrollView>
 
@@ -279,6 +285,13 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center"
+  },
+  chosenCategories: {
+    fontSize: 17,
+    color: "aquamarine",
+    lineHeight: 24,
+    textAlign: "center",
+    marginHorizontal: 10
   }
 });
 

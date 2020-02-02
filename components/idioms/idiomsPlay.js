@@ -29,10 +29,12 @@ import {
   saveInitialBox
 } from "../../store/gameReducer";
 
-// To fix:
+// To do:
 
-// sometimes showHint letters appear green
-// timer is broken
+// display chosen categories on home page
+// get navigation working
+// change confetti to alerts with congratulatory phrases?
+// individual words turn green when correct?
 
 export default class Idioms extends Component {
   constructor(props) {
