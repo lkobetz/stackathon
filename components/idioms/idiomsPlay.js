@@ -31,8 +31,6 @@ import {
 
 // To do:
 
-// display chosen categories on home page
-// get navigation working
 // change confetti to alerts with congratulatory phrases?
 // individual words turn green when correct?
 
@@ -211,11 +209,13 @@ export default class Idioms extends Component {
 
     this.props.scrambleIdiom(newShuffled);
     this.props.clear(this.props.initialBox);
-    this.setState({ started: false });
-    this.setState({ correct: false });
-    this.setState({ timeUp: false });
-    this.setState({ showSolution: false });
-    this.setState({ hintSolution: newSolution });
+    this.setState({
+      started: false,
+      correct: false,
+      timeUp: false,
+      showSolution: false,
+      hintSolution: newSolution
+    });
   }
   showSolution() {
     this.setState({ showSolution: true });
@@ -392,9 +392,9 @@ const styles = StyleSheet.create({
     marginVertical: 0
   },
   playContainer: {
-    paddingTop: 15,
     backgroundColor: "darkslateblue",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: 50
   },
   definitionContainer: {
     alignItems: "center",

@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 
-// I think all of the state can be passed down from the parent component, not redux
-
 export default class ScrambledText extends Component {
   constructor(props) {
     super(props);
   }
-  // maybe just put this in idiomsPlay?
   fillInBox(letter, solutionBox) {
     solutionBox = solutionBox.split(" ");
     let newWord = "";
@@ -28,13 +25,6 @@ export default class ScrambledText extends Component {
     var contains = this.props.chosenLetters.some(letter => {
       return JSON.stringify(this.props.letterInfo) === JSON.stringify(letter);
     });
-    // console.log("contains letter info?", this.props.letterInfo, contains);
-    // console.log(
-    //   "solutionBox:",
-    //   this.props.solutionBox,
-    //   "chosenLetters:",
-    //   this.props.chosenLetters
-    // );
     return (
       // eslint-disable-next-line react/react-in-jsx-scope
       <TouchableOpacity

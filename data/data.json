@@ -262,7 +262,7 @@
   {
     "idiom":"I have butterflies in my stomach. ",
     "definition":"I'm nervous but excited. ",
-    "categories": ["animals"]
+    "categories": ["animals, body parts"]
   },
   {
     "idiom":"Cat got your tongue? ",
@@ -574,5 +574,50 @@
     "idiom":"We made it from scratch. ",
     "definition":"We created every part of it by ourselves, without using anything pre-made. ",
     "categories": ["food"]
+  },
+  {
+    "idiom":"I'm in over my head. ",
+    "definition":"I'm overwhelmed. This project is too difficult for me. ",
+    "categories": ["body parts"]
+  },
+  {
+    "idiom":"You have to bite the bullet. ",
+    "definition":"You have to do it even though you don't want to. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"Hold your horses. ",
+    "definition":"Be patient, don't start yet. ",
+    "categories": ["animals"]
+  },
+  {
+    "idiom":"I slept like a baby. ",
+    "definition":"I slept very well. ",
+    "categories": ["sleep"]
+  },
+  {
+    "idiom":"It was raining cats and dogs. ",
+    "definition":"It was raining very hard. ",
+    "categories": ["nature, animals"]
+  },
+  {
+    "idiom":"I slept like a log. ",
+    "definition":"I slept so deeply that nothing could wake me. ",
+    "categories": ["sleep"]
+  },
+  {
+    "idiom":"I was fast asleep. ",
+    "definition":"I fell asleep quickly and slept deeply. ",
+    "categories": ["sleep"]
+  },
+  {
+    "idiom":"I was dead asleep. ",
+    "definition":"I slept so deeply, it was like I was dead. ",
+    "categories": ["sleep"]
+  },
+  {
+    "idiom":"I sound like a broken record. ",
+    "definition":"I have to repeat myself again and again. ",
+    "categories": ["other"]
   }
 ]

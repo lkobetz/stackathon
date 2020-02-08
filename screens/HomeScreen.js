@@ -7,10 +7,10 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Dimensions
 } from "react-native";
 import { connect } from "react-redux";
-// import thunks:
 import { addCategories, removeCategories } from "../store/gameReducer";
 import CountIdioms from "../components/idioms/CountIdioms";
 
@@ -176,22 +176,22 @@ HomeScreen.navigationOptions = {
 //   }
 // }
 
-// function handleHelpPress() {
-//   WebBrowser.openBrowserAsync(
-//     "https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes"
-//   );
-// }
+const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "darkslateblue",
-    display: "flex"
+    display: "flex",
+    height: height,
+    width: width
   },
   contentContainer: {
     paddingTop: 30,
     alignItems: "center",
-    display: "flex"
+    display: "flex",
+    height: height,
+    width: width
   },
   welcomeContainer: {
     alignItems: "center",
@@ -201,7 +201,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 60,
     lineHeight: 80,
-    color: "yellow"
+    color: "yellow",
+    marginTop: 150
   },
   getStartedContainer: {
     alignItems: "center",
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15
   },
   buttonText: {
-    fontSize: 30,
+    fontSize: 50,
     color: "white"
   },
   sampleContainer: {
@@ -278,20 +279,24 @@ const styles = StyleSheet.create({
   text: {
     color: "aquamarine",
     fontSize: 30,
-    textAlign: "center"
+    textAlignVertical: "center",
+    marginVertical: 30
   },
   categories: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginHorizontal: 30,
+    fontSize: 30
   },
   chosenCategories: {
     fontSize: 17,
     color: "aquamarine",
     lineHeight: 24,
     textAlign: "center",
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    marginVertical: 10
   }
 });
 

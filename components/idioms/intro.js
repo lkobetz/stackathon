@@ -9,19 +9,14 @@ import {
 } from "react-native";
 import CountIdioms from "../idioms/CountIdioms";
 
-// import connect from react-redux for mapState and mapDispatch
 import { connect } from "react-redux";
 import { filterIdioms } from "../../store/gameReducer";
-// change all this.state.idioms and this.state.categories to this.props
 
 const { height, width } = Dimensions.get("window");
 
 export default class Idioms extends Component {
   constructor() {
     super();
-
-    // categories and idioms should come from the store in mapState, not be local
-    // dispatch an action to filter idioms by category - reducer filters idioms?
 
     this.state = {
       showInstructions: false
@@ -109,7 +104,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "yellow",
     lineHeight: 24,
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: 200
   },
   instructionText: {
     fontSize: 17,
@@ -123,7 +119,8 @@ const styles = StyleSheet.create({
     color: "aquamarine",
     lineHeight: 24,
     textAlign: "center",
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    marginVertical: 10
   }
 });
 
