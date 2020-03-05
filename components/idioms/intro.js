@@ -10,7 +10,7 @@ import {
 import CountIdioms from "../idioms/CountIdioms";
 
 import { connect } from "react-redux";
-import { filterIdioms } from "../../store/gameReducer";
+import { filterIdioms } from "../../store/actions";
 
 const { height, width } = Dimensions.get("window");
 

@@ -29,8 +29,9 @@ import {
   saveInitialBox,
   addPoint,
   removePoint,
-  startGame
-} from "../../store/gameReducer";
+  startGame,
+  endGame
+} from "../../store/actions";
 
 // To do:
 
@@ -54,7 +55,6 @@ export default class Idioms extends Component {
     this.props.makeSolutionBox(newEmptyBox);
     this.state = {
       // put started and timeUp in the redux state
-      correct: false,
       timeUp: false,
       showSolution: false,
       categories: this.props.chosenCategories,
@@ -181,7 +181,6 @@ export default class Idioms extends Component {
   }
   addToSolution(newSolution, letterProps) {
     if (newSolution === this.props.solution) {
-      this.setState({ correct: true });
       this.props.addPoint();
     }
     this.props.makeSolutionBox(newSolution);
@@ -211,10 +210,10 @@ export default class Idioms extends Component {
 
     this.props.scrambleIdiom(newShuffled);
     this.props.clear(this.props.initialBox);
-    // call thunk endGame that changes started to false, changes correct to false, changes timeUp to false
+    // call thunk endGame that changes all of these states
+    this.props.endGame();
     this.setState({
       started: false,
-      correct: false,
       timeUp: false,
       showSolution: false,
       hintSolution: newSolution
@@ -229,7 +228,6 @@ export default class Idioms extends Component {
     this.setState({ hint: !false });
   }
   clearBox() {
-    this.setState({ correct: false });
     this.props.clear(this.props.initialBox);
   }
   showHint() {
@@ -340,7 +338,7 @@ export default class Idioms extends Component {
             <View style={styles.sampleContainer}>
               <Text
                 style={
-                  this.state.correct === false
+                  this.props.correct === false
                     ? styles.solutionText
                     : styles.correctSolution
                 }
@@ -374,7 +372,7 @@ export default class Idioms extends Component {
             />
           </View>
         </ScrollView>
-        {this.state.correct && (
+        {this.props.correct && (
           <ConfettiCannon
             count={300}
             origin={{
@@ -467,7 +465,8 @@ const mapStateToProps = state => ({
   solutionBox: state.solutionBox,
   chosenLetters: state.chosenLetters,
   initialBox: state.initialBox,
-  points: state.points
+  points: state.points,
+  correct: state.correct
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -481,7 +480,8 @@ const mapDispatchToProps = dispatch => ({
   clear: box => dispatch(clear(box)),
   saveInitialBox: box => dispatch(saveInitialBox(box)),
   addPoint: () => dispatch(addPoint()),
-  removePoint: () => dispatch(removePoint())
+  removePoint: () => dispatch(removePoint()),
+  endGame: () => dispatch(endGame())
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);

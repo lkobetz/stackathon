@@ -11,7 +11,7 @@ import {
   Dimensions
 } from "react-native";
 import { connect } from "react-redux";
-import { addCategories, removeCategories } from "../store/gameReducer";
+import { addCategories, removeCategories } from "../store/actions";
 import CountIdioms from "../components/idioms/CountIdioms";
 
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
