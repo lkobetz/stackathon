@@ -14,6 +14,8 @@ export const CLEAR = "CLEAR";
 export const ADD_LETTER = "ADD_LETTER";
 export const REMOVE_LETTER = "REMOVE_LETTER";
 export const INITIAL_BOX = "INITIAL_BOX";
+export const ADD_POINT = "ADD_POINT";
+export const REMOVE_POINT = "REMOVE_POINT";
 
 // action types
 
@@ -98,6 +100,18 @@ export const saveEmptyBox = box => {
   return {
     type: INITIAL_BOX,
     box
+  };
+};
+
+export const incrementPoints = () => {
+  return {
+    type: ADD_POINT
+  };
+};
+
+export const decrementPoints = () => {
+  return {
+    type: REMOVE_POINT
   };
 };
 
@@ -223,6 +237,26 @@ export function saveInitialBox(box) {
   };
 }
 
+export function addPoint() {
+  return async dispatch => {
+    try {
+      dispatch(incrementPoints());
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+export function removePoint() {
+  return async dispatch => {
+    try {
+      dispatch(decrementPoints());
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
 let initialState = {
   chosenCategories: [],
   idioms: idioms,
@@ -232,7 +266,8 @@ let initialState = {
   scrambled: "",
   solutionBox: "",
   chosenLetters: [],
-  initialBox: ""
+  initialBox: "",
+  points: 0
 };
 
 export default function reducer(state = initialState, action) {
@@ -288,6 +323,16 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         initialBox: action.box
+      };
+    case ADD_POINT:
+      return {
+        ...state,
+        points: state.points + 1
+      };
+    case REMOVE_POINT:
+      return {
+        ...state,
+        points: state.points - 1
       };
     default:
       return state;

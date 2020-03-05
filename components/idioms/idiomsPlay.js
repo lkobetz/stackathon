@@ -26,7 +26,9 @@ import {
   addToChosen,
   removeFromChosen,
   clear,
-  saveInitialBox
+  saveInitialBox,
+  addPoint,
+  removePoint
 } from "../../store/gameReducer";
 
 // To do:
@@ -51,7 +53,6 @@ export default class Idioms extends Component {
     this.props.makeSolutionBox(newEmptyBox);
     this.state = {
       correct: false,
-      points: 0,
       timeUp: false,
       showSolution: false,
       categories: this.props.chosenCategories,
@@ -193,7 +194,8 @@ export default class Idioms extends Component {
   }
   reset() {
     if (this.state.correct) {
-      this.setState({ points: this.state.points + 1 });
+      // call thunk that increments points
+      this.props.addPoint();
     }
     let newCurrent = this.randomNumber(this.props.idioms.length - 1);
     let newDefinition = this.props.idioms[newCurrent].definition;
@@ -219,7 +221,7 @@ export default class Idioms extends Component {
   }
   showSolution() {
     this.setState({ showSolution: true });
-    this.setState(prev => ({ points: prev.points - 1 }));
+    this.props.removePoint();
     this.clearBox();
   }
   changeHint() {
@@ -306,7 +308,7 @@ export default class Idioms extends Component {
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.playContainer}>
             <View style={styles.footer}>
-              <Text style={styles.footer}>Points: {this.state.points} </Text>
+              <Text style={styles.footer}>Points: {this.props.points} </Text>
               {this.state.timeUp ? (
                 <Button
                   onPress={() => this.showSolution()}
@@ -463,7 +465,8 @@ const mapStateToProps = state => ({
   scrambled: state.scrambled,
   solutionBox: state.solutionBox,
   chosenLetters: state.chosenLetters,
-  initialBox: state.initialBox
+  initialBox: state.initialBox,
+  points: state.points
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -475,7 +478,9 @@ const mapDispatchToProps = dispatch => ({
   addToChosen: letter => dispatch(addToChosen(letter)),
   removeFromChosen: letter => dispatch(removeFromChosen(letter)),
   clear: box => dispatch(clear(box)),
-  saveInitialBox: box => dispatch(saveInitialBox(box))
+  saveInitialBox: box => dispatch(saveInitialBox(box)),
+  addPoint: () => dispatch(addPoint()),
+  removePoint: () => dispatch(removePoint())
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);
