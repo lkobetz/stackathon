@@ -28,7 +28,8 @@ import {
   clear,
   saveInitialBox,
   addPoint,
-  removePoint
+  removePoint,
+  startGame
 } from "../../store/gameReducer";
 
 // To do:
@@ -52,6 +53,7 @@ export default class Idioms extends Component {
     this.props.saveInitialBox(newEmptyBox);
     this.props.makeSolutionBox(newEmptyBox);
     this.state = {
+      // put started and timeUp in the redux state
       correct: false,
       timeUp: false,
       showSolution: false,
@@ -61,6 +63,7 @@ export default class Idioms extends Component {
     };
   }
   componentDidMount() {
+    // change this to a startGame thunk that changes started state to true
     this.setState({ started: true });
   }
   shuffle(sentence) {
@@ -179,6 +182,7 @@ export default class Idioms extends Component {
   addToSolution(newSolution, letterProps) {
     if (newSolution === this.props.solution) {
       this.setState({ correct: true });
+      this.props.addPoint();
     }
     this.props.makeSolutionBox(newSolution);
     this.props.addToChosen(letterProps);
@@ -193,10 +197,6 @@ export default class Idioms extends Component {
     this.props.removeFromChosen(letterInfo);
   }
   reset() {
-    if (this.state.correct) {
-      // call thunk that increments points
-      this.props.addPoint();
-    }
     let newCurrent = this.randomNumber(this.props.idioms.length - 1);
     let newDefinition = this.props.idioms[newCurrent].definition;
     let newSolution = this.props.idioms[newCurrent].idiom;
@@ -211,6 +211,7 @@ export default class Idioms extends Component {
 
     this.props.scrambleIdiom(newShuffled);
     this.props.clear(this.props.initialBox);
+    // call thunk endGame that changes started to false, changes correct to false, changes timeUp to false
     this.setState({
       started: false,
       correct: false,
