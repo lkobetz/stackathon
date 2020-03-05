@@ -37,6 +37,8 @@ import {
 
 // change confetti to alerts with congratulatory phrases?
 // individual words turn green when correct?
+// change 'correct' state to false when user removes a letter
+// decrement points if user removes a letter from correct solution
 
 export default class Idioms extends Component {
   constructor(props) {
@@ -187,13 +189,15 @@ export default class Idioms extends Component {
     this.props.addToChosen(letterProps);
   }
   removeFromSolution(letterInfo, solutionIdx) {
-    let solutionBoxCopy = this.props.solutionBox.slice(0);
-    let newSolution =
-      solutionBoxCopy.slice(0, solutionIdx) +
-      "_" +
-      solutionBoxCopy.slice(solutionIdx + 1);
-    this.props.makeSolutionBox(newSolution);
-    this.props.removeFromChosen(letterInfo);
+    if (!this.props.correct) {
+      let solutionBoxCopy = this.props.solutionBox.slice(0);
+      let newSolution =
+        solutionBoxCopy.slice(0, solutionIdx) +
+        "_" +
+        solutionBoxCopy.slice(solutionIdx + 1);
+      this.props.makeSolutionBox(newSolution);
+      this.props.removeFromChosen(letterInfo);
+    }
   }
   reset() {
     let newCurrent = this.randomNumber(this.props.idioms.length - 1);
@@ -228,6 +232,9 @@ export default class Idioms extends Component {
     this.setState({ hint: !false });
   }
   clearBox() {
+    if (this.props.correct) {
+      this.props.removePoint();
+    }
     this.props.clear(this.props.initialBox);
   }
   showHint() {

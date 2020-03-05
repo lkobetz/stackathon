@@ -15,7 +15,7 @@ import {
   ADD_POINT,
   REMOVE_POINT,
   GAME_OVER
-} from "./actionCreators";
+} from "./actions";
 
 let initialState = {
   chosenCategories: [],
