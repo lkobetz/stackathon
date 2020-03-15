@@ -619,5 +619,15 @@
     "idiom":"I sound like a broken record. ",
     "definition":"I have to repeat myself again and again. ",
     "categories": ["other"]
+  },
+  {
+    "idiom":"You're comparing apples and oranges. ",
+    "definition":"You're comparing two completely unrelated things. ",
+    "categories": ["food"]
+  },
+  {
+    "idiom":"You can't see the forest for the trees. ",
+    "definition":"You're focusing on small details so you can't see the big picture. ",
+    "categories": ["nature"]
   }
 ]
