@@ -629,5 +629,35 @@
     "idiom":"You can't see the forest for the trees. ",
     "definition":"You're focusing on small details so you can't see the big picture. ",
     "categories": ["nature"]
+  },
+  {
+    "idiom":"You can't have your cake and eat it too. ",
+    "definition":"You can't have both things, you have to choose one. ",
+    "categories": ["food"]
+  },
+  {
+    "idiom":"It's the cream of the crop. ",
+    "definition":"It's the best one of all. ",
+    "categories": ["food, nature"]
+  },
+  {
+    "idiom":"She egged me on. ",
+    "definition":"She encouraged me to do it. ",
+    "categories": ["food"]
+  },
+  {
+    "idiom":"They sold like hot cakes. ",
+    "definition":"They were easy to sell, people bought them very quickly. ",
+    "categories": ["food"]
+  },
+  {
+    "idiom":"We need to spice things up. ",
+    "definition":"We need to make things more exciting. ",
+    "categories": ["food"]
+  },
+  {
+    "idiom":"You need to use your noodle! ",
+    "definition":"You need to use your brain! ",
+    "categories": ["food"]
   }
 ]
