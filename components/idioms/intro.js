@@ -5,12 +5,12 @@ import {
   StyleSheet,
   Button,
   Dimensions,
-  Platform
+  Platform,
 } from "react-native";
 import CountIdioms from "../idioms/CountIdioms";
 
 import { connect } from "react-redux";
-import { filterIdioms } from "../../store/actions";
+import { filterIdioms, clear } from "../../store/actions";
 
 const { height, width } = Dimensions.get("window");
 
@@ -19,7 +19,7 @@ export default class Idioms extends Component {
     super();
 
     this.state = {
-      showInstructions: false
+      showInstructions: false,
     };
   }
   componentDidMount() {
@@ -31,7 +31,7 @@ export default class Idioms extends Component {
       return this.props.idioms;
     }
     let filtered = [];
-    idioms.forEach(idiom => {
+    idioms.forEach((idiom) => {
       let value = this.matchIdioms(idiom, this.props.chosenCategories);
       if (value) {
         filtered.push(value);
@@ -75,7 +75,7 @@ export default class Idioms extends Component {
           onPress={() =>
             this.props.navigation.navigate("IdiomsPlay", {
               height: height,
-              width: width
+              width: width,
             })
           }
         />
@@ -93,26 +93,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "darkslateblue"
+    backgroundColor: "darkslateblue",
   },
   buttonText: {
     fontSize: 25,
     lineHeight: 30,
-    color: "white"
+    color: "white",
   },
   getStartedText: {
     fontSize: 20,
     color: "yellow",
     lineHeight: 24,
     textAlign: "center",
-    marginTop: 200
+    marginTop: 200,
   },
   instructionText: {
     fontSize: 17,
     color: "yellow",
     lineHeight: 24,
     textAlign: "center",
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   categories: {
     fontSize: 17,
@@ -120,17 +120,17 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: "center",
     marginHorizontal: 10,
-    marginVertical: 10
-  }
+    marginVertical: 10,
+  },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   chosenCategories: state.chosenCategories,
-  idioms: state.idioms
+  idioms: state.idioms,
 });
 
-const mapDispatchToProps = dispatch => ({
-  filterIdioms: filtered => dispatch(filterIdioms(filtered))
+const mapDispatchToProps = (dispatch) => ({
+  filterIdioms: (filtered) => dispatch(filterIdioms(filtered)),
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);

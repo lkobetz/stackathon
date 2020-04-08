@@ -14,7 +14,8 @@ import {
   INITIAL_BOX,
   ADD_POINT,
   REMOVE_POINT,
-  GAME_OVER
+  GAME_OVER,
+  RESET_CHOSEN_LETTERS,
 } from "./actions";
 
 let initialState = {
@@ -28,7 +29,7 @@ let initialState = {
   chosenLetters: [],
   initialBox: "",
   points: 0,
-  correct: false
+  correct: false,
 };
 
 export default function reducer(state = initialState, action) {
@@ -36,23 +37,23 @@ export default function reducer(state = initialState, action) {
     case ADD_CATEGORY:
       return {
         ...state,
-        chosenCategories: [...state.chosenCategories, action.categories]
+        chosenCategories: [...state.chosenCategories, action.categories],
       };
     case REMOVE_CATEGORY:
       return {
         ...state,
         chosenCategories: [
           ...state.chosenCategories.filter(
-            element => element !== action.categories
-          )
-        ]
+            (element) => element !== action.categories
+          ),
+        ],
       };
     case FILTER_IDIOMS:
       return { ...state, idioms: action.filtered };
     case UPDATE_CURRENT:
       return {
         ...state,
-        currentIdx: action.newIdx
+        currentIdx: action.newIdx,
       };
     case UPDATE_IDIOM:
       return { ...state, solution: action.newIdiom };
@@ -65,42 +66,47 @@ export default function reducer(state = initialState, action) {
     case ADD_LETTER:
       return {
         ...state,
-        chosenLetters: [...state.chosenLetters, action.letter]
+        chosenLetters: [...state.chosenLetters, action.letter],
       };
     case REMOVE_LETTER:
       return {
         ...state,
         chosenLetters: [
-          ...state.chosenLetters.filter(element => element !== action.letter)
-        ]
+          ...state.chosenLetters.filter((element) => element !== action.letter),
+        ],
       };
     case CLEAR:
       return {
         ...state,
         chosenLetters: [],
         solutionBox: action.box,
-        correct: false
+        correct: false,
       };
     case INITIAL_BOX:
       return {
         ...state,
-        initialBox: action.box
+        initialBox: action.box,
       };
     case ADD_POINT:
       return {
         ...state,
         points: state.points + 1,
-        correct: true
+        correct: true,
       };
     case REMOVE_POINT:
       return {
         ...state,
-        points: state.points - 1
+        points: state.points - 1,
       };
     case GAME_OVER:
       return {
         ...state,
-        correct: false
+        correct: false,
+      };
+    case RESET_CHOSEN_LETTERS:
+      return {
+        ...state,
+        chosenLetters: [],
       };
     default:
       return state;

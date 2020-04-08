@@ -15,115 +15,122 @@ export const INITIAL_BOX = "INITIAL_BOX";
 export const ADD_POINT = "ADD_POINT";
 export const REMOVE_POINT = "REMOVE_POINT";
 export const GAME_OVER = "GAME_OVER";
+export const RESET_CHOSEN_LETTERS = "RESET_CHOSEN_LETTERS";
 
 // action creators
 
-export const addToCategories = categories => {
+export const addToCategories = (categories) => {
   return {
     type: ADD_CATEGORY,
-    categories
+    categories,
   };
 };
 
-export const removeFromCategories = categories => {
+export const removeFromCategories = (categories) => {
   return {
     type: REMOVE_CATEGORY,
-    categories
+    categories,
   };
 };
 
-export const idiomFilter = filtered => {
+export const idiomFilter = (filtered) => {
   return {
     type: FILTER_IDIOMS,
-    filtered
+    filtered,
   };
 };
 
-export const updateCurrentIdx = newIdx => {
+export const updateCurrentIdx = (newIdx) => {
   return {
     type: UPDATE_CURRENT,
-    newIdx
+    newIdx,
   };
 };
 
-export const updateIdiom = newIdiom => {
+export const updateIdiom = (newIdiom) => {
   return {
     type: UPDATE_IDIOM,
-    newIdiom
+    newIdiom,
   };
 };
 
-export const updateDefinition = newDef => {
+export const updateDefinition = (newDef) => {
   return {
     type: UPDATE_DEFINITION,
-    newDef
+    newDef,
   };
 };
 
-export const scrambleThisIdiom = scrambledIdiom => {
+export const scrambleThisIdiom = (scrambledIdiom) => {
   return {
     type: SCRAMBLE_IDIOM,
-    scrambledIdiom
+    scrambledIdiom,
   };
 };
 
-export const updateSolutionBox = newBox => {
+export const updateSolutionBox = (newBox) => {
   return {
     type: UPDATE_SOLUTIONBOX,
-    newBox
+    newBox,
   };
 };
 
-export const clearBox = box => {
+export const clearBox = (box) => {
   return {
     type: CLEAR,
-    box
+    box,
   };
 };
 
-export const addLetterToChosen = letter => {
+export const addLetterToChosen = (letter) => {
   return {
     type: ADD_LETTER,
-    letter
+    letter,
   };
 };
 
-export const removeLetterFromChosen = letter => {
+export const removeLetterFromChosen = (letter) => {
   return {
     type: REMOVE_LETTER,
-    letter
+    letter,
   };
 };
 
-export const saveEmptyBox = box => {
+export const saveEmptyBox = (box) => {
   return {
     type: INITIAL_BOX,
-    box
+    box,
   };
 };
 
 export const incrementPoints = () => {
   return {
-    type: ADD_POINT
+    type: ADD_POINT,
   };
 };
 
 export const decrementPoints = () => {
   return {
-    type: REMOVE_POINT
+    type: REMOVE_POINT,
   };
 };
 
 export const gameOver = () => {
   return {
-    type: GAME_OVER
+    type: GAME_OVER,
+  };
+};
+
+export const resetChosenLetters = () => {
+  return {
+    type: RESET_CHOSEN_LETTERS,
   };
 };
 
 // thunks
 
 export function addCategories(cats) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(addToCategories(cats));
     } catch (error) {
@@ -133,7 +140,7 @@ export function addCategories(cats) {
 }
 
 export function removeCategories(categories) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(removeFromCategories(categories));
     } catch (error) {
@@ -143,7 +150,7 @@ export function removeCategories(categories) {
 }
 
 export function filterIdioms(filtered) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(idiomFilter(filtered));
     } catch (error) {
@@ -153,7 +160,7 @@ export function filterIdioms(filtered) {
 }
 
 export function saveCurrent(idx) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(updateCurrentIdx(idx));
     } catch (error) {
@@ -163,7 +170,7 @@ export function saveCurrent(idx) {
 }
 
 export function saveIdiom(idiom) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(updateIdiom(idiom));
     } catch (error) {
@@ -173,7 +180,7 @@ export function saveIdiom(idiom) {
 }
 
 export function saveDefinition(def) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(updateDefinition(def));
     } catch (error) {
@@ -183,7 +190,7 @@ export function saveDefinition(def) {
 }
 
 export function scrambleIdiom(scrambled) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(scrambleThisIdiom(scrambled));
     } catch (error) {
@@ -193,7 +200,7 @@ export function scrambleIdiom(scrambled) {
 }
 
 export function makeSolutionBox(box) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(updateSolutionBox(box));
     } catch (error) {
@@ -203,7 +210,7 @@ export function makeSolutionBox(box) {
 }
 
 export function clear(box) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(clearBox(box));
     } catch (error) {
@@ -213,7 +220,7 @@ export function clear(box) {
 }
 
 export function addToChosen(letter) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(addLetterToChosen(letter));
     } catch (error) {
@@ -223,7 +230,7 @@ export function addToChosen(letter) {
 }
 
 export function removeFromChosen(letter) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(removeLetterFromChosen(letter));
     } catch (error) {
@@ -233,7 +240,7 @@ export function removeFromChosen(letter) {
 }
 
 export function saveInitialBox(box) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(saveEmptyBox(box));
     } catch (error) {
@@ -243,7 +250,7 @@ export function saveInitialBox(box) {
 }
 
 export function addPoint() {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(incrementPoints());
     } catch (error) {
@@ -253,7 +260,7 @@ export function addPoint() {
 }
 
 export function removePoint() {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(decrementPoints());
     } catch (error) {
@@ -263,9 +270,19 @@ export function removePoint() {
 }
 
 export function endGame() {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(gameOver());
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+export function removeChosenLetters() {
+  return async (dispatch) => {
+    try {
+      dispatch(resetChosenLetters());
     } catch (error) {
       next(error);
     }
