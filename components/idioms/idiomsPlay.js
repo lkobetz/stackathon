@@ -40,6 +40,7 @@ import {
 // individual words turn green when correct?
 // change 'correct' state to false when user removes a letter
 // decrement points if user removes a letter from correct solution
+// going back and choosing a category causes an error
 
 export default class Idioms extends Component {
   constructor(props) {
@@ -62,7 +63,6 @@ export default class Idioms extends Component {
       // put started and timeUp in the redux state
       timeUp: false,
       showSolution: false,
-      // categories: this.props.chosenCategories,
       hintSolution: solution,
       started: false,
     };
@@ -231,9 +231,6 @@ export default class Idioms extends Component {
     this.props.removePoint();
     this.clearBox();
   }
-  changeHint() {
-    this.setState({ hint: !false });
-  }
   clearBox() {
     if (this.props.correct) {
       this.props.removePoint();
@@ -271,7 +268,6 @@ export default class Idioms extends Component {
       this.props.addToChosen(letterInfoLast);
       this.props.makeSolutionBox(newSolution);
     }
-    // }
   }
   getScrambledIdx(wordIdx, letter, scrambled) {
     let wordIndex = 0;
@@ -370,7 +366,7 @@ export default class Idioms extends Component {
               />
             </View>
             <Text style={styles.footer}>
-              Categories:{" "}
+              Categories:
               {this.props.idioms[this.props.current].categories.join(", ")}
             </Text>
             <Button

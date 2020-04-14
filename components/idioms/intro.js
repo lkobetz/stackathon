@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import CountIdioms from "../idioms/CountIdioms";
 
+import data from "../../data/data";
+
 import { connect } from "react-redux";
 import { filterIdioms, clear } from "../../store/actions";
 
@@ -20,24 +22,26 @@ export default class Idioms extends Component {
 
     this.state = {
       showInstructions: false,
+      idioms: data,
     };
   }
-  componentDidMount() {
-    let filteredIdioms = this.filter(this.props.idioms);
+  getIdioms() {
+    let filteredIdioms = this.filter(this.state.idioms);
     this.props.filterIdioms(filteredIdioms);
   }
   filter(idioms) {
     if (this.props.chosenCategories.length === 0) {
-      return this.props.idioms;
+      return this.state.idioms;
+    } else {
+      let filtered = [];
+      idioms.forEach((idiom) => {
+        let value = this.matchIdioms(idiom, this.props.chosenCategories);
+        if (value) {
+          filtered.push(value);
+        }
+      });
+      return filtered;
     }
-    let filtered = [];
-    idioms.forEach((idiom) => {
-      let value = this.matchIdioms(idiom, this.props.chosenCategories);
-      if (value) {
-        filtered.push(value);
-      }
-    });
-    return filtered;
   }
   matchIdioms(idiom, categories) {
     for (let i = 0; i < categories.length; i++) {
@@ -73,10 +77,12 @@ export default class Idioms extends Component {
           title="Play!"
           color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
           onPress={() =>
-            this.props.navigation.navigate("IdiomsPlay", {
-              height: height,
-              width: width,
-            })
+            Promise.resolve(this.getIdioms()).then(() =>
+              this.props.navigation.navigate("IdiomsPlay", {
+                height: height,
+                width: width,
+              })
+            )
           }
         />
         <View>
