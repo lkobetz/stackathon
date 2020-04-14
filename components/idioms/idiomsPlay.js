@@ -64,12 +64,12 @@ export default class Idioms extends Component {
       timeUp: false,
       showSolution: false,
       hintSolution: solution,
-      started: false,
+      // started: false,
     };
   }
   componentDidMount() {
     // change this to a startGame thunk that changes started state to true
-    this.setState({ started: true });
+    this.props.startGame();
   }
   shuffle(sentence) {
     let shuffled = sentence.split(" ");
@@ -220,7 +220,7 @@ export default class Idioms extends Component {
     // call thunk endGame that changes all of these states
     this.props.endGame();
     this.setState({
-      started: false,
+      // started: false,
       timeUp: false,
       showSolution: false,
       hintSolution: newSolution,
@@ -300,11 +300,10 @@ export default class Idioms extends Component {
     return string;
   }
   startTimer() {
-    this.setState({ started: true });
+    this.props.startGame();
   }
   timeFinished() {
     this.setState({ timeUp: true });
-    this.setState({ started: false });
   }
 
   render() {
@@ -322,7 +321,7 @@ export default class Idioms extends Component {
                 ></Button>
               ) : (
                 <Timer
-                  started={this.state.started}
+                  started={this.props.started}
                   startTimer={this.startTimer.bind(this)}
                   timeFinished={this.timeFinished.bind(this)}
                   current={this.props.current}
@@ -473,6 +472,7 @@ const mapStateToProps = (state) => ({
   initialBox: state.initialBox,
   points: state.points,
   correct: state.correct,
+  started: state.started,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -481,6 +481,7 @@ const mapDispatchToProps = (dispatch) => ({
   saveDefinition: (definition) => dispatch(saveDefinition(definition)),
   scrambleIdiom: (scrambled) => dispatch(scrambleIdiom(scrambled)),
   makeSolutionBox: (box) => dispatch(makeSolutionBox(box)),
+  startGame: () => dispatch(startGame()),
   addToChosen: (letter) => dispatch(addToChosen(letter)),
   removeFromChosen: (letter) => dispatch(removeFromChosen(letter)),
   clear: (box) => dispatch(clear(box)),

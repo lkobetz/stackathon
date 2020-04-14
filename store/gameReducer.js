@@ -16,6 +16,7 @@ import {
   REMOVE_POINT,
   GAME_OVER,
   RESET_CHOSEN_LETTERS,
+  START_GAME,
 } from "./actions";
 
 let initialState = {
@@ -30,6 +31,7 @@ let initialState = {
   initialBox: "",
   points: 0,
   correct: false,
+  started: false,
 };
 
 export default function reducer(state = initialState, action) {
@@ -61,6 +63,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, definition: action.newDef };
     case SCRAMBLE_IDIOM:
       return { ...state, scrambled: action.scrambledIdiom };
+    case START_GAME:
+      return { ...state, started: true };
     case UPDATE_SOLUTIONBOX:
       return { ...state, solutionBox: action.newBox };
     case ADD_LETTER:
@@ -102,6 +106,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         correct: false,
+        started: false,
       };
     case RESET_CHOSEN_LETTERS:
       return {
