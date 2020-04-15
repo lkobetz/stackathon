@@ -9,7 +9,8 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import ScrambledText from "./ScrambledText";
+import ScrambledSentence from "./ScrambledSentence";
+// import ScrambledText from "./ScrambledText";
 import ReplaceText from "./ReplaceText";
 import Timer from "./Timer";
 import ConfettiCannon from "react-native-confetti-cannon";
@@ -104,46 +105,6 @@ export default class Idioms extends Component {
     let random = Math.random() * max;
     return Math.round(random);
   }
-  createInteractiveSentence(sentence) {
-    let scrambledCopy = this.props.scrambled.split("");
-    const interactive = [];
-    let wordIdx = 0;
-    let word = [];
-    for (let i = 0; i < sentence.length; i++) {
-      let letter = sentence[i];
-      if (letter === " ") {
-        interactive.push(
-          <View style={styles.word} key={wordIdx + sentence.length}>
-            {word}
-          </View>
-        );
-        word = [];
-        wordIdx++;
-        interactive.push(
-          <Text style={styles.scrambledText} key={i} wordIdx={wordIdx}>
-            {" "}
-          </Text>
-        );
-      } else {
-        let letterInfo = {
-          letter: letter,
-          letterIdx: this.getScrambledIdx(wordIdx, letter, scrambledCopy),
-          wordIdx: wordIdx,
-        };
-        word.push(this.scrambleText(letterInfo));
-      }
-    }
-    return interactive;
-  }
-  scrambleText(letterInfo) {
-    return (
-      <ScrambledText
-        letterInfo={letterInfo}
-        key={i}
-        callback={this.addToSolution.bind(this)}
-      />
-    );
-  }
   createInteractiveSolutionBox(solutionBox) {
     let wordIdx = 0;
     let interactive = [];
@@ -181,13 +142,6 @@ export default class Idioms extends Component {
       }
     }
     return interactive;
-  }
-  addToSolution(newSolution, letterProps) {
-    if (newSolution === this.props.solution) {
-      this.props.addPoint();
-    }
-    this.props.makeSolutionBox(newSolution);
-    this.props.addToChosen(letterProps);
   }
   removeFromSolution(letterInfo, solutionIdx) {
     if (!this.props.correct) {
@@ -329,11 +283,10 @@ export default class Idioms extends Component {
               </Text>
             </View>
 
-            <View style={styles.scrambledContainer}>
-              {this.state.showSolution
-                ? this.createInteractiveSentence(this.props.solution)
-                : this.createInteractiveSentence(this.props.scrambled)}
-            </View>
+            <ScrambledSentence
+              showSolution={this.state.showSolution}
+              getScrambledIdx={this.getScrambledIdx}
+            />
 
             <View style={styles.sampleContainer}>
               <Text
@@ -411,18 +364,6 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     textAlign: "center",
   },
-  scrambledContainer: {
-    flexWrap: "wrap",
-    marginHorizontal: 10,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  scrambledText: {
-    fontSize: 60,
-    color: "aquamarine",
-    lineHeight: 70,
-    textAlign: "center",
-  },
   solutionText: {
     fontSize: 60,
     color: "orange",
@@ -441,13 +382,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 17,
     justifyContent: "space-between",
-  },
-  word: {
-    fontSize: 60,
-    lineHeight: 70,
-    flexWrap: "nowrap",
-    flexDirection: "row",
-    marginHorizontal: 0,
   },
   wholeScreen: {
     width: width,
@@ -478,12 +412,12 @@ const mapDispatchToProps = (dispatch) => ({
   saveDefinition: (definition) => dispatch(saveDefinition(definition)),
   scrambleIdiom: (scrambled) => dispatch(scrambleIdiom(scrambled)),
   makeSolutionBox: (box) => dispatch(makeSolutionBox(box)),
-  startGame: () => dispatch(startGame()),
+  addPoint: () => dispatch(addPoint()),
   addToChosen: (letter) => dispatch(addToChosen(letter)),
+  startGame: () => dispatch(startGame()),
   removeFromChosen: (letter) => dispatch(removeFromChosen(letter)),
   clear: (box) => dispatch(clear(box)),
   saveInitialBox: (box) => dispatch(saveInitialBox(box)),
-  addPoint: () => dispatch(addPoint()),
   removePoint: () => dispatch(removePoint()),
   endGame: () => dispatch(endGame()),
   removeChosenLetters: () => dispatch(removeChosenLetters()),
