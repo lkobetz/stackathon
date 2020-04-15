@@ -17,6 +17,8 @@ export const REMOVE_POINT = "REMOVE_POINT";
 export const START_GAME = "START_GAME";
 export const GAME_OVER = "GAME_OVER";
 export const RESET_CHOSEN_LETTERS = "RESET_CHOSEN_LETTERS";
+export const TIME_UP = "TIME_UP";
+export const HINT_SOLUTION = "HINT_SOLUTION";
 
 // action creators
 
@@ -134,164 +136,15 @@ export const startGame = () => {
   };
 };
 
-// thunks
+export const timeFinished = () => {
+  return {
+    type: TIME_UP,
+  };
+};
 
-// export function addCategories(cats) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(addToCategories(cats));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function removeCategories(categories) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(removeFromCategories(categories));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function filterIdioms(filtered) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(idiomFilter(filtered));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function saveCurrent(idx) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(updateCurrentIdx(idx));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function saveIdiom(idiom) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(updateIdiom(idiom));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function saveDefinition(def) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(updateDefinition(def));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function scrambleIdiom(scrambled) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(scrambleThisIdiom(scrambled));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function makeSolutionBox(box) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(updateSolutionBox(box));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function clear(box) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(clearBox(box));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function addToChosen(letter) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(addLetterToChosen(letter));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function removeFromChosen(letter) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(removeLetterFromChosen(letter));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function saveInitialBox(box) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(saveEmptyBox(box));
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function addPoint() {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(incrementPoints());
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function removePoint() {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(decrementPoints());
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function endGame() {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(gameOver());
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
-
-// export function removeChosenLetters() {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(resetChosenLetters());
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// }
+export const saveHintSolution = (solution) => {
+  return {
+    type: HINT_SOLUTION,
+    solution,
+  };
+};

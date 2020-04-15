@@ -17,6 +17,8 @@ import {
   GAME_OVER,
   RESET_CHOSEN_LETTERS,
   START_GAME,
+  TIME_UP,
+  HINT_SOLUTION,
 } from "./actions";
 
 let initialState = {
@@ -32,6 +34,8 @@ let initialState = {
   points: 0,
   correct: false,
   started: false,
+  timeUp: false,
+  hintSolution: "",
 };
 
 export default function reducer(state = initialState, action) {
@@ -59,6 +63,8 @@ export default function reducer(state = initialState, action) {
       };
     case UPDATE_IDIOM:
       return { ...state, solution: action.newIdiom };
+    case HINT_SOLUTION:
+      return { ...state, hintSolution: action.solution };
     case UPDATE_DEFINITION:
       return { ...state, definition: action.newDef };
     case SCRAMBLE_IDIOM:
@@ -107,6 +113,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         correct: false,
         started: false,
+        timeUp: false,
+      };
+    case TIME_UP:
+      return {
+        ...state,
+        timeUp: true,
       };
     case RESET_CHOSEN_LETTERS:
       return {

@@ -32,6 +32,8 @@ import {
   startGame,
   endGame,
   removeChosenLetters,
+  timeFinished,
+  saveHintSolution,
 } from "../../store/actions";
 
 // To do:
@@ -59,16 +61,12 @@ export default class Idioms extends Component {
     let newEmptyBox = this.createSolutionBox(solution);
     this.props.saveInitialBox(newEmptyBox);
     this.props.makeSolutionBox(newEmptyBox);
+    this.props.saveHintSolution(solution);
     this.state = {
-      // put started and timeUp in the redux state
-      timeUp: false,
       showSolution: false,
-      hintSolution: solution,
-      // started: false,
     };
   }
   componentDidMount() {
-    // change this to a startGame thunk that changes started state to true
     this.props.startGame();
   }
   shuffle(sentence) {
@@ -217,13 +215,10 @@ export default class Idioms extends Component {
 
     this.props.scrambleIdiom(newShuffled);
     this.props.clear(this.props.initialBox);
-    // call thunk endGame that changes all of these states
     this.props.endGame();
+    this.props.saveHintSolution(newSolution);
     this.setState({
-      // started: false,
-      timeUp: false,
       showSolution: false,
-      hintSolution: newSolution,
     });
   }
   showSolution() {
@@ -239,7 +234,7 @@ export default class Idioms extends Component {
   }
   showHint() {
     // copies of arrays to get the first and last letters of each word in the solution
-    let hintSolutionArr = this.state.hintSolution.split(" ");
+    let hintSolutionArr = this.props.hintSolution.split(" ");
     let solutionBoxArr = this.props.solutionBox.split(" ");
     solutionBoxArr.pop();
     let replacementSolution = solutionBoxArr.map((word) => word.split(""));
@@ -303,7 +298,7 @@ export default class Idioms extends Component {
     this.props.startGame();
   }
   timeFinished() {
-    this.setState({ timeUp: true });
+    this.props.timeFinished();
   }
 
   render() {
@@ -313,7 +308,7 @@ export default class Idioms extends Component {
           <View style={styles.playContainer}>
             <View style={styles.footer}>
               <Text style={styles.footer}>Points: {this.props.points} </Text>
-              {this.state.timeUp ? (
+              {this.props.timeUp ? (
                 <Button
                   onPress={() => this.showSolution()}
                   title="Show Solution"
@@ -473,6 +468,8 @@ const mapStateToProps = (state) => ({
   points: state.points,
   correct: state.correct,
   started: state.started,
+  timeUp: state.timeUp,
+  hintSolution: state.hintSolution,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -490,6 +487,8 @@ const mapDispatchToProps = (dispatch) => ({
   removePoint: () => dispatch(removePoint()),
   endGame: () => dispatch(endGame()),
   removeChosenLetters: () => dispatch(removeChosenLetters()),
+  timeFinished: () => dispatch(timeFinished()),
+  saveHintSolution: (solution) => dispatch(saveHintSolution(solution)),
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Idioms);
