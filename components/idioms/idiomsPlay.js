@@ -10,8 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import ScrambledSentence from "./ScrambledSentence";
-// import ScrambledText from "./ScrambledText";
-import ReplaceText from "./ReplaceText";
+import SolutionBox from "./SolutionBox";
 import Timer from "./Timer";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { Platform } from "@unimodules/core";
@@ -104,55 +103,6 @@ export default class Idioms extends Component {
   randomNumber(max) {
     let random = Math.random() * max;
     return Math.round(random);
-  }
-  createInteractiveSolutionBox(solutionBox) {
-    let wordIdx = 0;
-    let interactive = [];
-    for (let i = 0; i < solutionBox.length; i++) {
-      let letter = solutionBox[i];
-      if (letter === " ") {
-        interactive.push(
-          <Text key={i} style={styles.solutionText}>
-            {" "}
-          </Text>
-        );
-        wordIdx++;
-      } else if (letter === "_") {
-        interactive.push(
-          <Text key={i} style={styles.solutionText}>
-            _
-          </Text>
-        );
-      } else {
-        let chosenLetters = this.props.chosenLetters.slice();
-        let letterInfoArr = chosenLetters.filter(
-          // eslint-disable-next-line no-loop-func
-          (letterObj) =>
-            letterObj.letter === letter && letterObj.wordIdx === wordIdx
-        );
-        let letterInfo = letterInfoArr.pop();
-        interactive.push(
-          <ReplaceText
-            idx={i}
-            key={i}
-            letterInfo={letterInfo}
-            callback={this.removeFromSolution.bind(this)}
-          />
-        );
-      }
-    }
-    return interactive;
-  }
-  removeFromSolution(letterInfo, solutionIdx) {
-    if (!this.props.correct) {
-      let solutionBoxCopy = this.props.solutionBox.slice(0);
-      let newSolution =
-        solutionBoxCopy.slice(0, solutionIdx) +
-        "_" +
-        solutionBoxCopy.slice(solutionIdx + 1);
-      this.props.makeSolutionBox(newSolution);
-      this.props.removeFromChosen(letterInfo);
-    }
   }
   reset() {
     let newCurrent = this.randomNumber(this.props.idioms.length - 1);
@@ -288,17 +238,7 @@ export default class Idioms extends Component {
               getScrambledIdx={this.getScrambledIdx}
             />
 
-            <View style={styles.sampleContainer}>
-              <Text
-                style={
-                  this.props.correct === false
-                    ? styles.solutionText
-                    : styles.correctSolution
-                }
-              >
-                {this.createInteractiveSolutionBox(this.props.solutionBox)}
-              </Text>
-            </View>
+            <SolutionBox />
 
             <View style={styles.footer}>
               <Button
@@ -364,18 +304,6 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     textAlign: "center",
   },
-  solutionText: {
-    fontSize: 60,
-    color: "orange",
-    lineHeight: 70,
-    textAlign: "center",
-  },
-  correctSolution: {
-    fontSize: 60,
-    color: "greenyellow",
-    lineHeight: 70,
-    textAlign: "center",
-  },
   footer: {
     flexDirection: "row",
     color: "lavender",
@@ -397,10 +325,10 @@ const mapStateToProps = (state) => ({
   definition: state.definition,
   scrambled: state.scrambled,
   solutionBox: state.solutionBox,
+  correct: state.correct,
   chosenLetters: state.chosenLetters,
   initialBox: state.initialBox,
   points: state.points,
-  correct: state.correct,
   started: state.started,
   timeUp: state.timeUp,
   hintSolution: state.hintSolution,
@@ -411,11 +339,11 @@ const mapDispatchToProps = (dispatch) => ({
   saveIdiom: (solution) => dispatch(saveIdiom(solution)),
   saveDefinition: (definition) => dispatch(saveDefinition(definition)),
   scrambleIdiom: (scrambled) => dispatch(scrambleIdiom(scrambled)),
+  removeFromChosen: (letter) => dispatch(removeFromChosen(letter)),
   makeSolutionBox: (box) => dispatch(makeSolutionBox(box)),
   addPoint: () => dispatch(addPoint()),
   addToChosen: (letter) => dispatch(addToChosen(letter)),
   startGame: () => dispatch(startGame()),
-  removeFromChosen: (letter) => dispatch(removeFromChosen(letter)),
   clear: (box) => dispatch(clear(box)),
   saveInitialBox: (box) => dispatch(saveInitialBox(box)),
   removePoint: () => dispatch(removePoint()),
