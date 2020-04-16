@@ -91,12 +91,16 @@ module.exports = connect(mapStateToProps, mapDispatchToProps)(SolutionBox);
 
 const styles = StyleSheet.create({
   solutionText: {
+    marginTop: 20,
+    fontFamily: "space-mono",
     fontSize: 60,
     color: "orange",
     lineHeight: 70,
     textAlign: "center",
   },
   correctSolution: {
+    marginTop: 20,
+    fontFamily: "space-mono",
     fontSize: 60,
     color: "greenyellow",
     lineHeight: 70,

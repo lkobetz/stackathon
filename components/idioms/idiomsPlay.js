@@ -40,11 +40,10 @@ import {
 
 // To do:
 
-// change confetti to alerts with congratulatory phrases?
 // individual words turn green when correct?
-// change 'correct' state to false when user removes a letter
-// decrement points if user removes a letter from correct solution
 // going back and choosing a category causes an error
+// prevent solution box from jumping when letters are added/taken away (use a monospace font?)
+// write tests
 
 export default class Idioms extends Component {
   constructor(props) {
@@ -285,15 +284,6 @@ export default class Idioms extends Component {
             {congrats[this.randomNumber(congrats.length)]}
           </Text>
         </Modal>
-        {/* // <ConfettiCannon */}
-        {/* //   count={300}
-          //   origin={{ */}
-        {/* //     x: this.props.navigation.state.params.width, // 414
-          //     y: this.props.navigation.state.params.height, // 896
-          //   }}
-          //   explosionSpeed={300}
-          //   fallSpeed={2000}
-          // /> */}
       </View>
     );
   }

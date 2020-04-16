@@ -8,7 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { connect } from "react-redux";
 import { addCategories, removeCategories } from "../store/actions";
@@ -117,7 +117,7 @@ export default class HomeScreen extends Component {
             <TouchableOpacity
               onPress={() =>
                 this.props.navigation.push("IdiomsIntro", {
-                  categories: this.props.chosenCategories
+                  categories: this.props.chosenCategories,
                 })
               }
             >
@@ -150,7 +150,7 @@ export default class HomeScreen extends Component {
 }
 
 HomeScreen.navigationOptions = {
-  header: null
+  header: null,
 };
 
 // function DevelopmentModeNotice() {
@@ -184,46 +184,46 @@ const styles = StyleSheet.create({
     backgroundColor: "darkslateblue",
     display: "flex",
     height: height,
-    width: width
+    width: width,
   },
   contentContainer: {
     paddingTop: 30,
     alignItems: "center",
     display: "flex",
     height: height,
-    width: width
+    width: width,
   },
   welcomeContainer: {
     alignItems: "center",
     marginTop: 20,
-    marginBottom: 20
+    marginBottom: 20,
   },
   title: {
     fontSize: 60,
     lineHeight: 80,
     color: "yellow",
-    marginTop: 150
+    marginTop: 150,
   },
   getStartedContainer: {
     alignItems: "center",
-    marginHorizontal: 50
+    marginHorizontal: 50,
   },
   homeScreenFilename: {
-    marginVertical: 7
+    marginVertical: 7,
   },
   codeHighlightText: {
-    color: "rgba(96,100,109, 0.8)"
+    color: "rgba(96,100,109, 0.8)",
   },
   codeHighlightContainer: {
     backgroundColor: "rgba(0,0,0,0.05)",
     borderRadius: 3,
-    paddingHorizontal: 4
+    paddingHorizontal: 4,
   },
   getStartedText: {
     fontSize: 17,
     color: "yellow",
     lineHeight: 24,
-    textAlign: "center"
+    textAlign: "center",
   },
   tabBarInfoContainer: {
     position: "absolute",
@@ -235,52 +235,52 @@ const styles = StyleSheet.create({
         shadowColor: "black",
         shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3
+        shadowRadius: 3,
       },
       android: {
-        elevation: 20
-      }
+        elevation: 20,
+      },
     }),
     alignItems: "center",
     backgroundColor: "#fbfbfb",
-    paddingVertical: 20
+    paddingVertical: 20,
   },
   tabBarInfoText: {
     fontSize: 17,
     color: "rgba(96,100,109, 1)",
-    textAlign: "center"
+    textAlign: "center",
   },
   navigationFilename: {
-    marginTop: 5
+    marginTop: 5,
   },
   helpContainer: {
     marginTop: 15,
     alignItems: "center",
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   helpLink: {
-    paddingVertical: 15
+    paddingVertical: 15,
   },
   buttonText: {
     fontSize: 50,
-    color: "white"
+    color: "white",
   },
   sampleContainer: {
     alignItems: "center",
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   sampleText: {
     fontSize: 50,
     color: "whitesmoke",
     lineHeight: 60,
-    textAlign: "center"
+    textAlign: "center",
   },
   text: {
     color: "aquamarine",
     fontSize: 30,
     textAlignVertical: "center",
-    marginVertical: 30
+    marginVertical: 30,
   },
   categories: {
     flexDirection: "row",
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 30,
-    fontSize: 30
+    fontSize: 30,
   },
   chosenCategories: {
     fontSize: 17,
@@ -296,19 +296,19 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: "center",
     marginHorizontal: 10,
-    marginVertical: 10
-  }
+    marginVertical: 10,
+  },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    chosenCategories: state.chosenCategories
+    chosenCategories: state.chosenCategories,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  addCategories: categories => dispatch(addCategories(categories)),
-  removeCategories: categories => dispatch(removeCategories(categories))
+const mapDispatchToProps = (dispatch) => ({
+  addCategories: (categories) => dispatch(addCategories(categories)),
+  removeCategories: (categories) => dispatch(removeCategories(categories)),
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
