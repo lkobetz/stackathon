@@ -327,7 +327,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  chosenCategories: state.chosenCategories,
   idioms: state.idioms,
   current: state.currentIdx,
   solution: state.solution,
@@ -335,10 +334,8 @@ const mapStateToProps = (state) => ({
   scrambled: state.scrambled,
   solutionBox: state.solutionBox,
   correct: state.correct,
-  chosenLetters: state.chosenLetters,
   initialBox: state.initialBox,
   points: state.points,
-  started: state.started,
   timeUp: state.timeUp,
   hintSolution: state.hintSolution,
 });
@@ -348,12 +345,9 @@ const mapDispatchToProps = (dispatch) => ({
   saveIdiom: (solution) => dispatch(saveIdiom(solution)),
   saveDefinition: (definition) => dispatch(saveDefinition(definition)),
   scrambleIdiom: (scrambled) => dispatch(scrambleIdiom(scrambled)),
-  removeFromChosen: (letter) => dispatch(removeFromChosen(letter)),
   makeSolutionBox: (box) => dispatch(makeSolutionBox(box)),
-  addPoint: () => dispatch(addPoint()),
   addToChosen: (letter) => dispatch(addToChosen(letter)),
   startGame: () => dispatch(startGame()),
-  timeFinished: () => dispatch(timeFinished()),
   clear: (box) => dispatch(clear(box)),
   saveInitialBox: (box) => dispatch(saveInitialBox(box)),
   removePoint: () => dispatch(removePoint()),
