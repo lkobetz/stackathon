@@ -1,4 +1,4 @@
-import idioms from "../data/data.json";
+import idioms from "../data/idioms.json";
 import {
   ADD_CATEGORY,
   REMOVE_CATEGORY,

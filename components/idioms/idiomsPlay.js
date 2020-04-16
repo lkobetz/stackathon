@@ -9,6 +9,7 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
+import congrats from "../../data/congrats.json";
 import Modal from "react-native-modal";
 import ScrambledSentence from "./ScrambledSentence";
 import SolutionBox from "./SolutionBox";
@@ -211,7 +212,7 @@ export default class Idioms extends Component {
   showModal() {
     setTimeout(() => {
       this.setState({ modal: true });
-    }, 1000);
+    }, 600);
   }
   render() {
     return (
@@ -279,7 +280,9 @@ export default class Idioms extends Component {
           style={styles.modal}
           onBackdropPress={() => this.reset()}
         >
-          <Text style={styles.modalText}>You won!</Text>
+          <Text style={styles.modalText}>
+            {congrats[this.randomNumber(congrats.length)]}
+          </Text>
         </Modal>
         {/* // <ConfettiCannon */}
         {/* //   count={300}

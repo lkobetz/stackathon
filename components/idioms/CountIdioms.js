@@ -2,24 +2,24 @@ import React from "react";
 import { Text } from "react-native";
 import { connect } from "react-redux";
 
-import allIdioms from "../../data/data";
+import allIdioms from "../../data/idioms";
 
 // necessary to include props from store in parameters since this is a functional component
-export default countCategories = props => {
+export default countCategories = (props) => {
   const idioms = allIdioms;
   let count = {};
   for (let i = 0; i < idioms.length; i++) {
     let idiom = idioms[i];
     for (let key in idiom) {
       if (key === "categories") {
-        idiom.categories.forEach(item => {
+        idiom.categories.forEach((item) => {
           count[item] = count[item] + 1 || 1;
         });
       }
     }
   }
   let countArr = Object.entries(count);
-  countArr = countArr.map(item => {
+  countArr = countArr.map((item) => {
     return { name: item[0], count: item[1] };
   });
   countArr.sort((a, b) => {
@@ -34,8 +34,8 @@ export default countCategories = props => {
   }
 };
 
-const mapStateToProps = state => ({
-  chosenCategories: state.chosenCategories
+const mapStateToProps = (state) => ({
+  chosenCategories: state.chosenCategories,
 });
 
 module.exports = connect(mapStateToProps)(countCategories);

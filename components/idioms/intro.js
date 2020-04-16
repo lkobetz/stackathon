@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import CountIdioms from "../idioms/CountIdioms";
 
-import data from "../../data/data";
+import data from "../../data/idioms";
 
 import { connect } from "react-redux";
 import { filterIdioms, clear } from "../../store/actions";
