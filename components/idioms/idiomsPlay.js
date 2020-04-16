@@ -9,6 +9,7 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
+import Modal from "react-native-modal";
 import ScrambledSentence from "./ScrambledSentence";
 import SolutionBox from "./SolutionBox";
 import Timer from "./Timer";
@@ -64,7 +65,9 @@ export default class Idioms extends Component {
     this.props.saveHintSolution(solution);
     this.state = {
       showSolution: false,
+      modal: false,
     };
+    this.reset = this.reset.bind(this);
   }
   componentDidMount() {
     this.props.startGame();
@@ -123,6 +126,7 @@ export default class Idioms extends Component {
     this.props.saveHintSolution(newSolution);
     this.setState({
       showSolution: false,
+      modal: false,
     });
   }
   showSolution() {
@@ -204,7 +208,11 @@ export default class Idioms extends Component {
   timeFinished() {
     this.props.timeFinished();
   }
-
+  showModal() {
+    setTimeout(() => {
+      this.setState({ modal: true });
+    }, 1000);
+  }
   render() {
     return (
       <View style={styles.wholeScreen}>
@@ -236,6 +244,7 @@ export default class Idioms extends Component {
             <ScrambledSentence
               showSolution={this.state.showSolution}
               getScrambledIdx={this.getScrambledIdx}
+              showModal={this.showModal.bind(this)}
             />
 
             <SolutionBox />
@@ -265,17 +274,22 @@ export default class Idioms extends Component {
             />
           </View>
         </ScrollView>
-        {this.props.correct && (
-          <ConfettiCannon
-            count={300}
-            origin={{
-              x: this.props.navigation.state.params.width, // 414
-              y: this.props.navigation.state.params.height, // 896
-            }}
-            explosionSpeed={300}
-            fallSpeed={2000}
-          />
-        )}
+        <Modal
+          isVisible={this.state.modal}
+          style={styles.modal}
+          onBackdropPress={() => this.reset()}
+        >
+          <Text style={styles.modalText}>You won!</Text>
+        </Modal>
+        {/* // <ConfettiCannon */}
+        {/* //   count={300}
+          //   origin={{ */}
+        {/* //     x: this.props.navigation.state.params.width, // 414
+          //     y: this.props.navigation.state.params.height, // 896
+          //   }}
+          //   explosionSpeed={300}
+          //   fallSpeed={2000}
+          // /> */}
       </View>
     );
   }
@@ -314,6 +328,18 @@ const styles = StyleSheet.create({
   wholeScreen: {
     width: width,
     height: 810,
+  },
+  modal: {
+    marginTop: Dimensions.get("window").height / 3,
+    alignItems: "center",
+    alignSelf: "center",
+    maxHeight: Dimensions.get("window").height / 6,
+    width: width * 0.6,
+    backgroundColor: "darkslateblue",
+  },
+  modalText: {
+    color: "greenyellow",
+    fontSize: 35,
   },
 });
 

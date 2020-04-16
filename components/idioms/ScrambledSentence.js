@@ -52,6 +52,7 @@ export default class ScrambledSentence extends Component {
   addToSolution(newSolution, letterProps) {
     if (newSolution === this.props.solution) {
       this.props.addPoint();
+      this.props.showModal();
     }
     this.props.makeSolutionBox(newSolution);
     this.props.addToChosen(letterProps);
@@ -71,6 +72,7 @@ const mapStateToProps = (state, ownProps) => ({
   solution: state.solution,
   scrambled: state.scrambled,
   showSolution: ownProps.showSolution,
+  showModal: ownProps.showModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({
