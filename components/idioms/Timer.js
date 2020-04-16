@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { connect } from "react-redux";
+import { startGame, timeFinished } from "../../store/actions";
 import TimerMachine from "react-timer-machine";
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
@@ -11,10 +13,13 @@ export default class Timer extends Component {
     super(props);
   }
   componentDidMount() {
-    this.props.startTimer();
+    this.startTimer();
   }
   componentDidUpdate() {
-    !this.props.started && this.props.startTimer();
+    !this.props.started && this.startTimer();
+  }
+  startTimer() {
+    this.props.startGame();
   }
   render() {
     return (
@@ -39,12 +44,23 @@ export default class Timer extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  started: state.started,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  startGame: () => dispatch(startGame()),
+  timeFinished: () => dispatch(timeFinished()),
+});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Timer);
+
 const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     color: "lavender",
     alignItems: "center",
     fontSize: 17,
-    justifyContent: "space-between"
-  }
+    justifyContent: "space-between",
+  },
 });

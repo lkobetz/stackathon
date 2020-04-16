@@ -202,12 +202,6 @@ export default class Idioms extends Component {
     string += " ";
     return string;
   }
-  startTimer() {
-    this.props.startGame();
-  }
-  timeFinished() {
-    this.props.timeFinished();
-  }
   showModal() {
     setTimeout(() => {
       this.setState({ modal: true });
@@ -227,12 +221,7 @@ export default class Idioms extends Component {
                   color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
                 ></Button>
               ) : (
-                <Timer
-                  started={this.props.started}
-                  startTimer={this.startTimer.bind(this)}
-                  timeFinished={this.timeFinished.bind(this)}
-                  current={this.props.current}
-                />
+                <Timer />
               )}
             </View>
             <View style={styles.definitionContainer}>
@@ -364,12 +353,12 @@ const mapDispatchToProps = (dispatch) => ({
   addPoint: () => dispatch(addPoint()),
   addToChosen: (letter) => dispatch(addToChosen(letter)),
   startGame: () => dispatch(startGame()),
+  timeFinished: () => dispatch(timeFinished()),
   clear: (box) => dispatch(clear(box)),
   saveInitialBox: (box) => dispatch(saveInitialBox(box)),
   removePoint: () => dispatch(removePoint()),
   endGame: () => dispatch(endGame()),
   removeChosenLetters: () => dispatch(removeChosenLetters()),
-  timeFinished: () => dispatch(timeFinished()),
   saveHintSolution: (solution) => dispatch(saveHintSolution(solution)),
 });
 
