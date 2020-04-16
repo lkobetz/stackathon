@@ -241,7 +241,6 @@ export default class Idioms extends Component {
                 Meaning: {this.props.definition}
               </Text>
             </View>
-
             <ScrambledSentence
               showSolution={this.state.showSolution}
               getScrambledIdx={this.getScrambledIdx}
@@ -259,7 +258,7 @@ export default class Idioms extends Component {
               <Button
                 color={Platform.OS === "ios" ? "lavender" : "darkslateblue"}
                 title="Next"
-                onPress={() => this.reset()}
+                onPress={!this.props.correct ? () => this.reset() : null}
               />
             </View>
             <Text style={styles.footer}>
@@ -279,6 +278,8 @@ export default class Idioms extends Component {
           isVisible={this.state.modal}
           style={styles.modal}
           onBackdropPress={() => this.reset()}
+          animationIn={"rotate"}
+          backdropTransitionOutTiming={0}
         >
           <Text style={styles.modalText}>
             {congrats[this.randomNumber(congrats.length)]}
@@ -338,10 +339,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     maxHeight: Dimensions.get("window").height / 6,
     width: width * 0.6,
-    backgroundColor: "darkslateblue",
+    backgroundColor: "greenyellow",
   },
   modalText: {
-    color: "greenyellow",
+    color: "darkslateblue",
     fontSize: 35,
   },
 });
