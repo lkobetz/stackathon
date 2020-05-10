@@ -664,5 +664,20 @@
     "idiom":"We'll be rolling in the dough. ",
     "definition":"We're going to be very wealthy. ",
     "categories": ["food"]
+  },
+  {
+    "idiom":"That's music to my ears. ",
+    "definition":"I'm very happy to hear that. ",
+    "categories": ["body parts", "recreation"]
+  },
+  {
+    "idiom":"I'm all ears. ",
+    "definition":"I'm listening. ",
+    "categories": ["body parts"]
+  },
+  {
+    "idiom":"Everything's coming up roses. ",
+    "definition":"My life is going very well right now. ",
+    "categories": ["nature"]
   }
 ]
