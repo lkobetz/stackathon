@@ -679,5 +679,60 @@
     "idiom":"Everything's coming up roses. ",
     "definition":"My life is going very well right now. ",
     "categories": ["nature"]
+  },
+  {
+    "idiom":"It's right in your wheelhouse. ",
+    "definition":"It's in your area of expertise. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"I cried like a baby. ",
+    "definition":"I cried very much. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"It's a long shot. ",
+    "definition":"It isn't likely. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"It's a shot in the dark. ",
+    "definition":"It's a random guess. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"It's the bee's knees. ",
+    "definition":"It's awesome, it's very cool. ",
+    "categories": ["nature, animals, body parts"]
+  },
+  {
+    "idiom":"I can't wrap my head around it. ",
+    "definition":"It's very confusing, I don't understand it. ",
+    "categories": ["body parts"]
+  },
+  {
+    "idiom":"We'll cross that bridge when we come to it. ",
+    "definition":"We can worry about that problem when it happens, but not yet. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"Easy does it. ",
+    "definition":"Be careful, slow down. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"It's a blessing in disguise. ",
+    "definition":"At first it seemed bad, but maybe it's actually good. ",
+    "categories": ["other"]
+  },
+  {
+    "idiom":"This is getting out of hand. ",
+    "definition":"This is getting out of control. ",
+    "categories": ["body parts"]
+  },
+  {
+    "idiom":"It's not rocket science. ",
+    "definition":"It's not very difficult. ",
+    "categories": ["other"]
   }
 ]

@@ -250,7 +250,7 @@ export default class Idioms extends Component {
               />
             </View>
             <Text style={styles.footer}>
-              Categories:
+              Categories:{" "}
               {this.props.idioms[this.props.current].categories.join(", ")}
             </Text>
             <Button
@@ -318,7 +318,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     maxHeight: Dimensions.get("window").height / 6,
     width: width * 0.6,
-    backgroundColor: "greenyellow",
+    backgroundColor: "#ccffff",
+    borderRadius: 10,
   },
   modalText: {
     color: "darkslateblue",
